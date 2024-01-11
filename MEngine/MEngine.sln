@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{03012F0A-1587-4332-B676-7561ADA4DA1E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{A1D03AEE-4E9D-45EC-9075-230DD6774190}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MEngine", "Engine\MEngine\MEngine.vcxproj", "{F6CFC329-07AA-4342-900F-9DD2E92555AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VSProps", "VSProps", "{2351B481-1DF6-41A0-AD7D-762AE4FA4C15}"
+	ProjectSection(SolutionItems) = preProject
+		VSProps\EngineLib.props = VSProps\EngineLib.props
+		VSProps\FrameworkLib.props = VSProps\FrameworkLib.props
+		VSProps\MEngine.props = VSProps\MEngine.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{BE961A85-D31C-4938-ACF2-28CE98CB01FF}"
+	ProjectSection(SolutionItems) = preProject
+		VSProps\Common\Common.props = VSProps\Common\Common.props
+		VSProps\Common\Library.props = VSProps\Common\Library.props
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Framework\Core\Core.vcxproj", "{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD}.Debug|x64.ActiveCfg = Debug|x64
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD}.Debug|x64.Build.0 = Debug|x64
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD}.Debug|x86.ActiveCfg = Debug|Win32
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD}.Debug|x86.Build.0 = Debug|Win32
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD}.Release|x64.ActiveCfg = Release|x64
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD}.Release|x64.Build.0 = Release|x64
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD}.Release|x86.ActiveCfg = Release|Win32
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD}.Release|x86.Build.0 = Release|Win32
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}.Debug|x64.ActiveCfg = Debug|x64
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}.Debug|x64.Build.0 = Debug|x64
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}.Debug|x86.ActiveCfg = Debug|Win32
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}.Debug|x86.Build.0 = Debug|Win32
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}.Release|x64.ActiveCfg = Release|x64
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}.Release|x64.Build.0 = Release|x64
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}.Release|x86.ActiveCfg = Release|Win32
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F6CFC329-07AA-4342-900F-9DD2E92555AD} = {03012F0A-1587-4332-B676-7561ADA4DA1E}
+		{BE961A85-D31C-4938-ACF2-28CE98CB01FF} = {2351B481-1DF6-41A0-AD7D-762AE4FA4C15}
+		{F69B45A3-46BE-42C0-AA51-1A0A9BA2943C} = {A1D03AEE-4E9D-45EC-9075-230DD6774190}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {727A5A43-6802-4FEA-AD67-5B2F81F93665}
+	EndGlobalSection
+EndGlobal

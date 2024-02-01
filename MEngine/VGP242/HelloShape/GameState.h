@@ -11,6 +11,7 @@ public:
 	void Terminate();
 	virtual void Update(float deltaTime);
 	void Render();
+	void HandleInput();
 
 protected:
 	virtual void CreateShape() {};
@@ -38,6 +39,24 @@ protected:
 };
 
 class SquareState : public GameState
+{
+public:
+	void Update(float deltaTime) override;
+
+protected:
+	void CreateShape() override;
+};
+
+class TriforceState : public GameState
+{
+public:
+	void Update(float deltaTime) override;
+
+protected:
+	void CreateShape() override;
+};
+
+class DiamondState : public GameState
 {
 public:
 	void Update(float deltaTime) override;

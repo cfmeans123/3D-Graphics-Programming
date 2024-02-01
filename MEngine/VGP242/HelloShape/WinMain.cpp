@@ -11,6 +11,9 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 	App& myApp = MEngine::MainApp();
 	myApp.AddState<TriangleState>("Triangle");
 	myApp.AddState<SquareState>("Square");
+	myApp.AddState<TriforceState>("Triforce");
+	myApp.AddState<DiamondState>("Diamond");
+	myApp.AddState<HeartState>("Heart");
 
 	AppConfig config;
 	config.appName = L"Hello Window";

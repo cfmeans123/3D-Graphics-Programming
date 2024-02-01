@@ -107,7 +107,6 @@ void GameState::Terminate()
 }
 void GameState::Update(float deltaTime)
 {
-
 }
 
 void GameState::Render()
@@ -129,25 +128,19 @@ void GameState::Render()
 
 void TriangleState::Update(float deltaTime) 
 {
-    if (InputSystem::Get()->IsKeyPressed(KeyCode::TWO))
-    {
-        MainApp().ChangeState("Square");
-    }
+    HandleInput();
 }
 
 void TriangleState::CreateShape()
 {
     mVertices.push_back({ {-0.5f, 0.0f, 0.0f}, Colors::Red });
     mVertices.push_back({ {0.0f, 0.75f, 0.0f}, Colors::Blue });
-    mVertices.push_back({ {0.5f, 0.0f, 0.0f}, Colors::Green });
+    mVertices.push_back({ {0.5f, 0.0f, 0.0f}, Colors::Green });   
 }
 
 void SquareState::Update(float deltaTime)
 {
-    if (InputSystem::Get()->IsKeyPressed(KeyCode::ONE))
-    {
-        MainApp().ChangeState("Triangle");
-    }
+    HandleInput();
 }
 
 void SquareState::CreateShape()
@@ -159,4 +152,56 @@ void SquareState::CreateShape()
     mVertices.push_back({ {-0.5f, 0.75f, 0.0f}, Colors::Red });
     mVertices.push_back({ {0.5f, 0.75f, 0.0f}, Colors::Blue });
     mVertices.push_back({ {0.5f, 0.0f, 0.0f}, Colors::Green });
+}
+
+void TriforceState::Update(float deltaTime)
+{
+    HandleInput();
+}
+
+void TriforceState::CreateShape()
+{
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::IndianRed });
+    mVertices.push_back({ {-0.25f, 0.375f, 0.0f}, Colors::BlueViolet });
+    mVertices.push_back({ {0.25f, 0.375f, 0.0f}, Colors::Orange });
+
+    mVertices.push_back({ {-0.5f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.75f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {0.5f, 0.0f, 0.0f}, Colors::Green });
+}
+
+void DiamondState::Update(float deltaTime)
+{
+    HandleInput();
+}
+
+void DiamondState::CreateShape()
+{
+    mVertices.push_back({ {-0.25f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.75f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {0.25f, 0.0f, 0.0f}, Colors::Green });
+
+    mVertices.push_back({ {0.25f, 0.0f, 0.0f}, Colors::Green });
+    mVertices.push_back({ {0.0f, -0.75f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {-0.25f, 0.0f, 0.0f}, Colors::Red });
+}
+
+void GameState::HandleInput()
+{
+    if (InputSystem::Get()->IsKeyPressed(KeyCode::ONE))
+    {
+        MainApp().ChangeState("Triangle");
+    }
+    if (InputSystem::Get()->IsKeyPressed(KeyCode::TWO))
+    {
+        MainApp().ChangeState("Square");
+    }
+    if (InputSystem::Get()->IsKeyPressed(KeyCode::THREE))
+    {
+        MainApp().ChangeState("Triforce");
+    }
+    if (InputSystem::Get()->IsKeyPressed(KeyCode::FOUR))
+    {
+        MainApp().ChangeState("Diamond");
+    }
 }

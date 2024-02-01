@@ -186,6 +186,99 @@ void DiamondState::CreateShape()
     mVertices.push_back({ {-0.25f, 0.0f, 0.0f}, Colors::Red });
 }
 
+void HeartState::Update(float deltaTime)
+{
+    HandleInput();
+}
+
+void HeartState::CreateShape()
+{
+    //Right Half
+    mVertices.push_back({ {-0.3f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.45f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.45f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.3f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.3f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.3f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.3f, 0.30f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+    
+    mVertices.push_back({ {0.0f, -0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Red });
+
+    //Left Half
+
+    mVertices.push_back({ {0.15f, 0.45f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.3f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.45f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.3f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.15f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.3f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.3f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.3f, 0.30f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.15f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+
+    mVertices.push_back({ {0.15f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, -0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Red });
+
+
+}
+
 void GameState::HandleInput()
 {
     if (InputSystem::Get()->IsKeyPressed(KeyCode::ONE))
@@ -203,5 +296,9 @@ void GameState::HandleInput()
     if (InputSystem::Get()->IsKeyPressed(KeyCode::FOUR))
     {
         MainApp().ChangeState("Diamond");
+    }
+    if (InputSystem::Get()->IsKeyPressed(KeyCode::FIVE))
+    {
+        MainApp().ChangeState("Heart");
     }
 }

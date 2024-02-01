@@ -64,3 +64,12 @@ public:
 protected:
 	void CreateShape() override;
 };
+
+class HeartState : public GameState
+{
+public:
+	void Update(float deltaTime) override;
+
+protected:
+	void CreateShape() override;
+};

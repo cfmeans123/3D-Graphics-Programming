@@ -3,4 +3,10 @@
 #include "Common.h"
 
 #include "App.h"
-#include "Window.h"
+#include "AppState.h"
+
+namespace MEngine
+{
+    App& MainApp();
+}
+

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Inc">
+      <UniqueIdentifier>{578e0315-4ab8-4e1d-9721-4c556c8028d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src">
+      <UniqueIdentifier>{12d35de4-5747-4e51-9a53-8c206db63565}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

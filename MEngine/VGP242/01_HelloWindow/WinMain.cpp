@@ -2,6 +2,7 @@
 
 
 using namespace MEngine;
+using namespace MEngine::Graphics;
 
 class MainState : public AppState
 {
@@ -9,6 +10,7 @@ public:
 	void Initialize()
 	{
 		LOG("MAIN STATE INITIALIZED");
+		GraphicsSystem::Get()->SetClearColor(Colors::DarkOrange);
 		mLifeTime = 2.0f;
 	}
 	void Terminate()
@@ -36,6 +38,7 @@ public:
 	void Initialize()
 	{
 		LOG("GAME STATE INITIALIZED");
+		GraphicsSystem::Get()->SetClearColor(Colors::Blue);
 		mLifeTime = 2.0f;
 	}
 	void Terminate()

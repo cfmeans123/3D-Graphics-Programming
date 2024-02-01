@@ -114,7 +114,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -149,14 +149,22 @@
   <ItemGroup>
     <ClCompile Include="Src\App.cpp" />
     <ClCompile Include="Src\MEngine.cpp" />
-    <ClCompile Include="Src\Precompiled.cpp" />
+    <ClCompile Include="Src\Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Framework\Core\Core.vcxproj">
       <Project>{f69b45a3-46be-42c0-aa51-1a0a9ba2943c}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Framework\Input\Input.vcxproj">
+      <Project>{3629f01a-6fed-42eb-b308-e9f7f1346eaf}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Framework\Math\Math.vcxproj">
       <Project>{f314efb4-3145-475c-927a-e3e77ee1e2c0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Graphics\Graphics.vcxproj">
+      <Project>{328bc1e5-2948-4ae9-ae3a-53e08a9d01df}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

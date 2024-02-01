@@ -4,6 +4,8 @@
 
 using namespace MEngine;
 using namespace MEngine::Core;
+using namespace MEngine::Graphics;
+using namespace MEngine::Input;
 
 void App::ChangeState(const std::string& stateName)
 {
@@ -26,6 +28,10 @@ void App::Run(const AppConfig& config)
 		config.winHeight
 	);
 	ASSERT(myWindow.IsActive(), "Failed to create a window");
+	auto handle = myWindow.GetWindowHandle();
+	GraphicsSystem::StaticInitialize(handle, false);
+	InputSystem::StaticInitialize(handle);
+
 
 	ASSERT(mCurrentState != nullptr, "App: need an app state");
 	mCurrentState->Initialize();
@@ -35,7 +41,10 @@ void App::Run(const AppConfig& config)
 	{
 		myWindow.ProcessMessage();
 
-		if (!myWindow.IsActive())
+		InputSystem* input = InputSystem::Get();
+		input->Update();
+
+		if (!myWindow.IsActive() || input->IsKeyPressed(KeyCode::ESCAPE))
 		{
 			Quit();
 			break;
@@ -49,9 +58,16 @@ void App::Run(const AppConfig& config)
 		}
 		float deltaTime = TimeUtil::GetDeltaTime();
 		mCurrentState->Update(deltaTime);
+		GraphicsSystem* gs = GraphicsSystem::Get();
+		gs->BeginRender();
+		mCurrentState->Render();
+		gs->EndRender();
 	}
 
 	mCurrentState->Terminate();
+
+	GraphicsSystem::StaticTerminate();
+	InputSystem::StaticTerminate();
 	myWindow.Terminate();
 }
 

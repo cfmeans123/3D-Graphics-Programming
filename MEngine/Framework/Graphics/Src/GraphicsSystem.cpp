@@ -2,12 +2,39 @@
 #include "..\Inc\GraphicsSystem.h"
 
 using namespace MEngine;
+using namespace MEngine::Core;
 using namespace MEngine::Graphics;
 
 namespace
 {
 	std::unique_ptr<GraphicsSystem> sGraphicsSystem;
+	WindowMessageHandler sWindowMessageHandler;
 }
+
+LRESULT GraphicsSystem::GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	if (sGraphicsSystem != nullptr)
+	{
+		switch (message)
+		{
+			case WM_SIZE:
+			{
+				const uint32_t width = static_cast<uint32_t>(LOWORD(lParam));
+				const uint32_t height = static_cast<uint32_t>(HIWORD(lParam));
+				sGraphicsSystem->Resize(width, height);
+				break;
+			}
+			case WM_NCLBUTTONDOWN:
+			{
+				//Add cases like this for additional effects
+				//GraphicsSystem::Get()->SetClearColor(Colors::AntiqueWhite);
+				break;
+			}
+		}
+	}
+	return sWindowMessageHandler.ForwardMessage(window, message, wParam, lParam);
+}
+
 
 void GraphicsSystem::StaticInitialize(HWND window, bool fullscreen)
 {
@@ -78,6 +105,8 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 	mSwapChain->GetDesc(&mSwapChainDesc);
 
 	Resize(GetBackBufferWidth(), GetBackBufferHeight());
+
+	sWindowMessageHandler.Hook(window, GraphicsSystemMessageHandler);
 }
 
 void GraphicsSystem::Terminate()
@@ -147,35 +176,56 @@ void GraphicsSystem::Resize(uint32_t width, uint32_t height)
 	descDepth.MiscFlags = 0;
 	hr = mD3DDevice->CreateTexture2D(&descDepth, nullptr, &mDepthStencilBuffer);
 	ASSERT(SUCCEEDED(hr), "GraphicsSystem: failed to create stencil buffer");
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
+	descDSV.Format = descDepth.Format;
+	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	descDSV.Texture2D.MipSlice = 0;
+	hr = mD3DDevice->CreateDepthStencilView(mDepthStencilBuffer, &descDSV, &mDepthStencilView);
+	ASSERT(SUCCEEDED(hr), "GraphicsSystem: failed to create depth stencil view");
+
+	mImmediateContext->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
+
+	mViewPort.Width = static_cast<float>(GetBackBufferWidth());
+	mViewPort.Height = static_cast<float>(GetBackBufferHeight());
+	mViewPort.MinDepth = 0.0f;
+	mViewPort.MaxDepth = 1.0f;
+	mViewPort.TopLeftX = 0;
+	mViewPort.TopLeftY = 0;
+	mImmediateContext->RSSetViewports(1, &mViewPort);
 }
 
 void GraphicsSystem::ResetRenderTarget()
 {
+	mImmediateContext->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
 }
 
 void GraphicsSystem::ResetViewport()
 {
+	mImmediateContext->RSSetViewports(1, &mViewPort);
 }
 
 void GraphicsSystem::SetClearColor(const Color& color)
 {
+	mClearColor = color;
 }
 
 void GraphicsSystem::SetVsync(bool vSync)
 {
+	mVSync = vSync ? 1 : 0;
 }
 
 uint32_t GraphicsSystem::GetBackBufferWidth() const
 {
-	return 0;
+	return mSwapChainDesc.BufferDesc.Width;
 }
 
 uint32_t GraphicsSystem::GetBackBufferHeight() const
 {
-	return 0;
+	return mSwapChainDesc.BufferDesc.Height;
 }
 
 float GraphicsSystem::GetBackBufferAspectRatio() const
 {
-	return 0.0f;
+	return static_cast<float>(GetBackBufferWidth())/static_cast<float>(GetBackBufferHeight());
 }

@@ -106,7 +106,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Precompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -139,7 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Framework\Graphics\Src\GraphicsSystem.cpp" />
-    <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp" />
+    <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

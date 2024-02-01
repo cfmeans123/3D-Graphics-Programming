@@ -195,87 +195,89 @@ void HeartState::CreateShape()
 {
     //Right Half
     mVertices.push_back({ {-0.3f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.45f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.45f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Green });
 
     mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.45f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Green });
+    mVertices.push_back({ {-0.15f, 0.45f, 0.0f}, Colors::Blue });
 
     mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Green });
 
-    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Blue });
     mVertices.push_back({ {-0.3f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.3f, 0.0f}, Colors::Green });
 
-    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Green });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Blue });
     mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
 
-    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Green });
     mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Blue });
 
     mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.3f, 0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.3f, 0.15f, 0.0f}, Colors::Green });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Blue });
 
-    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {-0.3f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {-0.15f, 0.15f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {-0.3f, 0.15f, 0.0f}, Colors::Green });
     mVertices.push_back({ {-0.3f, 0.30f, 0.0f}, Colors::Red });
 
-    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Blue });
     mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Green });
     
-    mVertices.push_back({ {0.0f, -0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, -0.15f, 0.0f}, Colors::Green });
     mVertices.push_back({ {-0.15f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Blue });
 
-    //Left Half
 
-    mVertices.push_back({ {0.15f, 0.45f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.45f, 0.0f}, Colors::Blue });
     mVertices.push_back({ {0.3f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Green });
 
-    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Green });
     mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.15f, 0.45f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.45f, 0.0f}, Colors::Blue });
 
-    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Blue });
     mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Green });
 
     mVertices.push_back({ {0.3f, 0.3f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {0.15f, 0.3f, 0.0f}, Colors::Green });
 
-    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Green });
     mVertices.push_back({ {0.0f, 0.3f, 0.0f}, Colors::Red });
 
     mVertices.push_back({ {0.15f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Green });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Blue });
 
-    mVertices.push_back({ {0.3f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.3f, 0.15f, 0.0f}, Colors::Green });
     mVertices.push_back({ {0.15f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Blue });
 
-    mVertices.push_back({ {0.3f, 0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.3f, 0.15f, 0.0f}, Colors::Green });
+    mVertices.push_back({ {0.15f, 0.15f, 0.0f}, Colors::Blue });
     mVertices.push_back({ {0.3f, 0.30f, 0.0f}, Colors::Red });
 
     mVertices.push_back({ {0.15f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Red });
-
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Blue });
+    mVertices.push_back({ {0.0f, 0.15f, 0.0f}, Colors::Green });
+    
     mVertices.push_back({ {0.15f, 0.0f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.0f, -0.15f, 0.0f}, Colors::Red });
-    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Red });
+    mVertices.push_back({ {0.0f, -0.15f, 0.0f}, Colors::Green });
+    mVertices.push_back({ {0.0f, 0.0f, 0.0f}, Colors::Blue });
 
+    //Left Half
+
+  
 
 }
 

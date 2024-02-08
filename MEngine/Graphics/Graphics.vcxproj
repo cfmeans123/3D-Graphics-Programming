@@ -137,6 +137,7 @@
     <ClInclude Include="..\Framework\Graphics\Inc\GraphicsSystem.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\MeshBuffer.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\MeshTypes.h" />
+    <ClInclude Include="..\Framework\Graphics\Inc\VertexShader.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\VertexTypes.h" />
     <ClInclude Include="..\Framework\Graphics\Src\Precompile.h" />
   </ItemGroup>
@@ -146,6 +147,7 @@
     <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\VertexShader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

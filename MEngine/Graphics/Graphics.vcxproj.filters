@@ -33,6 +33,9 @@
     <ClInclude Include="..\Framework\Graphics\Inc\MeshBuffer.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\Framework\Graphics\Inc\VertexShader.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp">
@@ -42,6 +45,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="..\Framework\Graphics\Src\MeshBuffer.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\VertexShader.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

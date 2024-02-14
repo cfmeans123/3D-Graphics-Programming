@@ -131,19 +131,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Framework\Graphics\Inc\Camera.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\Colors.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\Common.h" />
+    <ClInclude Include="..\Framework\Graphics\Inc\ConstantBuffer.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\Graphics.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\GraphicsSystem.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\MeshBuffer.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\MeshTypes.h" />
+    <ClInclude Include="..\Framework\Graphics\Inc\PixelShader.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\VertexShader.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\VertexTypes.h" />
     <ClInclude Include="..\Framework\Graphics\Src\Precompile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Framework\Graphics\Src\Camera.cpp" />
+    <ClCompile Include="..\Framework\Graphics\Src\ConstantBuffer.cpp" />
     <ClCompile Include="..\Framework\Graphics\Src\GraphicsSystem.cpp" />
     <ClCompile Include="..\Framework\Graphics\Src\MeshBuffer.cpp" />
+    <ClCompile Include="..\Framework\Graphics\Src\PixelShader.cpp" />
     <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

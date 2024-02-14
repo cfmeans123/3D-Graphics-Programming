@@ -2,27 +2,21 @@
 
 #include "..\Engine\MEngine\Inc\MEngine.h"
 
-
-
 class GameState : public MEngine::AppState
 {
 public:
-	void Initialize();
-	void Terminate();
-	virtual void Update(float deltaTime);
-	void Render();
-	void HandleInput();
+	void Initialize() override;
+	void Terminate() override;
+	void Update(float deltaTime) override;
+	void Render() override;
 
 protected:
-	virtual void CreateShape() {};
-
+	MEngine::Graphics::Camera mCamera;
 	MEngine::Graphics::MeshPC mMesh;
+	MEngine::Graphics::ConstantBuffer mConstantBuffer;
 	MEngine::Graphics::MeshBuffer mMeshBuffer;
-	//auto 
-	ID3D11Buffer* mVertexBuffer = nullptr;
-	ID3D11Buffer* mIndexBuffer = nullptr;
-	ID3D11VertexShader* mVertexShader = nullptr;
-	ID3D11InputLayout* mInputLayout = nullptr;
-	ID3D11PixelShader* mPixelShader = nullptr;
+	MEngine::Graphics::VertexShader mVertexShader;
+	MEngine::Graphics::PixelShader mPixelShader;
+
 };
 

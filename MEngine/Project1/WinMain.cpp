@@ -12,7 +12,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 	myApp.AddState<GameState>("Game");
 
 	AppConfig config;
-	config.appName = L"Hello Window";
+	config.appName = L"Hello Cube";
 
 	myApp.Run(config);
 	return(0);

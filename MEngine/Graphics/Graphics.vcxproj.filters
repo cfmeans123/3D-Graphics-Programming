@@ -36,6 +36,15 @@
     <ClInclude Include="..\Framework\Graphics\Inc\VertexShader.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\Framework\Graphics\Inc\PixelShader.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Framework\Graphics\Inc\ConstantBuffer.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Framework\Graphics\Inc\Camera.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp">
@@ -48,6 +57,15 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="..\Framework\Graphics\Src\VertexShader.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\PixelShader.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\ConstantBuffer.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\Camera.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

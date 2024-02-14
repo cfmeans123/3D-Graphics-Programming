@@ -7,9 +7,9 @@ namespace MEngine::Graphics
     {
     public:
         template<class VertexType>
-        void Initialize(const std::filesystem::path& filePath, uint32_t format)
+        void Initialize(const std::filesystem::path& filePath)
         {
-
+            Initialize(filePath, VertexType::Format);
         }
         void Initialize(const std::filesystem::path& filePath, uint32_t format);
         void Terminate();

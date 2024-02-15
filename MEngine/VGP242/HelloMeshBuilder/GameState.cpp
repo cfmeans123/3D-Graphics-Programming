@@ -9,39 +9,11 @@ void GameState::Initialize()
 	mCamera.SetPosition({ 0.0f, 1.0f, -3.0f });
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 
-	mMesh.vertices.push_back({ {-0.5f, -0.5f, 0.0f}, Colors::Red });
-	mMesh.vertices.push_back({ {-0.5f, 0.5f, 0.0f}, Colors::Pink });
-	mMesh.vertices.push_back({ {0.5f, 0.5f, 0.0f}, Colors::Purple });
-	mMesh.vertices.push_back({ {0.5f, -0.5f, 0.0f}, Colors::FloralWhite });
-
-	mMesh.vertices.push_back({ {-0.5f, -0.5f, 1.0f}, Colors::Red });
-	mMesh.vertices.push_back({ {-0.5f, 0.5f, 1.0f}, Colors::Pink });
-	mMesh.vertices.push_back({ {0.5f, 0.5f, 1.0f}, Colors::Purple });
-	mMesh.vertices.push_back({ {0.5f, -0.5f, 1.0f}, Colors::FloralWhite });
-
-	mMesh.indices = {
-		//front
-		0, 1, 2,
-		0, 2, 3,
-		//back
-		7, 5, 4,
-		7, 6, 5,
-		//right
-		3, 2, 6,
-		3, 6, 7,
-		//left
-		4, 5, 1,
-		4, 1, 0,
-		//top
-		1, 5, 6,
-		1, 6, 2,
-		//bottom
-		0, 3, 7,
-		0, 7, 4
-	};
+	//mMesh = MeshBuilder::CreatePyramid(1.0f);
+	mMesh = MeshBuilder::CreateHorizontalPlanePC(10, 10, 1.0f);
 
 	//std::filesystem::path shaderFilePath = ""
-	std::filesystem::path shaderFilePath = L"../Assets/Shaders/DoTransform.fx";
+	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoTransform.fx";
 	mConstantBuffer.Initialize(sizeof(Math::Matrix4));
 	mMeshBuffer.Initialize(mMesh);
 	mVertexShader.Initialize<VertexPC>(shaderFilePath);

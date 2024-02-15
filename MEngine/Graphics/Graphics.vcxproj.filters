@@ -45,6 +45,9 @@
     <ClInclude Include="..\Framework\Graphics\Inc\Camera.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\Framework\Graphics\Inc\MeshBuilder.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp">
@@ -66,6 +69,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="..\Framework\Graphics\Src\Camera.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\MeshBuilder.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

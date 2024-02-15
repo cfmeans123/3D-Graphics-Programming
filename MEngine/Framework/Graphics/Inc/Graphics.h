@@ -7,6 +7,7 @@
 #include "VertexTypes.h"
 #include "MeshTypes.h"
 #include "MeshBuffer.h"
+#include "MeshBuilder.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "Camera.h"

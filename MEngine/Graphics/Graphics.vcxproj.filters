@@ -48,6 +48,12 @@
     <ClInclude Include="..\Framework\Graphics\Inc\MeshBuilder.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\Framework\Graphics\Inc\Sampler.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Framework\Graphics\Inc\Texture.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp">
@@ -72,6 +78,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="..\Framework\Graphics\Src\MeshBuilder.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\Sampler.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\Texture.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

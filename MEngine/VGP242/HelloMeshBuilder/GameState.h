@@ -18,5 +18,7 @@ protected:
 	MEngine::Graphics::VertexShader mVertexShader;
 	MEngine::Graphics::PixelShader mPixelShader;
 
+	MEngine::Graphics::Texture mTexture;
+	MEngine::Graphics::Sampler mSampler;
 };
 

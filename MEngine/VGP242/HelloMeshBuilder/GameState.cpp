@@ -12,12 +12,33 @@ void GameState::Initialize()
 	//mMesh = MeshBuilder::CreatePyramid(1.0f);
 	mMesh = MeshBuilder::CreateHorizontalPlanePC(10, 10, 1.0f);
 
+	//create a shape
+	//mMesh = MeshBuilder::CreatePyramidPC(2.0f);
+	//mMesh = MeshBuilder::CreateCubePC(2.0f);
+	//mMesh = MeshBuilder::CreateRectPC(2.0f, 0.5f, 1.0f);
+	//mMesh = MeshBuilder::CreateVerticalPlanePC(10, 10, 1.0f);
+	//mMesh = MeshBuilder::CreateHorizontalPlanePC(10, 10, 1.0f);
+	//mMesh = MeshBuilder::CreateCylinderPC(100, 4);
+	//mMesh = MeshBuilder::CreateSpherePC(100, 100, 1);
+
+	/*mMesh.vertices.push_back({ { -1.0f, -1.0f, 0.0f }, { 0.0f, 1.0f } });
+	mMesh.vertices.push_back({ { -1.0f,  1.0f, 0.0f }, { 0.0f, 0.0f } });
+	mMesh.vertices.push_back({ {  1.0f,  1.0f, 0.0f }, { 1.0f, 0.0f } });
+	mMesh.vertices.push_back({ {  1.0f, -1.0f, 0.0f }, { 1.0f, 1.0f } });
+	mMesh.indices = {
+		0, 1, 2,
+		0, 2, 3
+	};*/
+
 	//std::filesystem::path shaderFilePath = ""
-	std::filesystem::path shaderFilePath = L"../../Assets/Shaders/DoTransform.fx";
+	std::filesystem::path shaderFilePath = L"../Assets/Shaders/DoTransform.fx";
+	std::filesystem::path textureFilePath = L"../Assets/Images/planets/neptune.jpg";
 	mConstantBuffer.Initialize(sizeof(Math::Matrix4));
 	mMeshBuffer.Initialize(mMesh);
 	mVertexShader.Initialize<VertexPC>(shaderFilePath);
 	mPixelShader.Initialize(shaderFilePath);
+	mTexture.Initialize(L"../Assets/Images/planets/neptune.jpg");
+	mSampler.Initialize(Sampler::Filter::Linear, Sampler::AddressMode::Wrap);
 
 }
 void GameState::Terminate()
@@ -26,6 +47,8 @@ void GameState::Terminate()
 	mMeshBuffer.Terminate();
 	mPixelShader.Terminate();
 	mConstantBuffer.Terminate();
+	mTexture.Terminate();
+	mSampler.Terminate();
 
 }
 void GameState::Update(float deltaTime)
@@ -68,6 +91,8 @@ void GameState::Render()
 {
 	mVertexShader.Bind();
 	mPixelShader.Bind();
+	mTexture.BindPS(0);
+	mTexture.BindPS(0);
 
 	Math::Matrix4 matWorld = Math::Matrix4::Identity;
 	Math::Matrix4 matView = mCamera.GetViewMatrix();

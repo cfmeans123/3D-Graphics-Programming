@@ -141,6 +141,8 @@
     <ClInclude Include="..\Framework\Graphics\Inc\MeshBuilder.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\MeshTypes.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\PixelShader.h" />
+    <ClInclude Include="..\Framework\Graphics\Inc\Sampler.h" />
+    <ClInclude Include="..\Framework\Graphics\Inc\Texture.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\VertexShader.h" />
     <ClInclude Include="..\Framework\Graphics\Inc\VertexTypes.h" />
     <ClInclude Include="..\Framework\Graphics\Src\Precompile.h" />
@@ -155,6 +157,8 @@
     <ClCompile Include="..\Framework\Graphics\Src\Precompile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Framework\Graphics\Src\Sampler.cpp" />
+    <ClCompile Include="..\Framework\Graphics\Src\Texture.cpp" />
     <ClCompile Include="..\Framework\Graphics\Src\VertexShader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

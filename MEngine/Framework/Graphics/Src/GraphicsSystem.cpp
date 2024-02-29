@@ -24,12 +24,6 @@ LRESULT GraphicsSystem::GraphicsSystemMessageHandler(HWND window, UINT message, 
 				sGraphicsSystem->Resize(width, height);
 				break;
 			}
-			case WM_NCLBUTTONDOWN:
-			{
-				//Add cases like this for additional effects
-				//GraphicsSystem::Get()->SetClearColor(Colors::AntiqueWhite);
-				break;
-			}
 		}
 	}
 	return sWindowMessageHandler.ForwardMessage(window, message, wParam, lParam);

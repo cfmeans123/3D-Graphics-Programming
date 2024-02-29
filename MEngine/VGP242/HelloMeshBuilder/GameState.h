@@ -12,7 +12,7 @@ public:
 
 protected:
 	MEngine::Graphics::Camera mCamera;
-	MEngine::Graphics::MeshPC mMesh;
+	MEngine::Graphics::MeshPX mMesh;
 	MEngine::Graphics::ConstantBuffer mConstantBuffer;
 	MEngine::Graphics::MeshBuffer mMeshBuffer;
 	MEngine::Graphics::VertexShader mVertexShader;
@@ -20,5 +20,61 @@ protected:
 
 	MEngine::Graphics::Texture mTexture;
 	MEngine::Graphics::Sampler mSampler;
+};
+
+class CubeState : public GameState
+{
+public:
+	void Initialize() override;
+protected:
+	MEngine::Graphics::MeshPC mMesh;
+};
+
+class RectState : public GameState
+{
+public:
+	void Initialize() override;
+protected:
+	MEngine::Graphics::MeshPC mMesh;
+};
+
+class PlaneState : public GameState
+{
+public:
+	void Initialize() override;
+protected:
+	MEngine::Graphics::MeshPC mMesh;
+};
+
+class SphereState : public GameState
+{
+public:
+	void Initialize() override;
+protected:
+	MEngine::Graphics::MeshPC mMesh;
+};
+
+class CylinderState : public GameState
+{
+public:
+	void Initialize() override;
+protected:
+	MEngine::Graphics::MeshPC mMesh;
+};
+
+class SkyboxState : public GameState
+{
+public:
+	void Initialize() override;
+protected:
+	MEngine::Graphics::MeshPX mMesh;
+};
+
+class SkysphereState : public GameState
+{
+public:
+	void Initialize() override;
+protected:
+	MEngine::Graphics::MeshPX mMesh;
 };
 

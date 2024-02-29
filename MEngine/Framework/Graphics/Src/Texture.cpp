@@ -1,13 +1,11 @@
 #include "Precompile.h"
-#include "../inc/Texture.h"
+#include "../Inc/Texture.h"
 
 #include "../inc/GraphicsSystem.h"
 #include "../../../External/DirectXTK/Inc/WICTextureLoader.h"
 
 using namespace MEngine;
 using namespace MEngine::Graphics;
-
-
 
 Texture::~Texture()
 {
@@ -33,13 +31,11 @@ void Texture::Initialize(const std::filesystem::path& fileName)
 	auto context = GraphicsSystem::Get()->GetContext();
 	HRESULT hr = DirectX::CreateWICTextureFromFile(device, context, fileName.c_str(), nullptr, &mShaderResourceView);
 	ASSERT(SUCCEEDED(hr), "Texture: failed to ceate texture %ls", fileName.c_str());
-	return;
 }
 
 void Texture::Initialize(uint32_t width, uint32_t height, Format format)
 {
 	ASSERT(false, "Texture: not yet implemented");
-	return;
 }
 
 void Texture::Terminate()

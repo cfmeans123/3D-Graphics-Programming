@@ -59,7 +59,6 @@ void MEngine::Graphics::MeshBuffer::Render()
     {
         context->Draw(static_cast<UINT>(mVertexCount), 0);
     }
-
 }
 
 void MEngine::Graphics::MeshBuffer::CreateVertexBuffer(const void* vertices, uint32_t vertexSize, uint32_t vertexCount)
@@ -89,7 +88,6 @@ void MEngine::Graphics::MeshBuffer::CreateIndexBuffer(const void* indices, uint3
         return;
     }
     mIndexCount = indexCount;
-
     auto device = GraphicsSystem::Get()->GetDevice();
 
     D3D11_BUFFER_DESC bufferDesc = {};

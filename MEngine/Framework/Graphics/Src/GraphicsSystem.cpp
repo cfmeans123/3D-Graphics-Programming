@@ -1,4 +1,4 @@
-#include "Precompile.h"
+#include "Precompiled.h"
 #include "..\Inc\GraphicsSystem.h"
 
 using namespace MEngine;
@@ -10,25 +10,26 @@ namespace
 	std::unique_ptr<GraphicsSystem> sGraphicsSystem;
 	WindowMessageHandler sWindowMessageHandler;
 }
-
-LRESULT GraphicsSystem::GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK GraphicsSystem::GraphicsSystemMessageHandler(HWND window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (sGraphicsSystem != nullptr)
 	{
 		switch (message)
 		{
-			case WM_SIZE:
-			{
-				const uint32_t width = static_cast<uint32_t>(LOWORD(lParam));
-				const uint32_t height = static_cast<uint32_t>(HIWORD(lParam));
-				sGraphicsSystem->Resize(width, height);
-				break;
-			}
+		case WM_SIZE:
+		{
+			const uint32_t width = static_cast<uint32_t>(LOWORD(lParam));
+			const uint32_t height = static_cast<uint32_t>(HIWORD(lParam));
+			sGraphicsSystem->Resize(width, height);
+			break;
+		}
 		}
 	}
-	return sWindowMessageHandler.ForwardMessage(window, message, wParam, lParam);
-}
 
+	return sWindowMessageHandler.ForwardMessage(window, message, wParam, lParam);
+
+
+}
 
 void GraphicsSystem::StaticInitialize(HWND window, bool fullscreen)
 {
@@ -105,6 +106,8 @@ void GraphicsSystem::Initialize(HWND window, bool fullscreen)
 
 void GraphicsSystem::Terminate()
 {
+	sWindowMessageHandler.Unhook();
+
 	SafeRelease(mDepthStencilView);
 	SafeRelease(mDepthStencilBuffer);
 	SafeRelease(mRenderTargetView);
@@ -222,5 +225,5 @@ uint32_t GraphicsSystem::GetBackBufferHeight() const
 
 float GraphicsSystem::GetBackBufferAspectRatio() const
 {
-	return static_cast<float>(GetBackBufferWidth())/static_cast<float>(GetBackBufferHeight());
+	return static_cast<float>(GetBackBufferWidth()) / static_cast<float>(GetBackBufferHeight());
 }

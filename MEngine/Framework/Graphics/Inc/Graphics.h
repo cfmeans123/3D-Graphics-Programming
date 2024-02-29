@@ -14,3 +14,4 @@
 #include "Texture.h"
 #include "Camera.h"
 #include "ConstantBuffer.h"
+#include "SimpleDraw.h"

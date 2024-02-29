@@ -33,7 +33,7 @@
     <ClInclude Include="Inc\Constants.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Precompile.h">
+    <ClInclude Include="Src\Precompiled.h">
       <Filter>Src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClCompile Include="Src\MEngineMath.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Precompile.cpp">
+    <ClCompile Include="Src\Precompiled.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "Precompile.h"
+#include "Precompiled.h"
 #include "../Inc/MeshBuilder.h"
 
 using namespace MEngine;
@@ -10,17 +10,17 @@ namespace
 	Color GetNextColor(int& index)
 	{
 		constexpr Color colorTable[] = {
+			Colors::AliceBlue,
 			Colors::AntiqueWhite,
-			Colors::LightCoral,
+			Colors::Chartreuse,
 			Colors::Salmon,
-			Colors::Azure,
 			Colors::BlanchedAlmond,
 			Colors::Tomato,
 			Colors::Thistle,
-			Colors::AliceBlue,
+			Colors::Azure,
+			Colors::LightCoral,
 			Colors::LawnGreen,
-			Colors::Bisque,
-			Colors::Chartreuse
+			Colors::Bisque
 		};
 
 		index = (index + 1) % std::size(colorTable);

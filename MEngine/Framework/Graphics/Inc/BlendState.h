@@ -2,30 +2,31 @@
 
 namespace MEngine::Graphics
 {
-    class BlendState final
-    {
-    public:
-        static void ClearState();
+	class BlendState final
+	{
+	public:
+		static void ClearState();
 
-        enum class Mode
-        {
-            Opaque,
-            AlphaBlend,
-            AlphaPremultiplied,
-            Additive
-        };
-        BlendState() = default;
-        ~BlendState();
+		enum class Mode
+		{
+			Opaque,
+			AlphaBlend,
+			AlphaPremultiplied,
+			Additive
+		};
 
-        BlendState(const BlendState&) = delete;
-        BlendState& operator=(const BlendState&) = delete;
+		BlendState() = default;
+		~BlendState();
 
-        void Initialize(Mode mode);
-        void Terminate();
+		BlendState(const BlendState&) = delete;
+		BlendState& operator=(const BlendState&) = delete;
 
-        void Set();
-    private:
-        ID3D11BlendState* mBlendState = nullptr;
-    };
+		void Initialize(Mode mode);
+		void Terminate();
 
+		void Set();
+
+	private:
+		ID3D11BlendState* mBlendState = nullptr;
+	};
 }

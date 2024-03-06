@@ -175,12 +175,6 @@
     <ProjectReference Include="..\..\External\ImGui\ImGui.vcxproj">
       <Project>{52d656a2-a2f4-4c54-a3c7-653427bed1e8}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Core\Core.vcxproj">
-      <Project>{f69b45a3-46be-42c0-aa51-1a0a9ba2943c}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Math\Math.vcxproj">
-      <Project>{f314efb4-3145-475c-927a-e3e77ee1e2c0}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

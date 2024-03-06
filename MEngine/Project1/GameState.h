@@ -2,6 +2,25 @@
 
 #include "..\Engine\MEngine\Inc\MEngine.h"
 
+using namespace MEngine;
+
+namespace
+{
+	enum class Shapes
+	{
+		Sphere,
+		AABB,
+		Circle
+	};
+
+	const char* shapeType[] =
+	{
+		"Sphere",
+		"AABB",
+		"Circle"
+	};
+}
+
 class GameState : public MEngine::AppState
 {
 public:
@@ -9,14 +28,17 @@ public:
 	void Terminate() override;
 	void Update(float deltaTime) override;
 	void Render() override;
+	void DebugUI() override;
 
 protected:
 	MEngine::Graphics::Camera mCamera;
-	MEngine::Graphics::MeshPC mMesh;
-	MEngine::Graphics::ConstantBuffer mConstantBuffer;
-	MEngine::Graphics::MeshBuffer mMeshBuffer;
-	MEngine::Graphics::VertexShader mVertexShader;
-	MEngine::Graphics::PixelShader mPixelShader;
-
+	float mAlpha = 1.0f;
+	bool mDebugOn = false;
+	Color mShapeColor = Colors::Yellow;
+	Shapes mCurrentShape = Shapes::Sphere;
+	bool mIsCircle = true;
+	float mRadius = 1.0f;
+	Math::Vector3 mAABBSize = Math::Vector3::One;
+	Math::Vector3 mPosition = Math::Vector3::Zero;
 };
 

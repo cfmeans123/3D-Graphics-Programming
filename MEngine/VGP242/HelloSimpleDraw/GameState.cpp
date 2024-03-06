@@ -47,15 +47,70 @@ void GameState::Update(float deltaTime)
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
+
+	//Change States
+	if (input->IsKeyPressed(KeyCode::ONE))
+	{
+		MainApp().ChangeState("TransformState");
+	}
+	else if (input->IsKeyPressed(KeyCode::TWO))
+	{
+		MainApp().ChangeState("SphereState");
+	}
+	else if (input->IsKeyPressed(KeyCode::THREE))
+	{
+		MainApp().ChangeState("AABBState");
+	}
+	else if (input->IsKeyPressed(KeyCode::FOUR))
+	{
+		MainApp().ChangeState("AABBFilledState");
+	}
+	else if (input->IsKeyPressed(KeyCode::FIVE))
+	{
+		MainApp().ChangeState("LinesState");
+	}
 }
 void GameState::Render()
 {
-	//SimpleDraw::AddLine({ 0.0f, 0.0f, 0.0f }, { 2.0f, 1.0f, 0.0f }, Colors::Green);
-	//SimpleDraw::AddFace({ 0.0f, 0.0f, 0.0f }, { 2.0f, 1.0f, 0.0f }, { 2.0f, 0.0f, 0.0f }, Colors::Cyan);
-	//SimpleDraw::AddAABB({ -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f }, Colors::Pink);
-	//SimpleDraw::AddSphere(60, 60, 2.0f, Colors::Yellow);
-	//SimpleDraw::AddGroundPlane(10, Colors::White);
-	//SimpleDraw::AddGroundCircle(100, 2, Colors::White);
+	SimpleDraw::AddGroundPlane(10, Colors::White);
+	SimpleDraw::Render(mCamera);
+}
+
+void TransformState::Render()
+{
 	SimpleDraw::AddTransform(Matrix4::Identity);
+	SimpleDraw::Render(mCamera);
+}
+
+void SphereState::Render()
+{
+	SimpleDraw::AddSphere(60, 60, 2.0f, Colors::Yellow);
+	SimpleDraw::Render(mCamera);
+}
+
+void AABBState::Render()
+{
+	SimpleDraw::AddAABB({ -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f }, Colors::Pink);
+	SimpleDraw::Render(mCamera);
+}
+
+void AABBFilledState::Render()
+{
+	SimpleDraw::AddFilledAABB({ -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f }, Colors::Purple);
+	SimpleDraw::Render(mCamera);
+}
+
+void LinesState::Render()
+{
+	SimpleDraw::AddLine({ -1.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, Colors::Green);
+	SimpleDraw::AddLine({ 1.0f, 0.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, Colors::Green);
+	SimpleDraw::AddLine({ 1.0f, 0.0f, -1.0f }, { 0.0f, 1.0f, 0.0f }, Colors::Green);
+	SimpleDraw::AddLine({ -1.0f, 0.0f,  1.0f }, { 0.0f, 1.0f, 0.0f }, Colors::Green);
+
+	SimpleDraw::AddLine({ -1.0f, 0.0f, -1.0f }, { 1.0f, 0.0f, -1.0f }, Colors::Green);
+	SimpleDraw::AddLine({ 1.0f, 0.0f,  1.0f }, { 1.0f, 0.0f, -1.0f }, Colors::Green);
+	SimpleDraw::AddLine({ 1.0f, 0.0f,  1.0f }, { -1.0f, 0.0f,  1.0f }, Colors::Green);
+	SimpleDraw::AddLine({ -1.0f, 0.0f,  1.0f }, { -1.0f, 0.0f, -1.0f }, Colors::Green);
+
 	SimpleDraw::Render(mCamera);
 }

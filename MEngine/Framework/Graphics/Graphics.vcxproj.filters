@@ -98,10 +98,10 @@
     <ClCompile Include="Src\VertexShader.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\BlendState.cpp">
+    <ClCompile Include="Src\DebugUI.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\DebugUI.cpp">
+    <ClCompile Include="Src\BlendState.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

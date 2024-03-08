@@ -12,6 +12,7 @@ namespace MEngine::Core
 
 		HWND GetWindowHandle() const { return mWindow; }
 		bool IsActive() const { return mActive; }
+		void SetActive(bool active) { mActive = active; }
 	private:
 		HINSTANCE mInstance = nullptr;
 		HWND mWindow = nullptr;

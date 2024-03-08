@@ -57,7 +57,7 @@ void App::Run(const AppConfig& config)
 			mCurrentState = std::exchange(mNextState, nullptr);
 			mCurrentState->Initialize();
 		}
-		float deltaTime = TimeUtil::GetDeltaTime();
+		float deltaTime = TimeUtil::GetDeltaTime();		
 		mCurrentState->Update(deltaTime);
 		GraphicsSystem* gs = GraphicsSystem::Get();
 		gs->BeginRender();

@@ -12,6 +12,7 @@ public:
 
 protected:
 	MEngine::Graphics::Camera mCamera;
+
 };
 
 class TransformState : public GameState

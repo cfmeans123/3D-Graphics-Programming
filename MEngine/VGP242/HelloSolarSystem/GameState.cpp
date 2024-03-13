@@ -76,7 +76,7 @@ void MilkyWay::Initialize()
     float distance = 0;
     float sizeOffset = 10;
     //Hooray for hard coding!
-    mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/sun.jpg", sizeOffset, 0, SpaceOrb::OrbName::Sun));
+    mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/sun.jpg", sizeOffset * 0.1, 0, SpaceOrb::OrbName::Sun));
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/mercury.jpg", 0.035f, sizeOffset + 0.39f, SpaceOrb::OrbName::Mercury));
     sizeOffset += 0.035 + 0.39;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/venus.jpg", 0.086f, sizeOffset + 0.72f, SpaceOrb::OrbName::Venus));

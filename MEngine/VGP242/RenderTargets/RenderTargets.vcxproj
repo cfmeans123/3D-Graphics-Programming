@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e639748c-9df4-4f26-9595-dea49f7f4f6e}</ProjectGuid>
-    <RootNamespace>HelloSolarSystem</RootNamespace>
+    <ProjectGuid>{57ecbd14-8a2c-4157-bb36-0e84b83353ff}</ProjectGuid>
+    <RootNamespace>RenderTargets</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -131,20 +131,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Engine\MEngine\MEngine.vcxproj">
+      <Project>{f6cfc329-07aa-4342-900f-9dd2e92555ad}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="SkySphere.cpp" />
-    <ClCompile Include="SpaceOrb.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="SkySphere.h" />
-    <ClInclude Include="SpaceOrb.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Engine\MEngine\MEngine.vcxproj">
-      <Project>{f6cfc329-07aa-4342-900f-9dd2e92555ad}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

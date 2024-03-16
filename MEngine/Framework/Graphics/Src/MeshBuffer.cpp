@@ -55,7 +55,7 @@ void MeshBuffer::Update(const void* vertices, uint32_t vertexCount)
 
 }
 
-void MEngine::Graphics::MeshBuffer::Render()
+void MEngine::Graphics::MeshBuffer::Render() const
 {
     auto context = GraphicsSystem::Get()->GetContext();
     context->IASetPrimitiveTopology(mTopology);

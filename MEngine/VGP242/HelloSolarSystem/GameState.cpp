@@ -1,5 +1,5 @@
 #include "GameState.h"
-
+#include <iostream>
 using namespace MEngine;
 using namespace MEngine::Graphics;
 using namespace MEngine::Input;
@@ -75,25 +75,49 @@ void MilkyWay::Initialize()
 
     float distance = 0;
     float sizeOffset = 10;
+    
+
     //Hooray for hard coding!
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/sun.jpg", sizeOffset * 0.1, 0, SpaceOrb::OrbName::Sun));
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/mercury.jpg", 0.035f, sizeOffset + 0.39f, SpaceOrb::OrbName::Mercury));
-    sizeOffset += 0.035 + 0.39;
+    std::cout << "mercury offset" << sizeOffset << std::endl;
+    
+    sizeOffset +=  0.39;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/venus.jpg", 0.086f, sizeOffset + 0.72f, SpaceOrb::OrbName::Venus));
-    sizeOffset += 0.086f + 0.72f;
+    std::cout << "Venus offset" << sizeOffset << std::endl;
+    soVenus = sizeOffset;
+    sizeOffset += 0.72f;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/earth/earth.jpg", 0.091f, sizeOffset + 1, SpaceOrb::OrbName::Earth));
-    sizeOffset += 0.091f + 1;
+    std::cout << "Earth offset" << sizeOffset << std::endl;
+    soEarth = sizeOffset;
+    sizeOffset += 1;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/mars.jpg", 0.0486f, sizeOffset + 1.52f, SpaceOrb::OrbName::Mars));
-    sizeOffset += 0.0486f + 1.52f;
+    std::cout << "Mars offset" << sizeOffset << std::endl;
+    soMars = sizeOffset;
+    sizeOffset += 1.52f;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/jupiter.jpg", 1.003f, sizeOffset + 5.2f, SpaceOrb::OrbName::Jupiter));
-    sizeOffset += 1.003f + 5.2f;
+    std::cout << "Jupiter offset" << sizeOffset << std::endl;
+    soJupiter = sizeOffset;
+    sizeOffset += 5.2f;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/saturn.jpg", 0.836f, sizeOffset + 9.54f, SpaceOrb::OrbName::Saturn));
-    sizeOffset += 0.836f + 9.54f;
+    std::cout << "Saturn offset" << sizeOffset << std::endl;
+    soSaturn = sizeOffset;
+    sizeOffset += 9.54f;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/uranus.jpg", 0.364f, sizeOffset + 19.22f, SpaceOrb::OrbName::Uranus));
-    sizeOffset += 0.364f + 19.22f;
+    std::cout << "Uranus offset" << sizeOffset << std::endl;
+    soUranus = sizeOffset;
+    sizeOffset += 19.22f;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/neptune.jpg", 0.353f, sizeOffset + 30.06f, SpaceOrb::OrbName::Neptune));
-    sizeOffset += 0.353f + 30.06f;
+    std::cout << "Neptune offset" << sizeOffset << std::endl;
+    soNeptune = sizeOffset;
+    sizeOffset += 30.06f;
     mOrbs.push_back(SpaceOrb("../../Assets/Images/planets/pluto.jpg", 0.017f, sizeOffset + 39, SpaceOrb::OrbName::Pluto));
+    std::cout << "Pluto offset" << sizeOffset << std::endl;
+    soPluto = sizeOffset;
+    sizeOffset += 39.0f;
+    soMercury = sizeOffset;
+    //SkySphere
+    skySphere = new SkySphere("../../Assets/Images/skysphere/space.jpg", 1000.0f, 0.0f);
 }
 
 void MilkyWay::Terminate()
@@ -102,7 +126,6 @@ void MilkyWay::Terminate()
     {
         planet.Terminate();
     }
-
     mSampler.Terminate();
     mPixelShader.Terminate();
     mVertexShader.Terminate();
@@ -178,8 +201,19 @@ void MilkyWay::Render()
     {
         planet.Render(mCamera, mConstantBuffer, matView, matProj);
     }
-
+    skySphere->Render(mCamera, mConstantBuffer, matView, matProj);
     SimpleDraw::AddGroundPlane(50, Colors::Gray);
+    SimpleDraw::AddGroundCircle(500, soMercury, Colors::BlanchedAlmond);
+    SimpleDraw::AddGroundCircle(500, soVenus, Colors::BlanchedAlmond);
+    SimpleDraw::AddGroundCircle(500, soEarth, Colors::BlanchedAlmond);
+    SimpleDraw::AddGroundCircle(500, soMars, Colors::BlanchedAlmond);
+    SimpleDraw::AddGroundCircle(500, soJupiter, Colors::BlanchedAlmond);
+    SimpleDraw::AddGroundCircle(500, soSaturn, Colors::BlanchedAlmond);
+    SimpleDraw::AddGroundCircle(500, soUranus, Colors::BlanchedAlmond);
+    SimpleDraw::AddGroundCircle(500, soNeptune, Colors::BlanchedAlmond);
+    SimpleDraw::AddGroundCircle(500, soPluto, Colors::BlanchedAlmond);
+    //SimpleDraw::AddGroundCircle();
+    
     SimpleDraw::Render(mCamera);
 }
 

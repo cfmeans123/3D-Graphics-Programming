@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SpaceOrb.h"
+#include "SkySphere.h"
 
 using namespace MEngine;
 
@@ -13,6 +14,16 @@ public:
 	void Render() override;
 	void DebugUI() override;
 
+	float soMercury;
+	float soVenus;
+	float soEarth;
+	float soMars;
+	float soJupiter;
+	float soSaturn;
+	float soUranus;
+	float soNeptune;
+	float soPluto;
+
 
 	bool mActive = true;
 	float mdt;
@@ -21,6 +32,8 @@ private:
 	Graphics::Camera mCamera;
 
 	std::vector<SpaceOrb> mOrbs;
+	//std::vector<SimpleDraw::> mOrbs;
+	SkySphere* skySphere;
 	Graphics::ConstantBuffer mConstantBuffer;
 	Graphics::VertexShader mVertexShader;
 	Graphics::PixelShader mPixelShader;

@@ -10,6 +10,7 @@
 #include "MeshBuilder.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "RenderTarget.h"
 #include "Sampler.h"
 #include "Texture.h"
 #include "Camera.h"

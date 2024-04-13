@@ -30,6 +30,7 @@ namespace MEngine::Graphics
 		//Sphere
 		static MeshPC CreateSpherePC(uint32_t slices, uint32_t rings, float radius);
 		static MeshPX CreateSpherePX(uint32_t slices, uint32_t rings, float radius);
+		static Mesh CreateSphere(uint32_t slices, uint32_t rings, float radius);
 
 		//Sky
 		static MeshPX CreateSkySpherePX(uint32_t slices, uint32_t rings, float radius);

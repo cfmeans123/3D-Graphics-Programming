@@ -1,7 +1,9 @@
 #pragma once
 #include "ConstantBuffer.h"
+#include "LightTypes.h"
 #include "PixelShader.h"
 #include "Sampler.h"
+#include "Material.h"
 #include "VertexShader.h"
 
 
@@ -22,6 +24,7 @@ namespace MEngine::Graphics
 		void Render(const RenderObject& renderObject);
 
 		void SetCamera(const Camera& camera);
+		void SetDirectionalLight(const DirectionalLight& directionalLight);
 
 		void DebugUI();
 
@@ -29,26 +32,35 @@ namespace MEngine::Graphics
 		struct TransformData
 		{
 			Math::Matrix4 wvp;
+			Math::Matrix4 world;
+			Math::Vector3 viewPosition;
+			float padding = 0.0f;
 		};
 
 		struct SettingsData
 		{
 			int useDiffuseMap = 1;
-			float padding[3] = { 0 };
-
+			int useSpecMap = 1;
+			int useNormalMap = 1;
+			int useLightingMap = 1;					
 		};
 
 		using TransformBuffer = TypedConstantBuffer<TransformData>;
 		using SettingsBuffer = TypedConstantBuffer<SettingsData>;
+		using LightBuffer = TypedConstantBuffer<DirectionalLight>;
+		using MaterialBuffer = TypedConstantBuffer<Material>;
 
 
 		TransformBuffer mTransformBuffer;
 		SettingsBuffer mSettingsBuffer;
+		LightBuffer mLightBuffer;
+		MaterialBuffer mMaterialBuffer;
 		Sampler mSampler;
 		VertexShader mVertexShader;
 		PixelShader mPixelShader;
 
 		SettingsData mSettingsData;
-		const Camera* mCamera;
+		const Camera* mCamera = nullptr;
+		const DirectionalLight* mDirectionalLight = nullptr;
 	};
 }

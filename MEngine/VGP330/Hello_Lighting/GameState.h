@@ -12,6 +12,7 @@ public:
 	void DebugUI() override;
 
 protected:
+	MEngine::Graphics::DirectionalLight mDirectionalLight;
 	MEngine::Graphics::Camera mCamera;
 	MEngine::Graphics::Mesh mMesh;
 	MEngine::Graphics::ConstantBuffer mConstantBuffer;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Material.h"
 #include "MeshBuffer.h"
 #include "TextureManager.h"
 #include "Transform.h"
@@ -13,6 +14,10 @@ namespace MEngine::Graphics
 		Transform mTransform;
 		MeshBuffer meshBuffer;
 		
-		TextureId diffuseTextureId;
+		Material material;
+
+		TextureId diffuseTextureMapId;
+		TextureId normalTextureMapId;
+		TextureId specTextureMapId;
 	};
 }

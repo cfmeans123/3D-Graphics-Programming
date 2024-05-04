@@ -40,9 +40,12 @@ namespace MEngine::Graphics
 		struct SettingsData
 		{
 			int useDiffuseMap = 1;
-			int useSpecMap = 1;
 			int useNormalMap = 1;
-			int useLightingMap = 1;					
+			int useSpecMap = 1;
+			int useLighting = 1;
+			int useBumpMap = 1;
+			float bumpWeight = 1.0f;
+			float padding[2] = { 0.0f };
 		};
 
 		using TransformBuffer = TypedConstantBuffer<TransformData>;

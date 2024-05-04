@@ -19,5 +19,6 @@ namespace MEngine::Graphics
 		TextureId diffuseTextureMapId;
 		TextureId normalTextureMapId;
 		TextureId specTextureMapId;
+		TextureId bumpTextureMapId;
 	};
 }

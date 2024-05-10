@@ -1,0 +1,1 @@
+-scale 0.01 ../../Assets/Models/TechSoldier/TechSoldier/Ch44_nonPBR.fbx ../../Assets/Models/TechSoldier/TechSoldier/Ch44_nonPBR.fbx

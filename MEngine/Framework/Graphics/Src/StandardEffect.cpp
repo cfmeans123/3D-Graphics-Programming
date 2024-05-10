@@ -43,6 +43,7 @@ void StandardEffect::Begin()
 
 	mTransformBuffer.BindVS(0);
 	mSettingsBuffer.BindPS(1);
+	mSettingsBuffer.BindVS(1);
 	mLightBuffer.BindVS(2);
 	mLightBuffer.BindPS(2);
 
@@ -73,6 +74,8 @@ void StandardEffect::Render(const RenderObject& renderObject)
 	settingsData.useNormalMap = renderObject.normalTextureMapId > 0 && mSettingsData.useNormalMap > 0 ? 1 : 0;
 	settingsData.useSpecMap = renderObject.specTextureMapId > 0 && mSettingsData.useSpecMap > 0 ? 1 : 0;
 	settingsData.useLightingMap = mSettingsData.useLightingMap;
+	settingsData.useBumpMap = renderObject.bumpTextureMapId > 0 && mSettingsData.useBumpMap > 0;
+	settingsData.bumpWeight = mSettingsData.bumpWeight;
 	mSettingsBuffer.Update(settingsData);
 
 	mLightBuffer.Update(*mDirectionalLight);
@@ -82,6 +85,7 @@ void StandardEffect::Render(const RenderObject& renderObject)
 	tm->BindPS(renderObject.diffuseTextureMapId, 0);
 	tm->BindPS(renderObject.normalTextureMapId, 1);
 	tm->BindPS(renderObject.specTextureMapId, 2);
+	tm->BindVS(renderObject.bumpTextureMapId, 3);
 	
 	
 	renderObject.meshBuffer.Render();
@@ -121,5 +125,11 @@ void StandardEffect::DebugUI()
 		{
 			mSettingsData.useLightingMap = useLighting ? 1 : 0;
 		}
+		bool useBumpMap = mSettingsData.useBumpMap > 0;
+		if (ImGui::Checkbox("Use Bump Map", &useBumpMap))
+		{
+			mSettingsData.useBumpMap = useBumpMap ? 1 : 0;
+		}
+		ImGui::DragFloat("Bump Weight", &mSettingsData.bumpWeight, 0.01f, 0.0f, 100.0f);
 	}
 }

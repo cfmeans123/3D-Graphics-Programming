@@ -82,6 +82,13 @@ void GameState::Initialize()
         ModelIO::LoadMaterial("../../Assets/Models/DrakeEnemy/CH25_nonPBR.model", modelB);
         mRenderGroupB = CreateRenderGroup(modelB);
     }
+    
+    Mesh groundMesh = MeshBuilder::CreateHorizontalPlane(20, 20, 1.0f);
+    mGround.meshBuffer.Initialize(groundMesh);
+    mGround.diffuseMapID = TextureManager::Get()->LoadTexture("../../Assets/Images/water/water_texture.jpg");
+
+    MeshPX screenQuad = MeshBuilder::CreateScreenQuad();
+    mScreenQuad.meshBuffer.Initialize(screenQuad);
 
     std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
     //std::filesystem::path shaderFilePath = L"../../Assets/Shaders/CellShading.fx";
@@ -89,13 +96,23 @@ void GameState::Initialize()
     mStandardEffect.SetCamera(mCamera);
     mStandardEffect.SetDirectionalLight(mDirectionalLight);
 
+    GraphicsSystem* gs = GraphicsSystem::Get();
+    const uint32_t screenWidth = gs->GetBackBufferWidth();
+    const uint32_t screenHeight = gs->GetBackBufferHeight();
+    mRenderTarget.Initialize(screenWidth, screenHeight, RenderTarget::Format::RGBA_U8);
+
+
+    //GET THESE GONE,  position is already stored in the renderObjects transform parameter. No need to have it twice
     mPositionA = GetMatrix({ 1.0f, 0.0f, 0.0f });
     mPositionB = GetMatrix({ -1.0f, 0.0f, 0.0f });
 }
 
 void GameState::Terminate()
 {
+    mRenderTarget.Terminate();
     mStandardEffect.Terminate();
+    mGround.Terminate();
+    mScreenQuad.Terminate();
 }
 
 void GameState::Update(float dt)
@@ -105,13 +122,16 @@ void GameState::Update(float dt)
 
 void GameState::Render()
 {
-    mStandardEffect.Begin();
-    DrawRenderGroup(mStandardEffect, mRenderGroupA, mPositionA);
-    DrawRenderGroup(mStandardEffect, mRenderGroupB, mPositionB);
-    mStandardEffect.End();
+    mRenderTarget.BeginRender();
+        mStandardEffect.Begin();
+            DrawRenderGroup(mStandardEffect, mRenderGroupA, mPositionA);
+            DrawRenderGroup(mStandardEffect, mRenderGroupB, mPositionB);
+            //REMOVE THE POSITION PARAMETER FROM THIS FUNCTION
+            mStandardEffect.Render(mGround, Math::Matrix4::Identity);
+        mStandardEffect.End();
+    mRenderTarget.EndRender();
 
     SimpleDraw::AddGroundPlane(50, Colors::Gray);
-
 
     SimpleDraw::Render(mCamera);
 }
@@ -131,6 +151,17 @@ void GameState::DebugUI()
         ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.r);
         ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
     }
+
+    ImGui::Separator();
+    ImGui::Text("Render Target:");
+    ImGui::Image(
+        mRenderTarget.GetRawData(),
+        { 128, 128 },
+        { 0, 0 },
+        { 1, 1 },
+        { 1, 1, 1, 1 },
+        { 1, 1, 1, 1 }
+    );
 
     mStandardEffect.DebugUI();
 

@@ -129,7 +129,7 @@ std::string FindTexture(const aiScene* scene, const aiMaterial* aiMaterial,
             }
 
             ExportEmbeddedTexture(embeddedTexture, args, fileName);
-            std::printf("Adding textuer s%...\n", fileName.c_str());
+            std::printf("Adding Textures%...\n", fileName.c_str());
             textureName = fileName;
         }
         else if (auto embeddedTeture = scene->GetEmbeddedTexture(texturePath.C_Str()); embeddedTeture)
@@ -142,7 +142,7 @@ std::string FindTexture(const aiScene* scene, const aiMaterial* aiMaterial,
             fileName += embeddedFilePath.extension().string();
 
             ExportEmbeddedTexture(embeddedTeture, args, fileName);
-            std::printf("Adding textuer s%...\n", textureName.c_str());
+            std::printf("Adding Textures%...\n", textureName.c_str());
             textureName = fileName;
         }
         else

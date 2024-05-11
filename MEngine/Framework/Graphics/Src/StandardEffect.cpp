@@ -55,13 +55,13 @@ void StandardEffect::End()
 	//nothing until shadows are implemented
 }
 
-void StandardEffect::Render(const RenderObject& renderObject)
+void StandardEffect::Render(const RenderObject& renderObject, const Math::Matrix4& pos)
 {
-	const Math::Matrix4 matWorld = renderObject.mTransform.GetMatrix4();
+	const Math::Matrix4 matWorld = renderObject.transform.GetMatrix4();
 	const Math::Matrix4 matView = mCamera->GetViewMatrix();
 	const Math::Matrix4 matProj = mCamera->GetProjectionMatrix();
 
-	Math::Matrix4 matFinal = matWorld * matView * matProj;
+	Math::Matrix4 matFinal = pos * matWorld * matView * matProj;
 
 	TransformData transformData;
 	transformData.wvp = Math::Transpose(matFinal);
@@ -70,11 +70,11 @@ void StandardEffect::Render(const RenderObject& renderObject)
 	mTransformBuffer.Update(transformData);
 
 	SettingsData settingsData;
-	settingsData.useDiffuseMap = renderObject.diffuseTextureMapId > 0 && mSettingsData.useDiffuseMap > 0 ? 1 : 0;
-	settingsData.useNormalMap = renderObject.normalTextureMapId > 0 && mSettingsData.useNormalMap > 0 ? 1 : 0;
-	settingsData.useSpecMap = renderObject.specTextureMapId > 0 && mSettingsData.useSpecMap > 0 ? 1 : 0;
+	settingsData.useDiffuseMap = renderObject.diffuseMapID > 0 && mSettingsData.useDiffuseMap > 0 ? 1 : 0;
+	settingsData.useNormalMap = renderObject.normalMapID > 0 && mSettingsData.useNormalMap > 0 ? 1 : 0;
+	settingsData.useSpecMap = renderObject.specMapID > 0 && mSettingsData.useSpecMap > 0 ? 1 : 0;
 	settingsData.useLightingMap = mSettingsData.useLightingMap;
-	settingsData.useBumpMap = renderObject.bumpTextureMapId > 0 && mSettingsData.useBumpMap > 0;
+	settingsData.useBumpMap = renderObject.bumpMapID > 0 && mSettingsData.useBumpMap > 0;
 	settingsData.bumpWeight = mSettingsData.bumpWeight;
 	mSettingsBuffer.Update(settingsData);
 
@@ -82,12 +82,11 @@ void StandardEffect::Render(const RenderObject& renderObject)
 	mMaterialBuffer.Update(renderObject.material);
 
 	TextureManager* tm = TextureManager::Get();
-	tm->BindPS(renderObject.diffuseTextureMapId, 0);
-	tm->BindPS(renderObject.normalTextureMapId, 1);
-	tm->BindPS(renderObject.specTextureMapId, 2);
-	tm->BindVS(renderObject.bumpTextureMapId, 3);
-	
-	
+	tm->BindPS(renderObject.diffuseMapID, 0);
+	tm->BindPS(renderObject.normalMapID, 1);
+	tm->BindPS(renderObject.specMapID, 2);
+	tm->BindVS(renderObject.bumpMapID, 3);
+
 	renderObject.meshBuffer.Render();
 }
 

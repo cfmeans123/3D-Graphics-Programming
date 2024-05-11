@@ -23,7 +23,7 @@ void TextureManager::StaticTerminate()
 
 TextureManager* TextureManager::Get()
 {
-	ASSERT(sInstance == nullptr, "TextureManager: is already initialized");
+	ASSERT(sInstance != nullptr, "TextureManager: is already initialized");
 	return sInstance.get();
 }
 

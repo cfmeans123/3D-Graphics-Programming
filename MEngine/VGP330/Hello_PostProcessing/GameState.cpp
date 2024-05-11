@@ -90,8 +90,8 @@ void GameState::Initialize()
     MeshPX screenQuad = MeshBuilder::CreateScreenQuad();
     mScreenQuad.meshBuffer.Initialize(screenQuad);
 
-    std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
-    //std::filesystem::path shaderFilePath = L"../../Assets/Shaders/CellShading.fx";
+    //std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
+    std::filesystem::path shaderFilePath = L"../../Assets/Shaders/CellShading.fx";
     mStandardEffect.Initialize(shaderFilePath);
     mStandardEffect.SetCamera(mCamera);
     mStandardEffect.SetDirectionalLight(mDirectionalLight);

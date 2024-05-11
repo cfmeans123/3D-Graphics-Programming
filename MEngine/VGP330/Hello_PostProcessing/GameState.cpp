@@ -87,11 +87,11 @@ void GameState::Initialize()
     mGround.meshBuffer.Initialize(groundMesh);
     mGround.diffuseMapID = TextureManager::Get()->LoadTexture("../../Assets/Images/water/water_texture.jpg");
 
-    MeshPX screenQuad = MeshBuilder::CreateScreenQuad();
+    MeshPX screenQuad = MeshBuilder::CreateScreenQuad(); 
     mScreenQuad.meshBuffer.Initialize(screenQuad);
 
-    //std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
-    std::filesystem::path shaderFilePath = L"../../Assets/Shaders/CellShading.fx";
+    std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
+    //std::filesystem::path shaderFilePath = L"../../Assets/Shaders/CellShading.fx";
     mStandardEffect.Initialize(shaderFilePath);
     mStandardEffect.SetCamera(mCamera);
     mStandardEffect.SetDirectionalLight(mDirectionalLight);
@@ -99,12 +99,14 @@ void GameState::Initialize()
     shaderFilePath = L"../../Assets/Shaders/PostProcessing.fx";
     mPostProcessingEffect.Initialize(shaderFilePath);
     mPostProcessingEffect.SetTexture(&mRenderTarget);
+    mPostProcessingEffect.SetTexture(&mCombineTexture, 1);
 
     GraphicsSystem* gs = GraphicsSystem::Get();
     const uint32_t screenWidth = gs->GetBackBufferWidth();
     const uint32_t screenHeight = gs->GetBackBufferHeight();
     mRenderTarget.Initialize(screenWidth, screenHeight, RenderTarget::Format::RGBA_U8);
 
+    mCombineTexture.Initialize("../../Assets/Images/water/water_texture.jpg");
 
     //GET THESE GONE,  position is already stored in the renderObjects transform parameter. No need to have it twice
     mPositionA = GetMatrix({ 1.0f, 0.0f, 0.0f });
@@ -113,6 +115,7 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
+    mCombineTexture.Terminate();
     mRenderTarget.Terminate();
     mStandardEffect.Terminate();
     mGround.Terminate();

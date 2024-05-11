@@ -32,6 +32,8 @@ private:
 	MEngine::Graphics::RenderObject mGround;
 	MEngine::Graphics::RenderObject mScreenQuad;
 
+	MEngine::Graphics::Texture mCombineTexture;
+
 	//RenderTarget
 	MEngine::Graphics::RenderTarget mRenderTarget;
 

@@ -96,6 +96,10 @@ void GameState::Initialize()
     mStandardEffect.SetCamera(mCamera);
     mStandardEffect.SetDirectionalLight(mDirectionalLight);
 
+    shaderFilePath = L"../../Assets/Shaders/PostProcessing.fx";
+    mPostProcessingEffect.Initialize(shaderFilePath);
+    mPostProcessingEffect.SetTexture(&mRenderTarget);
+
     GraphicsSystem* gs = GraphicsSystem::Get();
     const uint32_t screenWidth = gs->GetBackBufferWidth();
     const uint32_t screenHeight = gs->GetBackBufferHeight();
@@ -113,6 +117,7 @@ void GameState::Terminate()
     mStandardEffect.Terminate();
     mGround.Terminate();
     mScreenQuad.Terminate();
+    mPostProcessingEffect.Terminate();
 }
 
 void GameState::Update(float dt)
@@ -134,6 +139,10 @@ void GameState::Render()
     SimpleDraw::AddGroundPlane(50, Colors::Gray);
 
     SimpleDraw::Render(mCamera);
+
+    mPostProcessingEffect.Begin();
+    mPostProcessingEffect.Render(mScreenQuad);
+    mPostProcessingEffect.End();
 }
 
 void GameState::DebugUI()
@@ -163,6 +172,7 @@ void GameState::DebugUI()
         { 1, 1, 1, 1 }
     );
 
+    mPostProcessingEffect.DebugUI();
     mStandardEffect.DebugUI();
 
     ImGui::End();

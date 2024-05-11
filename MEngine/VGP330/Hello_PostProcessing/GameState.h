@@ -18,16 +18,21 @@ private:
 	MEngine::Graphics::DirectionalLight mDirectionalLight;
 	MEngine::Graphics::Camera mCamera;
 	
+	//Effects
+
+	MEngine::Graphics::StandardEffect mStandardEffect;
+	MEngine::Graphics::PostProcessingEffect mPostProcessingEffect;
+
+	//Objects
 	MEngine::Graphics::RenderGroup mRenderGroupA;
 	MEngine::Math::Matrix4 mPositionA;
 	
 	MEngine::Graphics::RenderGroup mRenderGroupB;
 	MEngine::Math::Matrix4 mPositionB;
-
-	MEngine::Graphics::StandardEffect mStandardEffect;
 	MEngine::Graphics::RenderObject mGround;
 	MEngine::Graphics::RenderObject mScreenQuad;
 
+	//RenderTarget
 	MEngine::Graphics::RenderTarget mRenderTarget;
 
 };

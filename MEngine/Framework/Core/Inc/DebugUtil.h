@@ -17,6 +17,7 @@ using namespace MEngine::Core;
         if(!(condition))\
         {\
             LOG("ASSERT! %s(%d)\n"##format##, __FILE__, __LINE__, __VA_ARGS__);\
+            DebugBreak();\
         }\
     }while(false)
 

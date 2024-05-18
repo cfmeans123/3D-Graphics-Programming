@@ -84,7 +84,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
     {
         float4 color0 = textureMap0.Sample(textureSampler, input.texCoord);
         float4 color1 = textureMap1.Sample(textureSampler, input.texCoord);
-        finalColor = color0 + color1 * 0.5f;
+        finalColor = (color0 + color1) * 0.5f;
         //Alpha Blend
         //finalColor - (1.0f - color1.a) * color0) + (color1.a * color1);
     }

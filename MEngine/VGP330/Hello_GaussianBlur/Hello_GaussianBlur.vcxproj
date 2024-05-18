@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b960608b-2a39-4735-baf1-3f1c0a692c6b}</ProjectGuid>
-    <RootNamespace>HelloPostProcessing</RootNamespace>
+    <ProjectGuid>{1b1a8fe1-a3d4-4ba0-a054-d0de153af74c}</ProjectGuid>
+    <RootNamespace>HelloGaussianBlur</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -136,8 +136,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Hello_GaussianBlur\GameState.cpp" />
-    <ClCompile Include="..\Hello_GaussianBlur\WinMain.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h" />

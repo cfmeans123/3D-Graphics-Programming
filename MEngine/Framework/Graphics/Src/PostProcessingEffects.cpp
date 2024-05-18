@@ -126,6 +126,11 @@ void PostProcessingEffect::DebugUI()
     }
 }
 
+void MEngine::Graphics::PostProcessingEffect::SetMode(Mode mode)
+{
+    mMode = mode;
+}
+
 void PostProcessingEffect::SetTexture(const Texture* texture, uint32_t slot)
 {
     ASSERT(slot < mTextures.size(), "PostProcessingEffect: invalid slot index");

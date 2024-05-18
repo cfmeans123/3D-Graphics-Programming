@@ -6,7 +6,7 @@
 using namespace MEngine;
 using namespace MEngine::Graphics;
 
-void MEngine::Graphics::PixelShader::Initialize(const std::filesystem::path& filePath)
+void MEngine::Graphics::PixelShader::Initialize(const std::filesystem::path& filePath, const char* entryPoint)
 {
 	auto device = GraphicsSystem::Get()->GetDevice();
 
@@ -18,7 +18,7 @@ void MEngine::Graphics::PixelShader::Initialize(const std::filesystem::path& fil
 		filePath.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		"PS", "ps_5_0",
+		entryPoint, "ps_5_0",		
 		shaderFlags, 0,
 		&shaderBlob,
 		&errorBlob

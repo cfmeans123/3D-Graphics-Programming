@@ -30,11 +30,14 @@ namespace MEngine::Graphics
     void CleanRenderGroup(RenderGroup& renderGroup);
 
     template<class Effect>
-    void DrawRenderGroup(Effect& effect, const RenderGroup& renderGroup, const Math::Matrix4& pos)
+   
+    void DrawRenderGroup(Effect& effect, const RenderGroup& renderGroup)
     {
         for (const RenderObject& renderObject : renderGroup)
-        {
-            effect.Render(renderObject, pos);
+        {   
+            effect.Render(renderObject);
         }
     }
+
+    
 }

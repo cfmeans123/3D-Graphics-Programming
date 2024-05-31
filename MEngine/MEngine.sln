@@ -42,8 +42,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{BF57
 		Assets\Shaders\DoSomething.fx = Assets\Shaders\DoSomething.fx
 		Assets\Shaders\DoTexturing.fx = Assets\Shaders\DoTexturing.fx
 		Assets\Shaders\DoTransform.fx = Assets\Shaders\DoTransform.fx
-		Assets\Shaders\PostProcessing.fx = Assets\Shaders\PostProcessing.fx
 		Assets\Shaders\GaussianBlur.fx = Assets\Shaders\GaussianBlur.fx
+		Assets\Shaders\PostProcessing.fx = Assets\Shaders\PostProcessing.fx
+		Assets\Shaders\Shadow.fx = Assets\Shaders\Shadow.fx
 		Assets\Shaders\Standard.fx = Assets\Shaders\Standard.fx
 	EndProjectSection
 EndProject
@@ -80,6 +81,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello_PostProcessing", "VGP330\Hello_PostProcessing\Hello_PostProcessing.vcxproj", "{B960608B-2A39-4735-BAF1-3F1C0A692C6B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello_GaussianBlur", "VGP330\Hello_GaussianBlur\Hello_GaussianBlur.vcxproj", "{1B1A8FE1-A3D4-4BA0-A054-D0DE153AF74C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello_Shadow", "VGP330\Hello_Shadow\Hello_Shadow.vcxproj", "{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -331,6 +334,18 @@ Global
 		{1B1A8FE1-A3D4-4BA0-A054-D0DE153AF74C}.Release|x64.Build.0 = Release|x64
 		{1B1A8FE1-A3D4-4BA0-A054-D0DE153AF74C}.Release|x86.ActiveCfg = Release|Win32
 		{1B1A8FE1-A3D4-4BA0-A054-D0DE153AF74C}.Release|x86.Build.0 = Release|Win32
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Debug|Any CPU.Build.0 = Debug|x64
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Debug|x64.ActiveCfg = Debug|x64
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Debug|x64.Build.0 = Debug|x64
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Debug|x86.ActiveCfg = Debug|Win32
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Debug|x86.Build.0 = Debug|Win32
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Release|Any CPU.ActiveCfg = Release|x64
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Release|Any CPU.Build.0 = Release|x64
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Release|x64.ActiveCfg = Release|x64
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Release|x64.Build.0 = Release|x64
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Release|x86.ActiveCfg = Release|Win32
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -357,6 +372,7 @@ Global
 		{05AFC6EE-30D4-4257-985F-88C65FF56322} = {006F41F3-01E1-45EF-B7E4-432E17DE2D11}
 		{B960608B-2A39-4735-BAF1-3F1C0A692C6B} = {006F41F3-01E1-45EF-B7E4-432E17DE2D11}
 		{1B1A8FE1-A3D4-4BA0-A054-D0DE153AF74C} = {006F41F3-01E1-45EF-B7E4-432E17DE2D11}
+		{3EA44E50-90AE-40B6-8C79-58DA22ECA4FB} = {006F41F3-01E1-45EF-B7E4-432E17DE2D11}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {727A5A43-6802-4FEA-AD67-5B2F81F93665}

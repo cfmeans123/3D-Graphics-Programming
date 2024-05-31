@@ -21,6 +21,7 @@
 #include "RenderTarget.h"
 #include "RenderObject.h"
 #include "Sampler.h"
+#include "ShadowEffect.h"
 #include "SimpleDraw.h"
 #include "StandardEffect.h"
 #include "Texture.h"

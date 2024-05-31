@@ -39,7 +39,7 @@ namespace
 	};
 	void SimpleDrawImpl::Initialize(uint32_t maxVertexCount)
 	{
-		std::filesystem::path shaderPath = L"../../Assets/Shaders/DoTransform.fx"; //chance to SimpleDraw.fx
+		std::filesystem::path shaderPath = L"../../Assets/Shaders/DoTransform.fx"; //change to SimpleDraw.fx
 		mVertexShader.Initialize<VertexPC>(shaderPath);
 		mPixelShader.Initialize(shaderPath);
 		mConstantBuffer.Initialize(sizeof(Matrix4));

@@ -40,6 +40,14 @@ void GameState::CameraControllers(float dt)
         mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * dt);
         mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * dt);
     }
+
+    if (mOnTerrain)
+    {
+        Vector3 pos = mCamera.GetPosition();
+        float height = mTerrain.GetHeight(pos);
+        pos.y = height + 2.5f;
+        mCamera.SetPosition(pos);
+    }
 }
 
 Math::Matrix4 GetMatrix(const Math::Vector3& position)
@@ -70,17 +78,25 @@ void GameState::Initialize()
     mDirectionalLight.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
     mDirectionalLight.specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-    {   
+    {
         Model modelA;
         ModelIO::LoadModel("../../Assets/Models/TechSoldier/Ch44_nonPBR.model", modelA);
         ModelIO::LoadMaterial("../../Assets/Models/TechSoldier/Ch44_nonPBR.model", modelA);
         mRenderGroupA = CreateRenderGroup(modelA);
     }
 
-    Mesh groundMesh = MeshBuilder::CreateHorizontalPlane(20, 20, 1.0f);
-    mGround.meshBuffer.Initialize(groundMesh);
-    mGround.diffuseMapID = TextureManager::Get()->LoadTexture("../../Assets/Images/water/water_texture.jpg");
-
+    mTerrain.Initialize("../../Assets/Images/terrain/heightmap_512x512.raw", 20.0f);
+    const Mesh& m = mTerrain.GetMesh();
+    mGround.meshBuffer.Initialize(
+        nullptr,
+        static_cast<uint32_t>(sizeof(Vertex)),
+        static_cast<uint32_t>(m.vertices.size()),
+        m.indices.data(),
+        static_cast<uint32_t>(m.indices.size())
+        );
+    mGround.meshBuffer.Update(m.vertices.data(), m.vertices.size());
+    mGround.diffuseMapID = TextureManager::Get()->LoadTexture("terrain/dirt_seamless.jpg");
+    mGround.bumpMapID = TextureManager::Get()->LoadTexture("terrain/grass_2048.jpg");
 
 
     std::filesystem::path shaderFilePath = L"../../Assets/Shaders/Standard.fx";
@@ -90,6 +106,12 @@ void GameState::Initialize()
     mStandardEffect.SetLightCamera(mShadowEffect.GetLightCamera());
     mStandardEffect.SetShadowMap(mShadowEffect.GetDepthMap());
 
+    mTerrainEffect.Initialize();
+    mTerrainEffect.SetCamera(mCamera);
+    mTerrainEffect.SetDirectionalLight(mDirectionalLight);
+    mTerrainEffect.SetLightCamera(mShadowEffect.GetLightCamera());
+    mTerrainEffect.SetShadowMap(mShadowEffect.GetDepthMap());
+
     mShadowEffect.Initialize();
     mShadowEffect.SetDirectionalLight(mDirectionalLight);
 }
@@ -97,6 +119,7 @@ void GameState::Initialize()
 void GameState::Terminate()
 {
     mShadowEffect.Terminate();
+    mTerrainEffect.Terminate();
     mStandardEffect.Terminate();
     mGround.Terminate();
     CleanRenderGroup(mRenderGroupA);
@@ -114,17 +137,17 @@ void GameState::Render()
 
     mShadowEffect.SetFocus(mCamera.GetPosition());
 
-    mShadowEffect.Begin(true);
-    DrawRenderGroup(mShadowEffect, mRenderGroupA);
-    mShadowEffect.End(true);
-
     mShadowEffect.Begin();
         DrawRenderGroup(mShadowEffect, mRenderGroupA);
+        mShadowEffect.Render(mGround);
     mShadowEffect.End();
+
+    mTerrainEffect.Begin();
+    mTerrainEffect.Render(mGround);
+    mTerrainEffect.End();
 
     mStandardEffect.Begin();
         DrawRenderGroup(mStandardEffect, mRenderGroupA);
-        mStandardEffect.Render(mGround);
     mStandardEffect.End();
 }
 
@@ -144,7 +167,20 @@ void GameState::DebugUI()
         ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
     }
 
+    if (ImGui::CollapsingHeader("Terrain", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        ImGui::Checkbox("On Terrain", &mOnTerrain);
+        float heightScale = mTerrain.GetHeightScale();
+        if (ImGui::DragFloat("HeightScale", &heightScale, 0.1f, 1.0f, 100.0f))
+        {
+            mTerrain.SetHeightScale(heightScale);
+            const Mesh& m = mTerrain.GetMesh();
+            mGround.meshBuffer.Update(m.vertices.data(), m.vertices.size());
+        }
+    }
+
     mStandardEffect.DebugUI();
+    mTerrainEffect.DebugUI();
     mShadowEffect.DebugUI();
     ImGui::End();
 }

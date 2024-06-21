@@ -18,7 +18,8 @@ namespace
       "Blur",
       "Combine2",
       "Wave",
-      "ChromaticAberration"
+      "ChromaticAberration",
+      "CRT Effect"
     };
 }
 
@@ -88,6 +89,10 @@ void PostProcessingEffect::Begin()
         data.params1 = mNumWaves;
     }
     break;
+    case Mode::CRT:
+    {
+        data.params0 = mTime;
+    }
     default: break;
     }
 
@@ -129,6 +134,11 @@ void PostProcessingEffect::DebugUI()
 void MEngine::Graphics::PostProcessingEffect::SetMode(Mode mode)
 {
     mMode = mode;
+}
+
+void MEngine::Graphics::PostProcessingEffect::IncrementTime(float dT)
+{
+    mTime += dT;
 }
 
 void PostProcessingEffect::SetTexture(const Texture* texture, uint32_t slot)

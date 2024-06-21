@@ -121,8 +121,8 @@ void GameState::Initialize()
 
 void GameState::Terminate()
 {
-    mCombineTexture.Terminate();
     mRenderTarget.Terminate();
+    mCombineTexture.Terminate();
     mGaussianBlurEffect.Terminate();
     mStandardEffect.Terminate();
     mGround.Terminate();
@@ -133,16 +133,17 @@ void GameState::Terminate()
 void GameState::Update(float dt)
 {
     CameraControllers(dt);
+    mPostProcessingEffect.IncrementTime(dt);
 }
 
 void GameState::Render()
 {
     mRenderTarget.BeginRender();
         mStandardEffect.Begin();
-            DrawRenderGroup(mStandardEffect, mRenderGroupA, mPositionA);
-            DrawRenderGroup(mStandardEffect, mRenderGroupB, mPositionB);
+            DrawRenderGroup(mStandardEffect, mRenderGroupA);
+            //DrawRenderGroup(mStandardEffect, mRenderGroupB);
             //REMOVE THE POSITION PARAMETER FROM THIS FUNCTION
-            mStandardEffect.Render(mGround, Math::Matrix4::Identity);
+            mStandardEffect.Render(mGround);
         mStandardEffect.End();
     mRenderTarget.EndRender();
 
@@ -152,8 +153,8 @@ void GameState::Render()
     
     mBlurRenderTarget.BeginRender();
         mStandardEffect.Begin();
-            DrawRenderGroup(mStandardEffect, mRenderGroupA, mPositionA);
-            DrawRenderGroup(mStandardEffect, mRenderGroupB, mPositionB);
+            DrawRenderGroup(mStandardEffect, mRenderGroupA);
+            //DrawRenderGroup(mStandardEffect, mRenderGroupB, mPositionB);
             //REMOVE THE POSITION PARAMETER FROM THIS FUNCTION
             //mStandardEffect.Render(mGround, Math::Matrix4::Identity);
         mStandardEffect.End();

@@ -22,7 +22,8 @@ namespace MEngine::Graphics
             Blur,
             Combine2,
             Wave,
-            ChromaticAberration
+            ChromaticAberration,
+            CRT
         };
         void Initialize(const std::filesystem::path& filePath);
         void Terminate();
@@ -35,7 +36,8 @@ namespace MEngine::Graphics
         void DebugUI();
 
         void SetMode(Mode mode);
-        
+
+        void IncrementTime(float dT);
 
         void SetTexture(const Texture* texture, uint32_t slot = 0);
 
@@ -63,6 +65,9 @@ namespace MEngine::Graphics
         float mAberrationValue = 0.005f;
         float mWaveLength = 0.0f;
         float mNumWaves = 20.0f;
+
+        //CRT Shader Variables
+        float mTime;
     };
 
 }

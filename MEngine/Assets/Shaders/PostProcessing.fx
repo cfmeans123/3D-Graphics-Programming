@@ -318,7 +318,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
         
         uv = transformCurve(uv);
 
-        // TODO: add monitor visuals and make colors static consts
         // Outer Box
         if (uv.x < -0.025 || uv.y < -0.025)
             return float4(0.00, 0.00, 0.00, 1.0);
@@ -342,7 +341,7 @@ float4 PS(VS_OUTPUT input) : SV_Target
         // texture.
         float2 screenuv = uv;
         // Modifies uv while screenuv remains the same.
-        //color = overscan(color, screenuv, uv);
+        color = overscan(color, screenuv, uv);
 
         // This must come after we've adjusted the uv for OVERSCAN.
         if (color.a < 0)

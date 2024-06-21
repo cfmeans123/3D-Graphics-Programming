@@ -76,12 +76,6 @@ void GameState::Initialize()
         ModelIO::LoadMaterial("../../Assets/Models/TechSoldier/Ch44_nonPBR.model", modelA);
         mRenderGroupA = CreateRenderGroup(modelA);
     }
-    {
-        Model modelB;
-        ModelIO::LoadModel("../../Assets/Models/DrakeEnemy/CH25_nonPBR.model", modelB);
-        ModelIO::LoadMaterial("../../Assets/Models/DrakeEnemy/CH25_nonPBR.model", modelB);
-        mRenderGroupB = CreateRenderGroup(modelB);
-    }
     
     Mesh groundMesh = MeshBuilder::CreateHorizontalPlane(20, 20, 1.0f);
     mGround.meshBuffer.Initialize(groundMesh);
@@ -122,6 +116,7 @@ void GameState::Initialize()
 void GameState::Terminate()
 {
     mRenderTarget.Terminate();
+    mBlurRenderTarget.Terminate();
     mCombineTexture.Terminate();
     mGaussianBlurEffect.Terminate();
     mStandardEffect.Terminate();
@@ -141,22 +136,13 @@ void GameState::Render()
     mRenderTarget.BeginRender();
         mStandardEffect.Begin();
             DrawRenderGroup(mStandardEffect, mRenderGroupA);
-            //DrawRenderGroup(mStandardEffect, mRenderGroupB);
-            //REMOVE THE POSITION PARAMETER FROM THIS FUNCTION
             mStandardEffect.Render(mGround);
         mStandardEffect.End();
     mRenderTarget.EndRender();
 
-    //SimpleDraw::AddGroundPlane(50, Colors::Gray);
-    //SimpleDraw::Render(mCamera);
-
-    
     mBlurRenderTarget.BeginRender();
         mStandardEffect.Begin();
             DrawRenderGroup(mStandardEffect, mRenderGroupA);
-            //DrawRenderGroup(mStandardEffect, mRenderGroupB, mPositionB);
-            //REMOVE THE POSITION PARAMETER FROM THIS FUNCTION
-            //mStandardEffect.Render(mGround, Math::Matrix4::Identity);
         mStandardEffect.End();
     mBlurRenderTarget.EndRender();
 

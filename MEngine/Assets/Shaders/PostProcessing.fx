@@ -1,7 +1,7 @@
 //this is where post processing effects are handled and sent to the GPU
 
 // Settings - Overscan
-#define OVERSCAN_PERCENTAGE     0.02
+#define OVERSCAN_PERCENTAGE     0.12
 
 // Settings - Bloom
 #define BLOOM_OFFSET            0.0015
@@ -108,7 +108,6 @@ float3 bloom(float3 color, float2 uv)
 {
     float3 bloom = color - textureMap0.Sample(textureSampler, uv + float2(-BLOOM_OFFSET, 0)).rgb;
     float3 bloom_mask = bloom * BLOOM_STRENGTH;
-  //return bloom_mask;
     return saturate(color + bloom_mask);
 }
 
@@ -146,7 +145,6 @@ float3 blur(float3 color, float2 uv)
 {
     float3 blur = (blurH(color, uv) + blurV(color, uv)) / 2 - color;
     float3 blur_mask = blur * BLUR_STRENGTH;
-  //return blur_mask;
     return saturate(color + blur_mask);
 }
 
@@ -192,8 +190,7 @@ float squareWave(float y)
 float3 scanlines(float3 color, float2 pos)
 {
     float wave = squareWave(pos.y);
-
-  // TODO:GH#3929 make this configurable.
+    
   // Remove the && false to draw scanlines everywhere.
     if (length(color.rgb) < 0.2 && false)
     {
@@ -291,8 +288,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
         float4 color0 = textureMap0.Sample(textureSampler, input.texCoord);
         float4 color1 = textureMap1.Sample(textureSampler, input.texCoord);
         finalColor = (color0 + color1) * 0.5f;
-        //Alpha Blend
-        //finalColor - (1.0f - color1.a) * color0) + (color1.a * color1);
     }
     //Wave
     else if (mode == 6)

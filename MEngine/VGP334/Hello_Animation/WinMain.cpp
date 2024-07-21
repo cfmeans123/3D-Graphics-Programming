@@ -13,7 +13,7 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 	
 
 	AppConfig config;
-	config.appName = L"Hello Quaternion";
+	config.appName = L"Hello Animation";
 
 	myApp.Run(config);
 	return(0);

@@ -4,6 +4,8 @@
 
 #include "Animation.h"
 #include "AnimationBuilder.h"
+#include "AnimationClip.h"
+#include "AnimationUtil.h"
 #include "BlendState.h"
 #include "Bone.h"
 #include "Camera.h"
@@ -20,6 +22,7 @@
 #include "MeshBuilder.h"
 #include "Model.h"
 #include "ModelIO.h"
+#include "ModelManager.h"
 #include "PixelShader.h"
 #include "PostProcessingEffects.h"
 #include "RenderTarget.h"

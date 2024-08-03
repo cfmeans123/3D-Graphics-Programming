@@ -3,6 +3,7 @@
 #include "MeshTypes.h"
 #include "Material.h"
 #include "Skeleton.h"
+#include "AnimationClip.h"
 
 namespace MEngine::Graphics
 {
@@ -26,5 +27,6 @@ namespace MEngine::Graphics
         std::vector<MeshData> meshData;
         std::vector<MeterialData> meterialData;
         std::unique_ptr<Skeleton> skeleton;
+        std::vector<AnimationClip> animationClips;
     };
 }

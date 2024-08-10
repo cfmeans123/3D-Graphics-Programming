@@ -55,9 +55,9 @@ void GameState::Initialize()
 
     mModelID = ModelManager::Get()->LoadModel("../../Assets/Models/DrakeEnemy/Ch25_nonPBR.model");
     ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/armada.animset");
-    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/bencao.animset");
-    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/capoeira.animset");
-    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/esquiva.animset");
+    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/Au_To_Role.animset");
+    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/Chapa_2.animset");
+    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/Capoeira.animset");
     mCharacter = CreateRenderGroup(mModelID, &mCharacterAnimator);
     mCharacterAnimator.Initialize(mModelID);
 
@@ -88,7 +88,7 @@ void GameState::Render()
     if (mDrawSkeleton)
     {
         AnimationUtil::BoneTransforms boneTransforms;
-        AnimationUtil::ComputeBoneTransforms(mModelID, boneTransforms);
+        AnimationUtil::ComputeBoneTransforms(mModelID, boneTransforms, &mCharacterAnimator);
         AnimationUtil::DrawSkeleton(mModelID, boneTransforms);
     }
     else
@@ -113,7 +113,7 @@ void GameState::DebugUI()
         ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
     }
     ImGui::Checkbox("DrawSkeleton", &mDrawSkeleton);
-    if (ImGui::DragInt("AnimClip", &mAnimIndex, 1.0f, -1, mCharacterAnimator.GetAnimationCount() - 1))
+    if (ImGui::DragInt("AnimClip", &mAnimIndex, 1, -1, mCharacterAnimator.GetAnimationCount() - 1))
     {
         mCharacterAnimator.PlayAnimation(mAnimIndex, true);
     }

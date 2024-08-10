@@ -1,6 +1,6 @@
 -scale 0.01 ../../Assets/Models/TechSoldier/Ch44_nonPBR.fbx ../../Assets/Models/TechSoldier/Ch44_nonPBR.fbx
 -scale 0.01 ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx
--scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/bencao.fbx ../../Assets/Models/DrakeEnemy/Animations/bencao.fbx
--scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/armada.fbx ../../Assets/Models/DrakeEnemy/Animations/armada.fbx
--scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/capoeira.fbx ../../Assets/Models/DrakeEnemy/Animations/capoeira.fbx
--scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/esquiva.fbx ../../Assets/Models/DrakeEnemy/Animations/esquiva.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/Au_To_Role.fbx ../../Assets/Models/DrakeEnemy/Animations/Au_To_Role.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/Chapa_2.fbx ../../Assets/Models/DrakeEnemy/Animations/Chapa_2.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/Capoeira.fbx ../../Assets/Models/DrakeEnemy/Animations/Capoeira.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/Armada.fbx ../../Assets/Models/DrakeEnemy/Animations/Armada.fbx

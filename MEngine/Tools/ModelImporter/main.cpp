@@ -15,6 +15,7 @@ struct Arguments
     std::filesystem::path inputFileName;
     std::filesystem::path outputFileName;
     float scale = 1.0f;
+    bool animOnly = false;
 };
 
 Vector3 ToVector3(const aiVector3D& v)
@@ -23,26 +24,6 @@ Vector3 ToVector3(const aiVector3D& v)
         static_cast<float>(v.x),
         static_cast<float>(v.y),
         static_cast<float>(v.z)
-    };
-}
-
-Quaternion ToQuaternion(const aiQuaternion& q)
-{
-    return {
-        static_cast<float>(q.x),
-        static_cast<float>(q.y),
-        static_cast<float>(q.z),
-        static_cast<float>(q.w)
-    };
-}
-
-Matrix4 ToMatrix4(const aiMatrix4x4& m)
-{
-    return {
-        static_cast<float>(m.a1), static_cast<float>(m.b1), static_cast<float>(m.c1), static_cast<float>(m.d1),
-        static_cast<float>(m.a2), static_cast<float>(m.b2), static_cast<float>(m.c2), static_cast<float>(m.d2),
-        static_cast<float>(m.a3), static_cast<float>(m.b3), static_cast<float>(m.c3), static_cast<float>(m.d3),
-        static_cast<float>(m.a4), static_cast<float>(m.b4), static_cast<float>(m.c4), static_cast<float>(m.d4)
     };
 }
 
@@ -81,9 +62,34 @@ std::optional<Arguments> ParseArgs(int argc, char* argv[])
             args.scale = atof(argv[i + 1]);
             ++i;
         }
+        else if (strcmp(argv[i], "-animOnly") == 0)
+        {
+            args.animOnly = atoi(argv[i + 1]) == 1;
+            ++i;
+        }
     }
 
     return args;
+}
+
+Quaternion ToQuaternion(const aiQuaternion& q)
+{
+    return {
+        static_cast<float>(q.x),
+        static_cast<float>(q.y),
+        static_cast<float>(q.z),
+        static_cast<float>(q.w)
+    };
+}
+
+Matrix4 ToMatrix4(const aiMatrix4x4& m)
+{
+    return {
+        static_cast<float>(m.a1), static_cast<float>(m.b1), static_cast<float>(m.c1), static_cast<float>(m.d1),
+        static_cast<float>(m.a2), static_cast<float>(m.b2), static_cast<float>(m.c2), static_cast<float>(m.d2),
+        static_cast<float>(m.a3), static_cast<float>(m.b3), static_cast<float>(m.c3), static_cast<float>(m.d3),
+        static_cast<float>(m.a4), static_cast<float>(m.b4), static_cast<float>(m.c4), static_cast<float>(m.d4)
+    };
 }
 
 void ExportEmbeddedTexture(const aiTexture* texture, const Arguments& args, const std::filesystem::path& fileName)
@@ -151,7 +157,7 @@ std::string FindTexture(const aiScene* scene, const aiMaterial* aiMaterial,
             }
 
             ExportEmbeddedTexture(embeddedTexture, args, fileName);
-            std::printf("Adding Textures%...\n", fileName.c_str());
+            printf("Adding textuer s%...\n", fileName.c_str());
             textureName = fileName;
         }
         else if (auto embeddedTeture = scene->GetEmbeddedTexture(texturePath.C_Str()); embeddedTeture)
@@ -164,7 +170,7 @@ std::string FindTexture(const aiScene* scene, const aiMaterial* aiMaterial,
             fileName += embeddedFilePath.extension().string();
 
             ExportEmbeddedTexture(embeddedTeture, args, fileName);
-            std::printf("Adding Textures%...\n", textureName.c_str());
+            printf("Adding textuer s%...\n", textureName.c_str());
             textureName = fileName;
         }
         else
@@ -172,14 +178,14 @@ std::string FindTexture(const aiScene* scene, const aiMaterial* aiMaterial,
             std::filesystem::path embeddedFilePath = texturePath.C_Str();
             std::string fileName = args.inputFileName.string();
 
-            std::printf("Adding textuer s%...\n", textureName.c_str());
+            printf("Adding textuer s%...\n", textureName.c_str());
             textureName = fileName;
         }
     }
     return textureName.filename().string();
 }
 
-Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, 
+Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent,
     Skeleton& skeleton, BoneIndexLookup& boneIndexLookup)
 {
     Bone* bone = nullptr;
@@ -263,37 +269,37 @@ int main(int argc, char* argv[])
 
     Model model;
     BoneIndexLookup boneIndexLookup;
-    if (scene->HasMeshes())
+    printf("Build skeleton...\n");
+    model.skeleton = std::make_unique<Skeleton>();
+    BuildSkeleton(*scene->mRootNode, nullptr, *model.skeleton, boneIndexLookup);
+    for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
     {
-        printf("Build skeleton...\n");
-        model.skeleton = std::make_unique<Skeleton>();
-        BuildSkeleton(*scene->mRootNode, nullptr, *model.skeleton, boneIndexLookup);
-        for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex)
+        const aiMesh* assimpMesh = scene->mMeshes[meshIndex];
+        if (assimpMesh->mPrimitiveTypes != aiPrimitiveType_TRIANGLE)
         {
-            const aiMesh* assimpMesh = scene->mMeshes[meshIndex];
-            if (assimpMesh->mPrimitiveTypes != aiPrimitiveType_TRIANGLE)
+            continue;
+        }
+        if (assimpMesh->HasBones())
+        {
+            for (uint32_t b = 0; b < assimpMesh->mNumBones; ++b)
             {
-                continue;
-            }
-            if (assimpMesh->HasBones())
-            {
-                for (uint32_t b = 0; b < assimpMesh->mNumBones; ++b)
-                {
-                    const auto bone = assimpMesh->mBones[b];
-                    SetBoneOffsetTransform(bone, *model.skeleton, boneIndexLookup);
-                }
+                const auto bone = assimpMesh->mBones[b];
+                SetBoneOffsetTransform(bone, *model.skeleton, boneIndexLookup);
             }
         }
-        for (auto& bone : model.skeleton->bones)
-        {
-            bone->offsetTransform._41 *= args.scale;
-            bone->offsetTransform._42 *= args.scale;
-            bone->offsetTransform._43 *= args.scale;
-            bone->toParentTransform._41 *= args.scale;
-            bone->toParentTransform._42 *= args.scale;
-            bone->toParentTransform._43 *= args.scale;
-        }
+    }
 
+    for (auto& bone : model.skeleton->bones)
+    {
+        bone->offsetTransform._41 *= args.scale;
+        bone->offsetTransform._42 *= args.scale;
+        bone->offsetTransform._43 *= args.scale;
+        bone->toParentTransform._41 *= args.scale;
+        bone->toParentTransform._42 *= args.scale;
+        bone->toParentTransform._43 *= args.scale;
+    }
+    if (!args.animOnly && scene->HasMeshes())
+    {       
         printf("Reading Mesh Data...\n");
         for (int i = 0; i < scene->mNumMeshes; ++i)
         {
@@ -344,67 +350,134 @@ int main(int argc, char* argv[])
         }
     }
 
-    if (scene->HasMaterials())
+    if (!args.animOnly && scene->HasMaterials())
     {
-        printf("Reading Material Data...");
-
-        const uint32_t numMaterials = scene->mNumMaterials;
-        model.meshData.reserve(numMaterials);
-        for (uint32_t materialIndex = 0; materialIndex < numMaterials; ++materialIndex)
+        if (scene->HasMaterials())
         {
-            const aiMaterial* assimpMaterial = scene->mMaterials[materialIndex];
-            aiColor3D ambient, diffuse, emissive, specular;
-            ai_real specularPower = 1.0f;
+            printf("Reading Material Data...");
 
-            assimpMaterial->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
-            assimpMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
-            assimpMaterial->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
-            assimpMaterial->Get(AI_MATKEY_COLOR_SPECULAR, specular);
-            assimpMaterial->Get(AI_MATKEY_SHININESS, specularPower);
+            const uint32_t numMaterials = scene->mNumMaterials;
+            model.meshData.reserve(numMaterials);
+            for (uint32_t materialIndex = 0; materialIndex < numMaterials; ++materialIndex)
+            {
+                const aiMaterial* assimpMaterial = scene->mMaterials[materialIndex];
+                aiColor3D ambient, diffuse, emissive, specular;
+                ai_real specularPower = 1.0f;
 
-            Model::MeterialData& materialData = model.meterialData.emplace_back();
-            materialData.material.ambient = ToColor(ambient);
-            materialData.material.diffuse = ToColor(diffuse);
-            materialData.material.emissive = ToColor(emissive);
-            materialData.material.specular = ToColor(specular);
-            materialData.material.power = (float)specularPower;
+                assimpMaterial->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+                assimpMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+                assimpMaterial->Get(AI_MATKEY_COLOR_EMISSIVE, emissive);
+                assimpMaterial->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+                assimpMaterial->Get(AI_MATKEY_SHININESS, specularPower);
 
-            materialData.diffuseMapName = FindTexture(scene, assimpMaterial, aiTextureType_DIFFUSE, args, "_diff", materialIndex);
-            materialData.normalMapName = FindTexture(scene, assimpMaterial, aiTextureType_NORMALS, args, "_norm", materialIndex);
-            materialData.bumpMapName = FindTexture(scene, assimpMaterial, aiTextureType_DISPLACEMENT, args, "_bump", materialIndex);
-            materialData.specularMapName = FindTexture(scene, assimpMaterial, aiTextureType_SPECULAR, args, "_spec", materialIndex);
+                Model::MeterialData& materialData = model.meterialData.emplace_back();
+                materialData.material.ambient = ToColor(ambient);
+                materialData.material.diffuse = ToColor(diffuse);
+                materialData.material.emissive = ToColor(emissive);
+                materialData.material.specular = ToColor(specular);
+                materialData.material.power = (float)specularPower;
+
+                materialData.diffuseMapName = FindTexture(scene, assimpMaterial, aiTextureType_DIFFUSE, args, "_diff", materialIndex);
+                materialData.normalMapName = FindTexture(scene, assimpMaterial, aiTextureType_NORMALS, args, "_norm", materialIndex);
+                materialData.bumpMapName = FindTexture(scene, assimpMaterial, aiTextureType_DISPLACEMENT, args, "_bump", materialIndex);
+                materialData.specularMapName = FindTexture(scene, assimpMaterial, aiTextureType_SPECULAR, args, "_spec", materialIndex);
+            }
         }
     }
 
-    printf("Saving Model...\n");
-    if (ModelIO::SaveModel(args.outputFileName, model))
+    if (scene->HasAnimations())
     {
-        printf("Model saved [%s]...\n", args.outputFileName.string().c_str());
-    }
-    else
-    {
-        printf("Failed to save Model data [%s]...\n", args.outputFileName.string().c_str());
+        printf("Building animations...\n");
+        for (uint32_t animIndex = 0; animIndex < scene->mNumAnimations; ++animIndex)
+        {
+            const aiAnimation* aiAnim = scene->mAnimations[animIndex];
+            AnimationClip& animClip = model.animationClips.emplace_back();
+            if (aiAnim->mName.length > 0)
+            {
+                animClip.name = aiAnim->mName.C_Str();
+            }
+            else
+            {
+                animClip.name = "Anim" + std::to_string(animIndex);
+            }
+
+            animClip.ticksDuration = static_cast<float>(aiAnim->mDuration);
+            animClip.ticksPerSecond = static_cast<float>(aiAnim->mTicksPerSecond);
+
+            printf("Reading bone animations for &s...\n", animClip.name.c_str());
+            animClip.boneAnimation.resize(model.skeleton->bones.size());
+            for (uint32_t boneAnimIndex = 0; boneAnimIndex < aiAnim->mNumChannels; ++boneAnimIndex)
+            {
+                const aiNodeAnim* aiBoneAnim = aiAnim->mChannels[boneAnimIndex];
+                const int boneIndex = boneIndexLookup[aiBoneAnim->mNodeName.C_Str()];
+                auto& boneAnimation = animClip.boneAnimation[boneIndex];
+                boneAnimation = std::make_unique<Animation>();
+
+                AnimationBuilder builder;
+                for (uint32_t keyIndex = 0; keyIndex < aiBoneAnim->mNumPositionKeys; ++keyIndex)
+                {
+                    const aiVectorKey& pos = aiBoneAnim->mPositionKeys[keyIndex];
+                    builder.AddPositionKey(ToVector3(pos.mValue) * args.scale, static_cast<float>(pos.mTime));
+                }
+                for (uint32_t keyIndex = 0; keyIndex < aiBoneAnim->mNumRotationKeys; ++keyIndex)
+                {
+                    const aiQuatKey& rot = aiBoneAnim->mRotationKeys[keyIndex];
+                    builder.AddRotationKey(ToQuaternion(rot.mValue), static_cast<float>(rot.mTime));
+                }
+                for (uint32_t keyIndex = 0; keyIndex < aiBoneAnim->mNumScalingKeys; ++keyIndex)
+                {
+                    const aiVectorKey& scale = aiBoneAnim->mScalingKeys[keyIndex];
+                    builder.AddScaleKey(ToVector3(scale.mValue), static_cast<float>(scale.mTime));
+                }
+                *boneAnimation = builder.Build();
+            }
+        }
     }
 
-    printf("Saving Material...\n");
-    if (ModelIO::SaveMaterial(args.outputFileName, model))
+
+    if (!args.animOnly)
     {
-        printf("Material saved [%s]...\n", args.outputFileName.string().c_str());
-    }
-    else
-    {
-        printf("Failed to save Material data [%s]...\n", args.outputFileName.string().c_str());
+        printf("Saving Model...\n");
+        if (ModelIO::SaveModel(args.outputFileName, model))
+        {
+            printf("Model saved [%s]...\n", args.outputFileName.string().c_str());
+        }
+        else
+        {
+            printf("Failed to save Model data [%s]...\n", args.outputFileName.string().c_str());
+        }
+
+        printf("Saving Material...\n");
+        if (ModelIO::SaveMaterial(args.outputFileName, model))
+        {
+            printf("Material saved [%s]...\n", args.outputFileName.string().c_str());
+        }
+        else
+        {
+            printf("Failed to save Material data [%s]...\n", args.outputFileName.string().c_str());
+        }
+
+        printf("Saving Skeleton...\n");
+        if (ModelIO::SaveSkeleton(args.outputFileName, model))
+        {
+            printf("Successfully saved skeleton...\n");
+        }
+        else
+        {
+            printf("Failed to save Skeleton...\n");
+        }
     }
 
-    printf("Saving Skeleton...\n");
-    if (ModelIO::SaveSkeleton(args.outputFileName, model))
+    printf("Saving Animation...\n");
+    if (ModelIO::SaveAnimations(args.outputFileName, model))
     {
-        printf("Successfully saved skeleton...\n");
+        printf("Saved Animation data...\n");
     }
     else
     {
-        printf("Failed to save Skeleton...\n");
+        printf("Failed to save Animation...\n");
     }
+    printf("All Done\n");
 
     return 0;
 }

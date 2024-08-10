@@ -1,1 +1,6 @@
 -scale 0.01 ../../Assets/Models/TechSoldier/Ch44_nonPBR.fbx ../../Assets/Models/TechSoldier/Ch44_nonPBR.fbx
+-scale 0.01 ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/bencao.fbx ../../Assets/Models/DrakeEnemy/Animations/bencao.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/armada.fbx ../../Assets/Models/DrakeEnemy/Animations/armada.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/capoeira.fbx ../../Assets/Models/DrakeEnemy/Animations/capoeira.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/esquiva.fbx ../../Assets/Models/DrakeEnemy/Animations/esquiva.fbx

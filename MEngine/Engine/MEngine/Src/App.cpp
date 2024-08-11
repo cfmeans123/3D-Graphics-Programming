@@ -6,6 +6,7 @@ using namespace MEngine;
 using namespace MEngine::Core;
 using namespace MEngine::Graphics;
 using namespace MEngine::Input;
+using namespace MEngine::Physics;
 
 void App::ChangeState(const std::string& stateName)
 {
@@ -33,6 +34,9 @@ void App::Run(const AppConfig& config)
     SimpleDraw::StaticInitialize(config.maxVertexCount);
     TextureManager::StaticInitialize("../../Assets/Images/");
     ModelManager::StaticInitialize();
+    
+    PhysicsWorld::Settings settings;
+    PhysicsWorld::StaticInitialize(settings);
 
     ASSERT(mCurrentState, "App: no app state found");
     mCurrentState->Initialize();
@@ -58,7 +62,11 @@ void App::Run(const AppConfig& config)
         }
 
         auto deltaTime = TimeUtil::GetDeltaTime();
-        mCurrentState->Update(deltaTime);
+        if (deltaTime < 0.5f)
+        {
+            PhysicsWorld::Get()->Update(deltaTime);
+            mCurrentState->Update(deltaTime);
+        }
         GraphicsSystem* gs = GraphicsSystem::Get();
 
         gs->BeginRender();
@@ -76,6 +84,8 @@ void App::Run(const AppConfig& config)
 
     mCurrentState->Terminate();
 
+    PhysicsWorld::StaticTerminate();
+    ModelManager::StaticTerminate();
     TextureManager::StaticTerminate();
     SimpleDraw::StaticTerminate();
     DebugUI::StaticTerminate();

@@ -155,6 +155,7 @@
     <ClInclude Include="Inc\Model.h" />
     <ClInclude Include="Inc\ModelIO.h" />
     <ClInclude Include="Inc\ModelManager.h" />
+    <ClInclude Include="Inc\ParticleSystemEffect.h" />
     <ClInclude Include="Inc\PixelShader.h" />
     <ClInclude Include="Inc\PostProcessingEffects.h" />
     <ClInclude Include="Inc\RenderObject.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="Src\MeshBuilder.cpp" />
     <ClCompile Include="Src\ModelIO.cpp" />
     <ClCompile Include="Src\ModelManager.cpp" />
+    <ClCompile Include="Src\ParticleSystemEffect.cpp" />
     <ClCompile Include="Src\PixelShader.cpp" />
     <ClCompile Include="Src\PostProcessingEffects.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">

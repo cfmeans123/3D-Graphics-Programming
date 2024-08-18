@@ -18,16 +18,7 @@ private:
 	MEngine::Graphics::DirectionalLight mDirectionalLight;
 	MEngine::Graphics::StandardEffect mStandardEffect;
 
+	MEngine::Graphics::RenderObject mParticleRenderObj;
+	MEngine::Physics::Particle mParticle;
 
-	MEngine::Graphics::RenderObject mBall;
-	MEngine::Physics::CollisionShape mBallShape;
-	MEngine::Physics::RigidBody mBallRB;
-
-	MEngine::Graphics::RenderObject mGround;
-	MEngine::Physics::CollisionShape mGroundShape;
-	MEngine::Physics::RigidBody mGroundRB;
-
-	float mPitch = 0.0f;
-	float mYaw = 0.0f;
-	float mRoll = 0.0f;
 };

@@ -9,3 +9,4 @@
 #include "RigidBody.h"
 #include "Particle.h"
 #include "ParticleSystem.h"
+#include "SoftBody.h"

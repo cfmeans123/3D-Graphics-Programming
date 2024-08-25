@@ -144,6 +144,7 @@
     <ClInclude Include="Inc\PhysicsObject.h" />
     <ClInclude Include="Inc\PhysicsWorld.h" />
     <ClInclude Include="Inc\RigidBody.h" />
+    <ClInclude Include="Inc\SoftBody.h" />
     <ClInclude Include="Src\Precompiled.h" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +157,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Src\RigidBody.cpp" />
+    <ClCompile Include="Src\SoftBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\External\Bullet\Bullet.vcxproj">

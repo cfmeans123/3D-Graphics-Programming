@@ -16,9 +16,7 @@ private:
 
 	MEngine::Graphics::Camera mCamera;
 	MEngine::Graphics::DirectionalLight mDirectionalLight;
-	MEngine::Graphics::StandardEffect mStandardEffect;
-
-	MEngine::Graphics::RenderObject mParticleRenderObj;
-	MEngine::Physics::Particle mParticle;
+	MEngine::Graphics::ParticleSystemEffect mParticleEffect;
+	MEngine::Physics::ParticleSystem mParticleSystem;
 
 };

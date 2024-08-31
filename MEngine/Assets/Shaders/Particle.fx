@@ -37,6 +37,9 @@ VS_OUTPUT VS(VS_INPUT input)
 
 float4 PS(VS_OUTPUT input) : SV_Target
 {
+    if (input.color.a < 0.5f)
+    {
+        discard;
+    }
     return textureMap.Sample(textureSampler, input.texCoord) * input.color;
-
 }

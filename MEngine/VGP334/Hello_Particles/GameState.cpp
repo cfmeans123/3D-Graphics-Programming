@@ -93,6 +93,7 @@ void GameState::Initialize()
 }
 void GameState::Terminate()
 {
+    mParticleSystem.Terminate();
     mParticleEffect.Terminate();
 }
 void GameState::Update(const float deltaTime)

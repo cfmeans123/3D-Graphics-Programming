@@ -28,5 +28,6 @@ namespace MEngine::Graphics
 
 	private:
 		ID3D11BlendState* mBlendState = nullptr;
+		ID3D11DepthStencilState* mDepthStencilState = nullptr;
 	};
 }

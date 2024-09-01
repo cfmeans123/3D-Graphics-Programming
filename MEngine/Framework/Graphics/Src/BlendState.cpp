@@ -57,6 +57,7 @@ void BlendState::Initialize(Mode mode)
 {
 	D3D11_BLEND srcBlend = GetSrcBlend(mode);
 	D3D11_BLEND destBlend = GetDestBlend(mode);
+
 	D3D11_DEPTH_STENCIL_DESC dsDesc;
 	ZeroMemory(&dsDesc, sizeof(dsDesc));
 	dsDesc.DepthEnable = true;

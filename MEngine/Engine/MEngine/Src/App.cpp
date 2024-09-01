@@ -1,12 +1,14 @@
 #include "Precompiled.h"
 #include "App.h"
 #include "AppState.h"
+#include "EventManager.h"
 
 using namespace MEngine;
 using namespace MEngine::Core;
 using namespace MEngine::Graphics;
 using namespace MEngine::Input;
 using namespace MEngine::Physics;
+using namespace MEngine::Audio;
 
 void App::ChangeState(const std::string& stateName)
 {
@@ -34,7 +36,10 @@ void App::Run(const AppConfig& config)
     SimpleDraw::StaticInitialize(config.maxVertexCount);
     TextureManager::StaticInitialize("../../Assets/Images/");
     ModelManager::StaticInitialize();
-    
+    AudioSystem::StaticInitialize();
+    SoundEffectManager::StaticInitialize("../../Assets/Sounds");
+    EventManager::StaticInitialize();
+
     PhysicsWorld::Settings settings;
     PhysicsWorld::StaticInitialize(settings);
 
@@ -61,6 +66,8 @@ void App::Run(const AppConfig& config)
             mCurrentState->Initialize();
         }
 
+        AudioSystem::Get()->Update();
+
         auto deltaTime = TimeUtil::GetDeltaTime();
         if (deltaTime < 0.5f)
         {
@@ -84,6 +91,9 @@ void App::Run(const AppConfig& config)
 
     mCurrentState->Terminate();
 
+    EventManager::StaticTerminate();
+    SoundEffectManager::StaticTerminate();
+    AudioSystem::StaticTerminate();
     PhysicsWorld::StaticTerminate();
     ModelManager::StaticTerminate();
     TextureManager::StaticTerminate();

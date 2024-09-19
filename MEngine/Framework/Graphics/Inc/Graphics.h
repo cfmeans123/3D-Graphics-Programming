@@ -8,6 +8,7 @@
 #include "AnimationUtil.h"
 #include "Animator.h"
 #include "BlendState.h"
+#include "BlendTreeAnimator.h"
 #include "Bone.h"
 #include "Camera.h"
 #include "Colors.h"

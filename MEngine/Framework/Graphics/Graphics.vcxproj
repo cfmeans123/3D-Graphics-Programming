@@ -137,6 +137,7 @@
     <ClInclude Include="Inc\AnimationUtil.h" />
     <ClInclude Include="Inc\Animator.h" />
     <ClInclude Include="Inc\BlendState.h" />
+    <ClInclude Include="Inc\BlendTreeAnimator.h" />
     <ClInclude Include="Inc\Bone.h" />
     <ClInclude Include="Inc\Camera.h" />
     <ClInclude Include="Inc\Colors.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Src\AnimationUtil.cpp" />
     <ClCompile Include="Src\Animator.cpp" />
     <ClCompile Include="Src\BlendState.cpp" />
+    <ClCompile Include="Src\BlendTreeAnimator.cpp" />
     <ClCompile Include="Src\Camera.cpp" />
     <ClCompile Include="Src\ConstantBuffer.cpp" />
     <ClCompile Include="Src\DebugUI.cpp" />

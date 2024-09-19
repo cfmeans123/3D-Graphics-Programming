@@ -7,15 +7,18 @@ namespace MEngine::Graphics
 	class Animator
 	{
 	public:
-		void Initialize(ModelID id);
-		void PlayAnimation(int clipIndex, bool looping);
-		void Update(float deltaTime);
+		Animator() = default;
+		virtual ~Animator() = default;
 
-		bool IsFinished() const;
-		size_t GetAnimationCount() const;
-		Math::Matrix4 GetToParentTransform(const Bone* bone) const;
+		virtual void Initialize(ModelID id);
+		virtual void PlayAnimation(int clipIndex, bool looping);
+		virtual void Update(float deltaTime);
 
-	private:
+		virtual bool IsFinished() const;
+		virtual size_t GetAnimationCount() const;
+		virtual Math::Matrix4 GetToParentTransform(const Bone* bone) const;
+
+	protected:
 		ModelID mModelId = 0;
 		int mClipIndex = -1;
 		float mAnimationTick = 0.0f;

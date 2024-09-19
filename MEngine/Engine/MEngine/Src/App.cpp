@@ -18,9 +18,11 @@ void App::ChangeState(const std::string& stateName)
         mNextState = iter->second.get();
     }
 }
-
+ 
 void App::Run(const AppConfig& config)
 {
+    LOG("App Started: %.3f", TimeUtil::GetTime());
+
     Window myWindow;
     myWindow.Initialize(
         GetModuleHandle(nullptr),
@@ -50,13 +52,14 @@ void App::Run(const AppConfig& config)
     while (mRunning)
     {
         myWindow.ProcessMessage();
+
         InputSystem* input = InputSystem::Get();
         input->Update();
 
         if (!myWindow.IsActive() || input->IsKeyPressed(KeyCode::ESCAPE))
         {
             Quit();
-            continue;
+            break;
         }
 
         if (mNextState != nullptr)
@@ -75,17 +78,11 @@ void App::Run(const AppConfig& config)
             mCurrentState->Update(deltaTime);
         }
         GraphicsSystem* gs = GraphicsSystem::Get();
-
         gs->BeginRender();
-        {
             mCurrentState->Render();
-
             DebugUI::BeginRender();
-            {
                 mCurrentState->DebugUI();
-            }
             DebugUI::EndRender();
-        }
         gs->EndRender();
     }
 

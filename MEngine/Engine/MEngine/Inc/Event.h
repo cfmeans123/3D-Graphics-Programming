@@ -28,7 +28,7 @@ namespace MEngine
 		AnimEvent() : Event(EventType::AnimEvent) {}
 		~AnimEvent() = default;
 
-		Graphics::ModelId modelId = 0;
+		Graphics::ModelID modelId = 0;
 		std::string eventName = "";
 
 	};

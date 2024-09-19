@@ -3,9 +3,14 @@
 
 using namespace MEngine;
 
+namespace
+{
+	std::unique_ptr<EventManager> sEventManager;
+}
+
 void MEngine::EventManager::StaticInitialize()
 {
-	ASSERT(sEventManager == nullptr, "EventManager: is alreadt initialized");
+	ASSERT(sEventManager == nullptr, "EventManager: is already initialized");
 	sEventManager = std::make_unique<EventManager>();
 	sEventManager->Initialize();
 }
@@ -27,6 +32,7 @@ EventManager* MEngine::EventManager::Get()
 
 void MEngine::EventManager::Broadcast(const Event* event)
 {
+	sEventManager->BroadcastPrivate(event);
 }
 
 MEngine::EventManager::~EventManager()
@@ -64,9 +70,12 @@ void MEngine::EventManager::RemoveListener(EventType eventType, uint32_t listene
 
 void MEngine::EventManager::BroadcastPrivate(const Event* event)
 {
-	auto& listeners = mEventListeners[event->GetType()];
-	for (auto& cb : listeners)
+	auto listenersIter = mEventListeners.find(event->GetType());
+	if (listenersIter != mEventListeners.end())
 	{
-		cb.second(event);
+		for (auto& cb : listenersIter->second)
+		{
+			cb.second(event);
+		}
 	}
 }

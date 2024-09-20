@@ -4,3 +4,19 @@
 -scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/Chapa_2.fbx ../../Assets/Models/DrakeEnemy/Animations/Chapa_2.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/Capoeira.fbx ../../Assets/Models/DrakeEnemy/Animations/Capoeira.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/DrakeEnemy/Armada.fbx ../../Assets/Models/DrakeEnemy/Animations/Armada.fbx
+
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/StrutWalking.fbx ../../Assets/Models/DrakeEnemy/Animations/StrutWalking.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/Insult.fbx ../../Assets/Models/DrakeEnemy/Animations/Insult.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/ZombieAttack.fbx ../../Assets/Models/DrakeEnemy/Animations/ZombieAttack.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/BigKidneyHit.fbx ../../Assets/Models/DrakeEnemy/Animations/BigKidneyHit.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/WarriorIdle.fbx ../../Assets/Models/DrakeEnemy/Animations/WarriorIdle.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/LivershotKnockdown.fbx ../../Assets/Models/DrakeEnemy/Animations/LivershotKnockdown.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/Kicking.fbx ../../Assets/Models/DrakeEnemy/Animations/Kicking.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/Idle.fbx ../../Assets/Models/DrakeEnemy/Animations/Idle.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/RoundhouseKick.fbx ../../Assets/Models/DrakeEnemy/Animations/RoundhouseKick.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/FallingDown.fbx ../../Assets/Models/DrakeEnemy/Animations/FallingDown.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/StandingUp.fbx ../../Assets/Models/DrakeEnemy/Animations/StandingUp.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/BrutalAssassination.fbx ../../Assets/Models/DrakeEnemy/Animations/BrutalAssassination.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/BrutalAssassination_2.fbx ../../Assets/Models/DrakeEnemy/Animations/BrutalAssassination_2.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/HeadHit.fbx ../../Assets/Models/DrakeEnemy/Animations/HeadHit.fbx
+-scale 0.01 ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx ../../Assets/Models/DrakeEnemy/Drakey.fbx

@@ -516,6 +516,43 @@ MeshPX MeshBuilder::CreateSkySpherePX(uint32_t slices, uint32_t rings, float rad
 	return mesh;
 }
 
+Mesh MeshBuilder::CreateSkySphere(uint32_t slices, uint32_t rings, float radius)
+{
+	Mesh mesh;
+
+	const float vertRotation = (Math::Constants::Pi / static_cast<float>(rings));
+	const float horzRotation = (Math::Constants::TwoPi / static_cast<float>(slices));
+	const float uInc = 1.0f / static_cast<float>(slices);
+	const float vInc = 1.0f / static_cast<float>(rings);
+
+	for (uint32_t r = 0; r <= rings; ++r)
+	{
+		float ringPos = static_cast<float>(r);
+		float phi = ringPos * vertRotation;
+		for (uint32_t s = 0; s <= slices; ++s)
+		{
+			float slicePos = static_cast<float>(s);
+			float rotation = slicePos * horzRotation;
+
+			float u = 1.0f - (uInc * slicePos);
+			float v = vInc * ringPos;
+
+			Math::Vector3 pos = {
+				radius * cos(rotation) * sin(phi),
+				radius * cos(phi),
+				radius * sin(rotation) * sin(phi) };
+			Math::Vector3 norm = Math::Normalize(-pos);
+			Math::Vector3 tangent = Math::Normalize({ -pos.z, 0.0f, pos.x });
+
+			mesh.vertices.push_back({ pos, norm, tangent, { u, v } });
+		}
+	}
+
+	CreatePlaneIndicies(mesh.indices, rings, slices);
+
+	return mesh;
+}
+
 MeshPX MeshBuilder::CreateSkyBoxPX(float size)
 {
 	MeshPX mesh;

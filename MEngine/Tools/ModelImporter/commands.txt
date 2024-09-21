@@ -20,5 +20,12 @@
 -scale 0.01 -animOnly 1 ../../Assets/Models/Animations/BrutalAssassination_2.fbx ../../Assets/Models/DrakeEnemy/Animations/BrutalAssassination_2.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/Animations/HeadHit.fbx ../../Assets/Models/DrakeEnemy/Animations/HeadHit.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/Animations/Walking.fbx ../../Assets/Models/DrakeEnemy/Animations/Walking.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/GettingUpFront.fbx ../../Assets/Models/DrakeEnemy/Animations/GettingUpFront.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/GettingUp.fbx ../../Assets/Models/DrakeEnemy/Animations/GettingUp.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/Laughing.fbx ../../Assets/Models/DrakeEnemy/Animations/Laughing.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/FlyingKick.fbx ../../Assets/Models/DrakeEnemy/Animations/FlyingKick.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/StumbleBackwards.fbx ../../Assets/Models/DrakeEnemy/Animations/StumbleBackwards.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/HardLanding.fbx ../../Assets/Models/DrakeEnemy/Animations/HardLanding.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/LayingVomiting.fbx ../../Assets/Models/DrakeEnemy/Animations/LayingVomiting.fbx
 -scale 0.01 ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx ../../Assets/Models/DrakeEnemy/Drakey.fbx
 -scale 0.01 ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx ../../Assets/Models/DrakeEnemy/Drakey2.fbx

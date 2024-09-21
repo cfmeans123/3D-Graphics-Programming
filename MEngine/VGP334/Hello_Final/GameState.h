@@ -18,19 +18,21 @@ private:
 	MEngine::Graphics::DirectionalLight mDirectionalLight;
 	MEngine::Graphics::StandardEffect mStandardEffect;
 
-	MEngine::Graphics::RenderGroup mBiker;
-	MEngine::Graphics::ModelID mBikerID;
-	MEngine::Graphics::Animator mBikerAnimator;
-	MEngine::Graphics::Animation mBikerEvent;
-	float mBikerEventTime;
+	MEngine::Graphics::RenderGroup mCreatureOne;
+	MEngine::Graphics::ModelID mCreatureOneID;
+	MEngine::Graphics::Animator mCreatureOneAnimator;
+	MEngine::Graphics::Animation mCreatureOneEvent;
+	float mCreatureOneEventTime;
 
-	MEngine::Graphics::RenderGroup mGuy;
-	MEngine::Graphics::ModelID mGuyID;
-	MEngine::Graphics::Animator mGuyAnimator;
-	MEngine::Graphics::Animation mGuyEvent;
-	float mGuyEventTime;
+	MEngine::Graphics::RenderGroup mCreatureTwo;
+	MEngine::Graphics::ModelID mCreatureTwoID;
+	MEngine::Graphics::Animator mCreatureTwoAnimator;
+	MEngine::Graphics::Animation mCreatureTwoEvent;
+	float mCreatureTwoEventTime;
 
 	MEngine::Graphics::RenderObject mGround;
+	MEngine::Graphics::RenderObject mSpace;
+	
 
 	float mAnimSpeed = 1.0f;
 

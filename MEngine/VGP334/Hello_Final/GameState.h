@@ -33,4 +33,8 @@ private:
 	MEngine::Graphics::RenderObject mGround;
 
 	float mAnimSpeed = 1.0f;
+
+	MEngine::Graphics::ParticleSystemEffect mParticleEffect;
+	MEngine::Physics::ParticleSystem mParticleSystem;
+
 };

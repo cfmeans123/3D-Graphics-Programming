@@ -66,7 +66,7 @@ void GameState::Initialize()
 	{
 
 		mBikerID = ModelManager::Get()->LoadModel("../../Assets/Models/DrakeEnemy/Drakey.model");
-		ModelManager::Get()->AddAnimation(mBikerID, "../../Assets/Models/DrakeEnemy/StrutWalking.animset");
+		ModelManager::Get()->AddAnimation(mBikerID, "../../Assets/Models/DrakeEnemy/Animations/StrutWalking.animset");
 		ModelManager::Get()->AddAnimation(mBikerID, "../../Assets/Models/DrakeEnemy/Animations/Insult.animset");
 		ModelManager::Get()->AddAnimation(mBikerID, "../../Assets/Models/DrakeEnemy/Animations/HeadHit.animset");
 		ModelManager::Get()->AddAnimation(mBikerID, "../../Assets/Models/DrakeEnemy/Animations/Idle.animset");
@@ -85,16 +85,22 @@ void GameState::Initialize()
 				.AddPositionKey({ -15.0f, 0.0f, 0.0f }, 0.1f)
 				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(0, true); }, 0.1f)
 				.AddPositionKey({ -1.0f, 0.0f, 0.0f }, 7.5f)
-				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(0, true); }, 8.0f)
-				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(3, false); }, 10.0f)
-				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(4, true); }, 14.6f)
-				.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 100.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(1, true); }, 8.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(2, false); }, 10.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(3, true); }, 12.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(4, false); }, 13.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(5, true); }, 15.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(6, false); }, 18.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(7, false); }, 20.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(8, false); }, 23.0f)
+				.AddEventKey([&]() {mBikerAnimator.PlayAnimation(3, true); }, 45.0f)
+				//.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 100.0f)
 				.Build();
 		}
 	}
 	{
-		mGuyID = ModelManager::Get()->LoadModel("../../Assets/Models/DrakeEnemy/Drakey.model");
-		ModelManager::Get()->AddAnimation(mGuyID, "../../Assets/Models/DrakeEnemy/StrutWalking.animset");
+		mGuyID = ModelManager::Get()->LoadModel("../../Assets/Models/DrakeEnemy/Drakey2.model");
+		ModelManager::Get()->AddAnimation(mGuyID, "../../Assets/Models/DrakeEnemy/Animations/Walking.animset");
 		ModelManager::Get()->AddAnimation(mGuyID, "../../Assets/Models/DrakeEnemy/Animations/ZombieAttack.animset");
 		ModelManager::Get()->AddAnimation(mGuyID, "../../Assets/Models/DrakeEnemy/Animations/Idle.animset");
 		ModelManager::Get()->AddAnimation(mGuyID, "../../Assets/Models/DrakeEnemy/Animations/LivershotKnockdown.animset");
@@ -108,17 +114,26 @@ void GameState::Initialize()
 			mGuyEvent = AnimationBuilder()
 				.AddPositionKey({ 15.0f, 0.0f, 0.0f }, 0.0f)
 				.AddRotationKey(Quaternion::CreateFromAxisAngle({ 0.0f, 1.0f, 0.0f }, -80.0f), 0.0f)
-				//.AddPositionKey({ 15.0f, 0.0f, 0.0f }, 0.1f)
+				.AddPositionKey({ 15.0f, 0.0f, 0.0f }, 0.1f)
 				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(0, true); }, 0.1f)
 				.AddPositionKey({ 0.5f, 0.0f, 0.0f }, 7.5f)
-				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(1, true); }, 9.3f)
-				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(2, false); }, 12.6f)
-				.AddRotationKey(Quaternion::CreateFromAxisAngle({ 0.0f, 1.0f, 0.0f }, -80.0f), 15.0f)
-				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(3, true); }, 15.1f)
-				.AddRotationKey(Quaternion::CreateFromAxisAngle({ 0.0f, 1.0f, 0.0f }, 80.0f), 16.0f)
-				.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 16.0f)
-				.AddPositionKey({ 15.0f, 0.0f, 0.0f }, 31.0f)
-				.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 100.0f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(2, false); }, 8.0f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(1, false); }, 9.3f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(2, true); }, 11.0f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(3, false); }, 13.8f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(4, true); }, 16.0f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(5, false); }, 17.0f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(2, true); }, 18.5f)
+				.AddPositionKey({ 0.5f, 0.0f, 0.0f }, 18.6f)
+				.AddPositionKey({ 1.0f, 0.0f, 0.2f }, 20.0f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(6, false); }, 23.3f)
+				.AddEventKey([&]() {mGuyAnimator.PlayAnimation(2, true); }, 45.0f)
+				
+				
+				//.AddRotationKey(Quaternion::CreateFromAxisAngle({ 0.0f, 1.0f, 0.0f }, 80.0f), 16.0f)
+				//.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 16.0f)
+				//.AddPositionKey({ 15.0f, 0.0f, 0.0f }, 31.0f)
+				//.AddPositionKey({ 0.0f, 0.0f, 0.0f }, 100.0f)
 				.Build();
 		}
 	}

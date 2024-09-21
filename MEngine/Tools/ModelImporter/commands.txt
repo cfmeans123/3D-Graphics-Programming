@@ -19,4 +19,6 @@
 -scale 0.01 -animOnly 1 ../../Assets/Models/Animations/BrutalAssassination.fbx ../../Assets/Models/DrakeEnemy/Animations/BrutalAssassination.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/Animations/BrutalAssassination_2.fbx ../../Assets/Models/DrakeEnemy/Animations/BrutalAssassination_2.fbx
 -scale 0.01 -animOnly 1 ../../Assets/Models/Animations/HeadHit.fbx ../../Assets/Models/DrakeEnemy/Animations/HeadHit.fbx
+-scale 0.01 -animOnly 1 ../../Assets/Models/Animations/Walking.fbx ../../Assets/Models/DrakeEnemy/Animations/Walking.fbx
 -scale 0.01 ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx ../../Assets/Models/DrakeEnemy/Drakey.fbx
+-scale 0.01 ../../Assets/Models/DrakeEnemy/Ch25_nonPBR.fbx ../../Assets/Models/DrakeEnemy/Drakey2.fbx

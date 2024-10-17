@@ -44,20 +44,20 @@
     dcl t3  // pin<9,10,11,12>
     dcl_2d s0
 
-#line 361 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\SkinnedEffect.fx"
+#line 361 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\SkinnedEffect.fx"
     texld r0, t0, s0
     add r1.xyz, -t1, c12
     dp3 r1.w, r1, r1
     rsq r1.w, r1.w
 
-#line 30 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 30 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     mad r2.xyz, r1, r1.w, -c3
     nrm r3.xyz, r2  // ::halfVectors<0,1,2>
 
-#line 364 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\SkinnedEffect.fx"
+#line 364 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\SkinnedEffect.fx"
     nrm r2.xyz, t2  // ::worldNormal<0,1,2>
 
-#line 34 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 34 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     dp3 r3.x, r3, r2  // ::dotH<0>
 
 #line 30
@@ -99,20 +99,20 @@
     mad r1.xyz, r1.z, c11, r3
     mul r1.xyz, r1, c2  // ::result<3,4,5>
 
-#line 361 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\SkinnedEffect.fx"
+#line 361 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\SkinnedEffect.fx"
     mul r0, r0, t3  // ::color<0,1,2,3>
 
-#line 23 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
+#line 23 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
     mul r1.xyz, r0.w, r1
 
-#line 43 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 43 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     mul r3.xyz, r2.y, c7
     mad r3.xyz, r2.x, c6, r3
     mad r2.xyz, r2.z, c8, r3
     mov r3.xyz, c0  // Parameters::DiffuseColor<0,1,2>
     mad r2.xyz, r2, r3, c1  // ::result<0,1,2>
 
-#line 23 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
+#line 23 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
     mad r1.xyz, r0, r2, r1  // AddSpecular::color<0,1,2>
 
 #line 17
@@ -185,10 +185,10 @@ ret
 
 const BYTE SkinnedEffect_PSSkinnedPixelLighting[] =
 {
-     68,  88,  66,  67, 156,  81, 
-    222, 125, 241, 126,  28,  11, 
-    192,  19,  16,   0,  54, 227, 
-     89, 101,   1,   0,   0,   0, 
+     68,  88,  66,  67, 126, 169, 
+    111,  38,   8, 222, 174, 206, 
+     64, 158, 103, 126, 148,  17, 
+     23, 153,   1,   0,   0,   0, 
     172,  17,   0,   0,   4,   0, 
       0,   0,  48,   0,   0,   0, 
     136,  10,   0,   0, 248,  16, 
@@ -213,7 +213,7 @@ const BYTE SkinnedEffect_PSSkinnedPixelLighting[] =
       0,   0, 184,   5,   0,   0, 
      80,   3,   0,   0,  67,  58, 
      92,  85, 115, 101, 114, 115, 
-     92,  76,  67,  86,  48,  50, 
+     92, 108,  99, 118,  48,  50, 
      55,  56,  49,  56,  55,  92, 
      68, 111,  99, 117, 109, 101, 
     110, 116, 115,  92,  71, 105, 
@@ -232,8 +232,8 @@ const BYTE SkinnedEffect_PSSkinnedPixelLighting[] =
     110, 101, 100,  69, 102, 102, 
     101,  99, 116,  46, 102, 120, 
       0,  67,  58,  92,  85, 115, 
-    101, 114, 115,  92,  76,  67, 
-     86,  48,  50,  55,  56,  49, 
+    101, 114, 115,  92, 108,  99, 
+    118,  48,  50,  55,  56,  49, 
      56,  55,  92,  68, 111,  99, 
     117, 109, 101, 110, 116, 115, 
      92,  71, 105, 116,  72, 117, 
@@ -251,7 +251,7 @@ const BYTE SkinnedEffect_PSSkinnedPixelLighting[] =
     105, 103, 104, 116, 105, 110, 
     103,  46, 102, 120, 104,   0, 
      67,  58,  92,  85, 115, 101, 
-    114, 115,  92,  76,  67,  86, 
+    114, 115,  92, 108,  99, 118, 
      48,  50,  55,  56,  49,  56, 
      55,  92,  68, 111,  99, 117, 
     109, 101, 110, 116, 115,  92, 

@@ -46,10 +46,10 @@
     dcl_texcoord v0  // vin<0,1,2,3>
     dcl_texcoord1 v1  // vin<4,5,6>
 
-#line 11 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Utilities.fxh"
+#line 11 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Utilities.fxh"
     mad r0.xyz, v1, c19.x, c19.y  // ::BiasX2<0,1,2>
 
-#line 56 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 56 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     dp3 r1.x, r0, c12
     dp3 r1.y, r0, c13
     dp3 r1.z, r0, c14
@@ -94,21 +94,21 @@
 #line 60
     dp4 oPos.z, v0, c17  // ::VSBasicOneLightBn<10>
 
-#line 11 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
+#line 11 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
     dp4 r0.x, v0, c8
     max r0.x, r0.x, c19.z
     min oT1.w, r0.x, c19.w  // ::VSBasicOneLightBn<7>
 
-#line 60 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 60 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     dp4 r0.x, v0, c15  // ::vout<0>
     dp4 r0.y, v0, c16  // ::vout<1>
     dp4 r0.z, v0, c18  // ::vout<3>
 
-#line 270 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\BasicEffect.fx"
+#line 270 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\BasicEffect.fx"
     mad oPos.xy, r0.z, c0, r0  // ::VSBasicOneLightBn<8,9>
     mov oPos.w, r0.z  // ::VSBasicOneLightBn<11>
 
-#line 43 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 43 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     mov oT0.w, c1.w  // ::VSBasicOneLightBn<3>
 
 // approximately 43 instruction slots used
@@ -164,10 +164,10 @@ ret
 
 const BYTE BasicEffect_VSBasicOneLightBn[] =
 {
-     68,  88,  66,  67, 185, 201, 
-     67, 198, 251,  13, 229,   9, 
-    135, 160,  29,  70, 233,   3, 
-     73, 123,   1,   0,   0,   0, 
+     68,  88,  66,  67,  69, 108, 
+    156,  95, 254,  99, 203,  71, 
+     51, 143, 155,  59, 178, 213, 
+    130, 224,   1,   0,   0,   0, 
       8,  16,   0,   0,   4,   0, 
       0,   0,  48,   0,   0,   0, 
      84,  10,   0,   0,  72,  15, 
@@ -202,7 +202,7 @@ const BYTE BasicEffect_VSBasicOneLightBn[] =
       0,   0,   8,   6,   0,   0, 
     136,   3,   0,   0,  67,  58, 
      92,  85, 115, 101, 114, 115, 
-     92,  76,  67,  86,  48,  50, 
+     92, 108,  99, 118,  48,  50, 
      55,  56,  49,  56,  55,  92, 
      68, 111,  99, 117, 109, 101, 
     110, 116, 115,  92,  71, 105, 
@@ -221,7 +221,7 @@ const BYTE BasicEffect_VSBasicOneLightBn[] =
     105, 116, 105, 101, 115,  46, 
     102, 120, 104,   0,  67,  58, 
      92,  85, 115, 101, 114, 115, 
-     92,  76,  67,  86,  48,  50, 
+     92, 108,  99, 118,  48,  50, 
      55,  56,  49,  56,  55,  92, 
      68, 111,  99, 117, 109, 101, 
     110, 116, 115,  92,  71, 105, 
@@ -240,7 +240,7 @@ const BYTE BasicEffect_VSBasicOneLightBn[] =
     116, 105, 110, 103,  46, 102, 
     120, 104,   0,  67,  58,  92, 
      85, 115, 101, 114, 115,  92, 
-     76,  67,  86,  48,  50,  55, 
+    108,  99, 118,  48,  50,  55, 
      56,  49,  56,  55,  92,  68, 
     111,  99, 117, 109, 101, 110, 
     116, 115,  92,  71, 105, 116, 
@@ -258,7 +258,7 @@ const BYTE BasicEffect_VSBasicOneLightBn[] =
      92,  67, 111, 109, 109, 111, 
     110,  46, 102, 120, 104,   0, 
      67,  58,  92,  85, 115, 101, 
-    114, 115,  92,  76,  67,  86, 
+    114, 115,  92, 108,  99, 118, 
      48,  50,  55,  56,  49,  56, 
      55,  92,  68, 111,  99, 117, 
     109, 101, 110, 116, 115,  92, 

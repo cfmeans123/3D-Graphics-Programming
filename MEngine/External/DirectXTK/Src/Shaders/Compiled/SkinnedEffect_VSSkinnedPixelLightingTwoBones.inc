@@ -49,7 +49,7 @@
     dcl_texcoord3 v3  // vin<9,10,11,12>
     dcl_texcoord4 v4  // vin<13,14,15,16>
 
-#line 15 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Skinning.fxh"
+#line 15 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Skinning.fxh"
     mul r0.xy, v3, c243.x
     mova a0.xy, r0.yxzw
     mul r0, v4.y, c26[a0.x]
@@ -71,7 +71,7 @@
     dp4 r1.z, v0, r3  // Skin::vin<2>
     dp3 r0.z, v1, r3  // ::Skin<2>
 
-#line 82 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 82 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     mov r1.w, v0.w
     dp4 oPos.z, r1, c24  // ::VSSkinnedPixelLightingTwoBones<15>
     dp4 oT1.x, r1, c15  // ::VSSkinnedPixelLightingTwoBones<2>
@@ -84,17 +84,17 @@
     rsq r0.x, r0.x
     mul oT2.xyz, r0.x, r2  // ::VSSkinnedPixelLightingTwoBones<6,7,8>
 
-#line 11 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
+#line 11 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
     dp4 r0.x, r1, c14
     max r0.x, r0.x, c243.y
     min oT1.w, r0.x, c243.z  // ::VSSkinnedPixelLightingTwoBones<5>
 
-#line 82 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 82 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     dp4 r0.x, r1, c22  // ::vout<0>
     dp4 r0.y, r1, c23  // ::vout<1>
     dp4 r0.z, r1, c25  // ::vout<3>
 
-#line 268 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\SkinnedEffect.fx"
+#line 268 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\SkinnedEffect.fx"
     mad oPos.xy, r0.z, c242, r0  // ::VSSkinnedPixelLightingTwoBones<13,14>
     mov oPos.w, r0.z  // ::VSSkinnedPixelLightingTwoBones<16>
 
@@ -156,10 +156,10 @@ ret
 
 const BYTE SkinnedEffect_VSSkinnedPixelLightingTwoBones[] =
 {
-     68,  88,  66,  67, 243, 253, 
-     37,  32, 177, 226,  46,  14, 
-     93, 244,  28, 178, 189,  63, 
-     53,   3,   1,   0,   0,   0, 
+     68,  88,  66,  67,  67, 113, 
+    118,  31, 219, 115, 236, 229, 
+     76,  31,  50, 149, 103,  18, 
+    166, 211,   1,   0,   0,   0, 
      28,  16,   0,   0,   4,   0, 
       0,   0,  48,   0,   0,   0, 
      40,  10,   0,   0, 184,  14, 
@@ -184,7 +184,7 @@ const BYTE SkinnedEffect_VSSkinnedPixelLightingTwoBones[] =
       0,   0, 100,   6,   0,   0, 
     140,   3,   0,   0,  67,  58, 
      92,  85, 115, 101, 114, 115, 
-     92,  76,  67,  86,  48,  50, 
+     92, 108,  99, 118,  48,  50, 
      55,  56,  49,  56,  55,  92, 
      68, 111,  99, 117, 109, 101, 
     110, 116, 115,  92,  71, 105, 
@@ -203,7 +203,7 @@ const BYTE SkinnedEffect_VSSkinnedPixelLightingTwoBones[] =
     110, 105, 110, 103,  46, 102, 
     120, 104,   0,  67,  58,  92, 
      85, 115, 101, 114, 115,  92, 
-     76,  67,  86,  48,  50,  55, 
+    108,  99, 118,  48,  50,  55, 
      56,  49,  56,  55,  92,  68, 
     111,  99, 117, 109, 101, 110, 
     116, 115,  92,  71, 105, 116, 
@@ -221,8 +221,8 @@ const BYTE SkinnedEffect_VSSkinnedPixelLightingTwoBones[] =
      92,  76, 105, 103, 104, 116, 
     105, 110, 103,  46, 102, 120, 
     104,   0,  67,  58,  92,  85, 
-    115, 101, 114, 115,  92,  76, 
-     67,  86,  48,  50,  55,  56, 
+    115, 101, 114, 115,  92, 108, 
+     99, 118,  48,  50,  55,  56, 
      49,  56,  55,  92,  68, 111, 
      99, 117, 109, 101, 110, 116, 
     115,  92,  71, 105, 116,  72, 
@@ -240,7 +240,7 @@ const BYTE SkinnedEffect_VSSkinnedPixelLightingTwoBones[] =
      67, 111, 109, 109, 111, 110, 
      46, 102, 120, 104,   0,  67, 
      58,  92,  85, 115, 101, 114, 
-    115,  92,  76,  67,  86,  48, 
+    115,  92, 108,  99, 118,  48, 
      50,  55,  56,  49,  56,  55, 
      92,  68, 111,  99, 117, 109, 
     101, 110, 116, 115,  92,  71, 

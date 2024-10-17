@@ -34,19 +34,19 @@
     dcl t1.xyz  // pin<4,5,6>
     dcl t2  // pin<7,8,9,10>
 
-#line 576 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\BasicEffect.fx"
+#line 576 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\BasicEffect.fx"
     add r0.xyz, -t0, c12
     dp3 r0.w, r0, r0
     rsq r0.w, r0.w
 
-#line 30 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 30 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     mad r1.xyz, r0, r0.w, -c3
     nrm r2.xyz, r1  // ::halfVectors<0,1,2>
 
-#line 577 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\BasicEffect.fx"
+#line 577 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\BasicEffect.fx"
     nrm r1.xyz, t1  // ::worldNormal<0,1,2>
 
-#line 34 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 34 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     dp3 r2.x, r2, r1  // ::dotH<0>
 
 #line 30
@@ -88,17 +88,17 @@
     mad r0.xyz, r0.z, c11, r2
     mul r0.xyz, r0, c2  // ::result<3,4,5>
 
-#line 23 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
+#line 23 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
     mul r0.xyz, r0, t2.w
 
-#line 43 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
+#line 43 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Lighting.fxh"
     mul r2.xyz, r1.y, c7
     mad r2.xyz, r1.x, c6, r2
     mad r1.xyz, r1.z, c8, r2
     mov r2.xyz, c0  // Parameters::DiffuseColor<0,1,2>
     mad r1.xyz, r1, r2, c1  // ::result<0,1,2>
 
-#line 23 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
+#line 23 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
     mad r0.xyz, t2, r1, r0  // AddSpecular::color<0,1,2>
 
 #line 17
@@ -167,10 +167,10 @@ ret
 
 const BYTE BasicEffect_PSBasicPixelLighting[] =
 {
-     68,  88,  66,  67, 246, 234, 
-     94, 117, 218, 218,  81, 196, 
-    205, 215,  57, 152, 215, 148, 
-     21, 184,   1,   0,   0,   0, 
+     68,  88,  66,  67, 237, 205, 
+    141, 218, 184, 222, 249,  19, 
+     85, 174, 168, 160, 152, 120, 
+    176, 163,   1,   0,   0,   0, 
     144,  16,   0,   0,   4,   0, 
       0,   0,  48,   0,   0,   0, 
     236,   9,   0,   0, 244,  15, 
@@ -194,7 +194,7 @@ const BYTE BasicEffect_PSBasicPixelLighting[] =
      13,   0,   0,   0,  96,   5, 
       0,   0,  52,   3,   0,   0, 
      67,  58,  92,  85, 115, 101, 
-    114, 115,  92,  76,  67,  86, 
+    114, 115,  92, 108,  99, 118, 
      48,  50,  55,  56,  49,  56, 
      55,  92,  68, 111,  99, 117, 
     109, 101, 110, 116, 115,  92, 
@@ -213,8 +213,8 @@ const BYTE BasicEffect_PSBasicPixelLighting[] =
     115, 105,  99,  69, 102, 102, 
     101,  99, 116,  46, 102, 120, 
       0,  67,  58,  92,  85, 115, 
-    101, 114, 115,  92,  76,  67, 
-     86,  48,  50,  55,  56,  49, 
+    101, 114, 115,  92, 108,  99, 
+    118,  48,  50,  55,  56,  49, 
      56,  55,  92,  68, 111,  99, 
     117, 109, 101, 110, 116, 115, 
      92,  71, 105, 116,  72, 117, 
@@ -232,7 +232,7 @@ const BYTE BasicEffect_PSBasicPixelLighting[] =
     105, 103, 104, 116, 105, 110, 
     103,  46, 102, 120, 104,   0, 
      67,  58,  92,  85, 115, 101, 
-    114, 115,  92,  76,  67,  86, 
+    114, 115,  92, 108,  99, 118, 
      48,  50,  55,  56,  49,  56, 
      55,  92,  68, 111,  99, 117, 
     109, 101, 110, 116, 115,  92, 

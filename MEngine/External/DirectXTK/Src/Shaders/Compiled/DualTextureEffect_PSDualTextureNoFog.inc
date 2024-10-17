@@ -36,7 +36,7 @@
     dcl_2d s0
     dcl_2d s1
 
-#line 108 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\DualTextureEffect.fx"
+#line 108 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\DualTextureEffect.fx"
     mov r0.xy, t1.wzyx
     texld r0, r0, s1  // ::overlay<0,1,2,3>
     texld r1, t1, s0  // ::color<0,1,2,3>
@@ -69,10 +69,10 @@ ret
 
 const BYTE DualTextureEffect_PSDualTextureNoFog[] =
 {
-     68,  88,  66,  67,  25, 228, 
-      4, 143,  26,  93, 131,  96, 
-     41,  80,   7, 239,  89,  34, 
-     63, 116,   1,   0,   0,   0, 
+     68,  88,  66,  67, 207, 121, 
+    125, 229, 156, 160,  34,  28, 
+     57, 199,   0, 128, 124,  70, 
+     20,  27,   1,   0,   0,   0, 
      84,   5,   0,   0,   4,   0, 
       0,   0,  48,   0,   0,   0, 
     140,   3,   0,   0, 184,   4, 
@@ -95,8 +95,8 @@ const BYTE DualTextureEffect_PSDualTextureNoFog[] =
       0,   0,   4,   0,   0,   0, 
     240,   1,   0,   0,   8,   1, 
       0,   0,  67,  58,  92,  85, 
-    115, 101, 114, 115,  92,  76, 
-     67,  86,  48,  50,  55,  56, 
+    115, 101, 114, 115,  92, 108, 
+     99, 118,  48,  50,  55,  56, 
      49,  56,  55,  92,  68, 111, 
      99, 117, 109, 101, 110, 116, 
     115,  92,  71, 105, 116,  72, 

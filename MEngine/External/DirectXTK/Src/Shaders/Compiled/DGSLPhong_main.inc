@@ -44,7 +44,7 @@
     dcl t2.xyz  // pixel<10,11,12>
     dcl t4.xyz  // pixel<16,17,18>
 
-#line 100 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\DGSLPhong.hlsl"
+#line 100 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\DGSLPhong.hlsl"
     mov r0.xyz, c1  // MaterialVars::MaterialSpecular<0,1,2>
     mul r1.xyz, r0, c4
     mul r2.xyz, r0, c5
@@ -179,10 +179,10 @@ ret
 
 const BYTE DGSLPhong_main[] =
 {
-     68,  88,  66,  67, 167,  96, 
-    143,  31,  19,  43,  41,  17, 
-     66,  36, 222,  38, 107,   9, 
-      6, 188,   1,   0,   0,   0, 
+     68,  88,  66,  67, 140,  87, 
+     30, 237, 232,   5, 137, 176, 
+     82,   9, 217,  26,  47, 123, 
+    131, 193,   1,   0,   0,   0, 
      48,  17,   0,   0,   4,   0, 
       0,   0,  48,   0,   0,   0, 
     220,   9,   0,   0,  16,  16, 
@@ -216,7 +216,7 @@ const BYTE DGSLPhong_main[] =
      14,   0,   0,   0,  36,   5, 
       0,   0,  76,   3,   0,   0, 
      67,  58,  92,  85, 115, 101, 
-    114, 115,  92,  76,  67,  86, 
+    114, 115,  92, 108,  99, 118, 
      48,  50,  55,  56,  49,  56, 
      55,  92,  68, 111,  99, 117, 
     109, 101, 110, 116, 115,  92, 

@@ -31,7 +31,7 @@
     dcl t0  // pin<0,1,2,3>
     dcl t1  // pin<4,5,6,7>
 
-#line 17 "C:\Users\LCV0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
+#line 17 "C:\Users\lcv0278187\Documents\GitHub\3D-Graphics-Programming\MEngine\External\DirectXTK\src\Shaders\Common.fxh"
     mad r0.xyz, c0, t0.w, -t0
     mov r1.xyz, t0  // pin<0,1,2>
     mad r0.xyz, t1.w, r0, r1  // ApplyFog::color<0,1,2>
@@ -54,10 +54,10 @@ ret
 
 const BYTE BasicEffect_PSBasic[] =
 {
-     68,  88,  66,  67,  37, 129, 
-    203, 163,  33,  76, 154,  79, 
-     83,  24,  25, 173,  68, 240, 
-      1,  96,   1,   0,   0,   0, 
+     68,  88,  66,  67, 174, 126, 
+     82,  77, 209,  89, 207, 139, 
+      3,  55, 149, 208, 228,  87, 
+    244,  99,   1,   0,   0,   0, 
     240,   3,   0,   0,   4,   0, 
       0,   0,  48,   0,   0,   0, 
     192,   2,   0,   0, 116,   3, 
@@ -81,7 +81,7 @@ const BYTE BasicEffect_PSBasic[] =
       3,   0,   0,   0, 128,   1, 
       0,   0, 212,   0,   0,   0, 
      67,  58,  92,  85, 115, 101, 
-    114, 115,  92,  76,  67,  86, 
+    114, 115,  92, 108,  99, 118, 
      48,  50,  55,  56,  49,  56, 
      55,  92,  68, 111,  99, 117, 
     109, 101, 110, 116, 115,  92, 

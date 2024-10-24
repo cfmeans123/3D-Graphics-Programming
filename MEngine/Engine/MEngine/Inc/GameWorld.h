@@ -14,7 +14,7 @@ namespace MEngine
 		void Render();
 		void DebugUI();
 
-		GameObject* CreateGameObject(std::string name);
+		GameObject* CreateGameObject(std::string name, const std::filesystem::path& templatePath = "");
 
 		template<class ServiceType>
 		ServiceType* AddService()

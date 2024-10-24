@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include "CameraComponent.h"
 
+#include "SaveUtil.h"
+
 using namespace MEngine;
 using namespace MEngine::Graphics;
 using namespace MEngine::Input;
@@ -56,5 +58,30 @@ void MEngine::FPSCameraComponent::Update(float deltaTime)
     {
         camera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
         camera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
+    }
+}
+
+void MEngine::FPSCameraComponent::Serialize(rapidjson::Document& doc, rapidjson::Value& value)
+{
+    rapidjson::Value componentValue(rapidjson::kObjectType);
+    SaveUtil::SaveFloat("MoveSpeed", mMoveSpeed, doc, componentValue);
+    SaveUtil::SaveFloat("ShiftSpeed", mShiftSpeed, doc, componentValue);
+    SaveUtil::SaveFloat("TurnSpeed", mTurnSpeed, doc, componentValue);
+    value.AddMember("FPSCameraComponent", componentValue, doc.GetAllocator());
+}
+
+void MEngine::FPSCameraComponent::Deserialize(const rapidjson::Value& value)
+{
+    if (value.HasMember("MoveSpeed"))
+    {
+        mMoveSpeed = value["MoveSpeed"].GetFloat();
+    }
+    if (value.HasMember("ShiftSpeed"))
+    {
+        mMoveSpeed = value["ShiftSpeed"].GetFloat();
+    }
+    if (value.HasMember("TurnSpeed"))
+    {
+        mMoveSpeed = value["TurnSpeed"].GetFloat();
     }
 }

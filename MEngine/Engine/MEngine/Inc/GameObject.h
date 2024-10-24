@@ -82,6 +82,7 @@ namespace MEngine
 		}
 
 	private:
+		void Save();
 		std::string mName = "EMPTY";
 		bool mInitialized = false;
 		uint32_t mUniqueId = 0;
@@ -90,6 +91,7 @@ namespace MEngine
 		Components mComponents;
 
 		friend class GameWorld;
+		std::filesystem::path mTemplateFilePath = "";
 		GameWorld* mWorld = nullptr;
 	};
 }

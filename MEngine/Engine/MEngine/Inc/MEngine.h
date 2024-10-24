@@ -8,6 +8,8 @@
 #include "Event.h"
 #include "EventManager.h"
 
+#include "SaveUtil.h"
+
 // Game World
 #include "GameWorld.h"
 

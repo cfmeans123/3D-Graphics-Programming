@@ -27,6 +27,8 @@ namespace MEngine
 		GameObject& GetOwner() { return *mOwner; }
 		const GameObject& GetOwner() const { return *mOwner; }
 		
+		virtual void Serialize(rapidjson::Document& doc, rapidjson::Value& value) {}
+		virtual void Deserialize(const rapidjson::Value& value) {}
 		// serialize
 		// deserialize
 

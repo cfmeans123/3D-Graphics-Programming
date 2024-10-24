@@ -10,5 +10,7 @@ namespace MEngine
 		SET_TYPE_ID(ComponentId::Transform);
 
 		void DebugUI() override;
+		void Serialize(rapidjson::Document& doc, rapidjson::Value& value) override;
+		void Deserialize(const rapidjson::Value& value) override;
 	};
 }

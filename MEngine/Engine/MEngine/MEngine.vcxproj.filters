@@ -75,6 +75,15 @@
     <ClInclude Include="Inc\SaveUtil.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\RenderObjectComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\RenderService.h">
+      <Filter>Inc\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\MeshComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -112,6 +121,15 @@
     </ClCompile>
     <ClCompile Include="Src\SaveUtil.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderObjectComponent.cpp">
+      <Filter>Src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RenderService.cpp">
+      <Filter>Src\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MeshComponent.cpp">
+      <Filter>Src\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

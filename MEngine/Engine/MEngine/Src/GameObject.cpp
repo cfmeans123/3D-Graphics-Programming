@@ -95,6 +95,7 @@ void GameObject::Save()
 	char writeBuffer[65536];
 	rapidjson::FileWriteStream writeStream(file, writeBuffer, sizeof(writeBuffer));
 	rapidjson::PrettyWriter<rapidjson::FileWriteStream> writer(writeStream);
+	writer.SetFormatOptions(rapidjson::PrettyFormatOptions::kFormatSingleLineArray);
 	doc.Accept(writer);
 	fclose(file);
 }

@@ -5,6 +5,7 @@
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
 #include "TransformComponent.h"
+#include "MeshComponent.h"
 
 
 using namespace MEngine;
@@ -25,6 +26,10 @@ namespace
 		else if (componentName == "FPSCameraComponent")
 		{
 			newComponent = gameObject.AddComponent<FPSCameraComponent>();
+		}
+		else if (componentName == "MeshComponent")
+		{
+			newComponent = gameObject.AddComponent<MeshComponent>();
 		}
 		else
 		{

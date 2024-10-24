@@ -16,6 +16,7 @@
 // Services
 #include "Service.h"
 #include "CameraService.h"
+#include "RenderService.h"
 
 // Game Object
 #include "GameObject.h"
@@ -26,6 +27,8 @@
 #include "TransformComponent.h"
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
+#include "MeshComponent.h"
+#include "RenderObjectComponent.h"
 
 namespace MEngine
 {

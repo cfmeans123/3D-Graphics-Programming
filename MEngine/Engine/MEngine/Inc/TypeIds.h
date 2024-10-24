@@ -7,7 +7,8 @@ namespace MEngine
 		Invalid,	//Default value
 		Transform,	//trnasform component for location data
 		Camera,		// contains a Camera for viewing
-		FPSCamera,	// moves Camera with FPS controls
+		FPSCamera,  // moves Camera with FPS controls
+		Mesh,		// create a mesh render component
 		Count
 	};
 
@@ -15,7 +16,8 @@ namespace MEngine
 	{
 		Invalid,
 		Camera,
-		Count
+		Count,
+		Render
 	};
 }
 

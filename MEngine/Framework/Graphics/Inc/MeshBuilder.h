@@ -12,11 +12,13 @@ namespace MEngine::Graphics
 
 		//Cube
 		static MeshPC CreateCubePC(float size);
+		static Mesh CreateCube(float size);
 
 		//Rectangle
 		static MeshPC CreateRectPC(float width, float height, float depth);
 
 		//Vertical Plane
+		static Mesh CreateVerticalPlane(uint32_t numRows, uint32_t numCols, float spacing);
 		static MeshPC CreateVerticalPlanePC(uint32_t numRows, uint32_t numCols, float spacing);
 		static MeshPX CreateVerticalPlanePX(uint32_t numRows, uint32_t numCols, float spacing);
 

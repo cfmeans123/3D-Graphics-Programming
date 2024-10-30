@@ -23,41 +23,86 @@ void MeshComponent::Deserialize(const rapidjson::Value& value)
 				float radius = shapeData["Radius"].GetFloat();
 				meshData.mesh = MeshBuilder::CreateSphere(slices, rings, radius);
 			}
-			if (shapeType == "Plane")
+			else if (shapeType == "Plane")
 			{
 				std::string direction = shapeData["Direction"].GetString();
 				uint32_t rows = static_cast<uint32_t>(shapeData["Rows"].GetInt());
 				uint32_t columns = static_cast<uint32_t>(shapeData["Columns"].GetInt());
 				float spacing = shapeData["Spacing"].GetFloat();
-				/*if (direction == "Vertical")
+				if (direction == "Vertical")
 				{
-					meshData.mesh = MeshBuilder::CreateVerticalPlanePC(rows, columns, spacing);
+					meshData.mesh = MeshBuilder::CreateVerticalPlane(rows, columns, spacing);
 				}
-				//setup create function for basic mesh vertical plane
-				else*/
-				meshData.mesh = MeshBuilder::CreateHorizontalPlane(rows, columns, spacing);
+				else
+				{
+					meshData.mesh = MeshBuilder::CreateHorizontalPlane(rows, columns, spacing);
+				}
 			}
-			if (shapeType == "Cube")
+			else if (shapeType == "Cube")
 			{
 				float size = shapeData["Size"].GetFloat();
-				//setup create cube function for basic mesh
-				//meshData.mesh = MeshBuilder::;
+				meshData.mesh = MeshBuilder::CreateCube(size);
 			}
-			if (shapeType == "ScreenQuad")
+			else if (shapeType == "ScreenQuad")
 			{
-
+				float width = shapeData["Width"].GetFloat();
+				float height = shapeData["Height"].GetFloat();
+				meshData.mesh = MeshBuilder::CreateSpriteQuad(width, height);
 			}
 			else
 			{
 				ASSERT(false, "MeshComponent: unrecognized shape type %s", shapeType.c_str());
 			}
 		}
+		else
+		{
+			ASSERT(false, "MeshComponent: must specify a shape type");
+		}
 	}
 	else
 	{
 		ASSERT(false, "MeshComponent: must have shape data");
 	}
-
+	if (value.HasMember("Material"))
+	{
+		const auto& materialData = value["Material"].GetObj();
+		if (materialData.HasMember("Ambient"))
+		{
+			const auto& color = materialData["Ambient"].GetArray();
+			matData.material.ambient.r = color[0].GetFloat();
+			matData.material.ambient.g = color[1].GetFloat();
+			matData.material.ambient.b = color[2].GetFloat();
+			matData.material.ambient.a = color[3].GetFloat();
+		}
+		if (materialData.HasMember("Diffuse"))
+		{
+			const auto& color = materialData["Diffuse"].GetArray();
+			matData.material.diffuse.r = color[0].GetFloat();
+			matData.material.diffuse.g = color[1].GetFloat();
+			matData.material.diffuse.b = color[2].GetFloat();
+			matData.material.diffuse.a = color[3].GetFloat();
+		}
+		if (materialData.HasMember("Specular"))
+		{
+			const auto& color = materialData["Specular"].GetArray();
+			matData.material.specular.r = color[0].GetFloat();
+			matData.material.specular.g = color[1].GetFloat();
+			matData.material.specular.b = color[2].GetFloat();
+			matData.material.specular.a = color[3].GetFloat();
+		}
+		if (materialData.HasMember("Emissive"))
+		{
+			const auto& color = materialData["Emissive"].GetArray();
+			matData.material.emissive.r = color[0].GetFloat();
+			matData.material.emissive.g = color[1].GetFloat();
+			matData.material.emissive.b = color[2].GetFloat();
+			matData.material.emissive.a = color[3].GetFloat();
+		}
+		if (materialData.HasMember("SpecularPower"))
+		{
+			matData.material.power = materialData["SpecularPower"].GetFloat();
+		}
+	}
 	if (value.HasMember("Textures"))
 	{
 		const auto& textureData = value["Textures"].GetObj();

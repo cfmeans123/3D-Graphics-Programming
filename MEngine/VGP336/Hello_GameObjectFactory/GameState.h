@@ -11,12 +11,6 @@ public:
 	void Render() override;
 	void DebugUI() override;
 
-private:
-	void UpdateCameraControl(float deltaTime);
-
+protected:
 	MEngine::GameWorld mGameWorld;
-	float mPitch = 0.0f;
-	float mYaw = 0.0f;
-	float mRoll = 0.0f;
-
 };

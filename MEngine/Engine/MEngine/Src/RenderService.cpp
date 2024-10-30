@@ -35,7 +35,7 @@ void RenderService::Terminate()
 
 void RenderService::Update(float deltaTime)
 {
-	mFPS = 1 / deltaTime;
+	mFPS = 1.0f / deltaTime;
 }
 
 void RenderService::Render()

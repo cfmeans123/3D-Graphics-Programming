@@ -20,8 +20,8 @@
         }
       }
     },
-    "Object1": {
-      "Template": "../../Assets/Templates/test_object.json",
+    "TestModel": {
+      "Template": "../../Assets/Templates/test_model.json",
       "Components": {
         "TransformComponent": {
           "Position": [ -2.0, 0.0, 0.0 ]

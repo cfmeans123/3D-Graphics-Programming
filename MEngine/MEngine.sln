@@ -127,6 +127,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{231A3337-16AC-4B17-8907-CEFBE3AA9ADB}"
 	ProjectSection(SolutionItems) = preProject
 		Assets\Templates\fps_camera.json = Assets\Templates\fps_camera.json
+		Assets\Templates\test_model.json = Assets\Templates\test_model.json
 		Assets\Templates\test_object.json = Assets\Templates\test_object.json
 	EndProjectSection
 EndProject

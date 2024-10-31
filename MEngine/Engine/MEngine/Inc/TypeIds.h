@@ -8,7 +8,9 @@ namespace MEngine
 		Transform,	//trnasform component for location data
 		Camera,		// contains a Camera for viewing
 		FPSCamera,  // moves Camera with FPS controls
-		Mesh,		// create a mesh render component
+		Mesh,		// create a mesh render object
+		Model,		// create a model render object
+		Animator,	// manages and contorls animations
 		Count
 	};
 

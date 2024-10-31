@@ -4,6 +4,8 @@
 #include "CameraService.h"
 #include "RenderObjectComponent.h"
 #include "TransformComponent.h"
+#include "AnimatorComponent.h"
+
 #include "GameWorld.h"
 
 using namespace MEngine;
@@ -95,10 +97,18 @@ void RenderService::Register(const RenderObjectComponent* renderObjectComponent)
 	
 	entry.renderComponent = renderObjectComponent;
 	entry.transformComponent = renderObjectComponent->GetOwner().GetComponent<TransformComponent>();
+	
+	const AnimatorComponent* animatorComponent = renderObjectComponent->GetOwner().GetComponent<AnimatorComponent>();
+	const Animator* animator = nullptr;
+
+	if (animatorComponent != nullptr)
+	{
+		animator = &animatorComponent->GetAnimator();
+	}
 
 	if (renderObjectComponent->GetModelId() > 0)
 	{
-		entry.renderGroup = CreateRenderGroup(renderObjectComponent->GetModelId());
+		entry.renderGroup = CreateRenderGroup(renderObjectComponent->GetModelId(), animator);
 	}
 	else
 	{

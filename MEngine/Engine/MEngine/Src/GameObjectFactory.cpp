@@ -6,6 +6,8 @@
 #include "FPSCameraComponent.h"
 #include "TransformComponent.h"
 #include "MeshComponent.h"
+#include "ModelComponent.h"
+#include "AnimatorComponent.h"
 
 
 using namespace MEngine;
@@ -30,6 +32,14 @@ namespace
 		else if (componentName == "MeshComponent")
 		{
 			newComponent = gameObject.AddComponent<MeshComponent>();
+		}
+		else if (componentName == "ModelComponent")
+		{
+			newComponent = gameObject.AddComponent<ModelComponent>();
+		}
+		else if (componentName == "AnimatorComponent")
+		{
+			newComponent = gameObject.AddComponent<AnimatorComponent>();
 		}
 		else
 		{
@@ -58,6 +68,14 @@ Component* GetComponent(const std::string& componentName, GameObject& gameObject
 	else if (componentName == "MeshComponent")
 	{
 		newComponent = gameObject.GetComponent<MeshComponent>();
+	}
+	else if (componentName == "ModelComponent")
+	{
+		newComponent = gameObject.GetComponent<ModelComponent>();
+	}
+	else if (componentName == "AnimatorComponent")
+	{
+		newComponent = gameObject.GetComponent<AnimatorComponent>();
 	}
 	else
 	{

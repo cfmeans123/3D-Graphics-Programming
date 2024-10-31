@@ -16,8 +16,8 @@ namespace MEngine
 	{
 		Invalid,
 		Camera,
-		Count,
-		Render
+		Render,
+		Count
 	};
 }
 

@@ -37,8 +37,8 @@ namespace MEngine
 				{
 					return static_cast<ServiceType*>(service.get());
 				}
-				return nullptr;
 			}
+			return nullptr;
 		}
 
 		template<class ServiceType>

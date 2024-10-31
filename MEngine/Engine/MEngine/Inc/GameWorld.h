@@ -8,13 +8,17 @@ namespace MEngine
 	class GameWorld final
 	{
 	public:
-		void Initialize();
+		void Initialize(uint32_t capacity = 10);
 		void Terminate();
 		void Update(float deltaTime);
 		void Render();
 		void DebugUI();
 
-		GameObject* CreateGameObject(std::string name, const std::filesystem::path& templatePath = "");
+		void LoadLevel(const std::filesystem::path& levelFile);
+		void SaveLevel(std::filesystem::path saveFile = "");
+
+		GameObject* CreateGameObject(std::string name, const std::filesystem::path& templatePath = "", bool initialize = false);
+		void DestroyGameObject(const GameObjectHandle& handle);
 
 		template<class ServiceType>
 		ServiceType* AddService()
@@ -49,12 +53,24 @@ namespace MEngine
 		}
 
 	private:
-		using GameObjects = std::vector<std::unique_ptr<GameObject>>;
-		GameObjects mGameObjects;
+		bool IsValid(const GameObjectHandle& handle);
+		void ProcessDestroyList();
+
+		struct Slot
+		{
+			std::unique_ptr<GameObject> gameObject;
+			uint32_t generation = 0;
+		};
+
+		using GameObjectSlots = std::vector<Slot>;
+		GameObjectSlots mGameObjectSlots;
+		std::vector<uint32_t> mFreeSlots;
+		std::vector<uint32_t> mToBeDestroyed;
 
 		using Services = std::vector<std::unique_ptr<Service>>;
 		Services mServices;
 
+		std::filesystem::path mlevelFileName;
 		bool mInitialized = false;
 	};
 }

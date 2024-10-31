@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "GameObjectHandle.h"
 
 namespace MEngine
 {
@@ -22,6 +23,7 @@ namespace MEngine
 
 		GameWorld& GetWorld() { return *mWorld; }
 		const GameWorld& GetWorld() const { return *mWorld; }
+		const GameObjectHandle& GetHandle() const { return mHandle; }
 
 		template<class ComponentType>
 		ComponentType* AddComponent()
@@ -91,7 +93,8 @@ namespace MEngine
 		Components mComponents;
 
 		friend class GameWorld;
-		std::filesystem::path mTemplateFilePath = "";
+		std::string mTemplateFilePath = "";
+		GameObjectHandle mHandle;
 		GameWorld* mWorld = nullptr;
 	};
 }

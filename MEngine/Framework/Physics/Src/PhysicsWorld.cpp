@@ -141,3 +141,8 @@ void PhysicsWorld::Unregister(PhysicsObject* physicsObject)
 		mPhysicsObjects.erase(iter);
 	}
 }
+
+void MEngine::Physics::PhysicsWorld::UpdateSettings(Settings settings)
+{
+	mSettings = settings;
+}

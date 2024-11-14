@@ -1,10 +1,30 @@
 #include "GameState.h"
 
+#include "CustomDebugDrawService.h"
+#include "CustomDebugDrawComponent.h"
+
 using namespace MEngine;
 using namespace MEngine::Graphics;
 using namespace MEngine::Input;
 using namespace MEngine::Audio;
 
+Component* CustomComponentMake(const std::string& componentName, GameObject& gameObject)
+{
+    if (componentName == "CustomDebugDrawComponent")
+    {
+        return gameObject.AddComponent<CustomDebugDrawComponent>();
+    }
+    return nullptr;
+}
+
+Component* CustomComponentGet(const std::string& componentName, GameObject& gameObject)
+{
+    if (componentName == "CustomDebugDrawComponent")
+    {
+        return gameObject.GetComponent<CustomDebugDrawComponent>();
+    }
+    return nullptr;
+}
 
 void GameState::Initialize()
 {

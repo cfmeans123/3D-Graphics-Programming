@@ -157,6 +157,7 @@
     <ClInclude Include="Inc\MEngine.h" />
     <ClInclude Include="Inc\MeshComponent.h" />
     <ClInclude Include="Inc\ModelComponent.h" />
+    <ClInclude Include="Inc\PhysicsService.h" />
     <ClInclude Include="Inc\RenderObjectComponent.h" />
     <ClInclude Include="Inc\RenderService.h" />
     <ClInclude Include="Inc\SaveUtil.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Src\MEngine.cpp" />
     <ClCompile Include="Src\MeshComponent.cpp" />
     <ClCompile Include="Src\ModelComponent.cpp" />
+    <ClCompile Include="Src\PhysicsService.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>

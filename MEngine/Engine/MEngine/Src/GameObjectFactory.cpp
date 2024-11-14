@@ -8,12 +8,17 @@
 #include "MeshComponent.h"
 #include "ModelComponent.h"
 #include "AnimatorComponent.h"
-
+#include "RigidBodyComponent.h"
+#include "SoundEffectComponent.h"
+#include "SoundBankComponent.h"
 
 using namespace MEngine;
 
 namespace
 {
+	CustomMake TryMake;
+	CustomGet TryGet;
+
 	Component* AddComponent(const std::string& componentName, GameObject& gameObject)
 	{
 		Component* newComponent = nullptr;
@@ -41,15 +46,27 @@ namespace
 		{
 			newComponent = gameObject.AddComponent<AnimatorComponent>();
 		}
+		else if (componentName == "RigidBodyComponent")
+		{
+			newComponent = gameObject.AddComponent<RigidBodyComponent>();
+		}
+		else if (componentName == "SoundEffectComponent")
+		{
+			newComponent = gameObject.AddComponent<SoundEffectComponent>();
+		}
+		else if (componentName == "SoundBankComponent")
+		{
+			newComponent = gameObject.AddComponent<SoundBankComponent>();
+		}
 		else
 		{
+			newComponent = TryMake(componentName, gameObject);
 			ASSERT(false, "GameObjectFactory: unrecognized component %s", componentName.c_str());
 		}
 
 		return newComponent;
 	}
 }
-
 Component* GetComponent(const std::string& componentName, GameObject& gameObject)
 {
 	Component* newComponent = nullptr;
@@ -77,8 +94,21 @@ Component* GetComponent(const std::string& componentName, GameObject& gameObject
 	{
 		newComponent = gameObject.GetComponent<AnimatorComponent>();
 	}
+	else if (componentName == "RigidBodyComponent")
+	{
+		newComponent = gameObject.GetComponent<RigidBodyComponent>();
+	}
+	else if (componentName == "SoundEffectComponent")
+	{
+		newComponent = gameObject.GetComponent<SoundEffectComponent>();
+	}
+	else if (componentName == "SoundBankComponent")
+	{
+		newComponent = gameObject.GetComponent<SoundBankComponent>();
+	}
 	else
 	{
+		newComponent = TryGet(componentName, gameObject);
 		ASSERT(false, "GameObjectFactory: unrecognized component %s", componentName.c_str());
 	}
 
@@ -107,7 +137,6 @@ void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObje
 		}
 	}
 }
-
 void GameObjectFactory::OverrideDeserialize(const rapidjson::Value& value, GameObject& gameObject)
 {
 	if (value.HasMember("Components"))

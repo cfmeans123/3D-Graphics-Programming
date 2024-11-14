@@ -29,6 +29,9 @@ namespace MEngine::Physics
 		void Update(float deltaTime);
 		void DebugUI();
 
+		const Settings& GetSettings() const { return mSettings; }
+		void UpdateSettings(const Settings& settings);
+
 		void Register(PhysicsObject* physicsObject);
 		void Unregister(PhysicsObject* physicsObject);
 

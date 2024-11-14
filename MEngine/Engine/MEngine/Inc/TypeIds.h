@@ -11,6 +11,9 @@ namespace MEngine
 		Mesh,		// create a mesh render object
 		Model,		// create a model render object
 		Animator,	// manages and contorls animations
+		RigidBody,
+		SoundBank,
+		SoundEffect,
 		Count
 	};
 
@@ -19,6 +22,7 @@ namespace MEngine
 		Invalid,
 		Camera,
 		Render,
+		Physics,
 		Count
 	};
 }

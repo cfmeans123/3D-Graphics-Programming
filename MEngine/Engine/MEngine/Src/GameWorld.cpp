@@ -5,8 +5,19 @@
 
 #include "CameraService.h"
 #include "RenderService.h"
+#include "PhysicsService.h"
 
 using namespace MEngine;
+
+namespace
+{
+	CustomService TryService;
+}
+
+void MEngine::GameWorld::SetCustomService(CustomService customService)
+{
+	TryService = customService;
+}
 
 void GameWorld::Initialize(uint32_t capacity)
 {
@@ -34,7 +45,6 @@ void GameWorld::Terminate()
 		}
 	}
 
-
 	for (auto& service : mServices)
 	{
 		service->Terminate();
@@ -56,6 +66,7 @@ void GameWorld::Update(float deltaTime)
 	{
 		service->Update(deltaTime);
 	}
+
 	ProcessDestroyList();
 }
 
@@ -76,6 +87,7 @@ void GameWorld::DebugUI()
 			slot.gameObject->DebugUI();
 		}
 	}
+
 	for (auto& service : mServices)
 	{
 		service->DebugUI();
@@ -114,12 +126,18 @@ void GameWorld::LoadLevel(const std::filesystem::path& levelFile)
 		{
 			newService = AddService<RenderService>();
 		}
+		else if (serviceName == "PhysicsService")
+		{
+			newService = AddService<PhysicsService>();
+		}
 		else
 		{
+			newService = TryService(serviceName, *this);
 			ASSERT(false, "GameWorld: invalid service name %s", serviceName.c_str());
 		}
 		newService->Deserialize(service.value);
 	}
+
 	uint32_t capacity = static_cast<uint32_t>(doc["Capacity"].GetInt());
 	Initialize(capacity);
 
@@ -174,7 +192,6 @@ void GameWorld::SaveLevel(std::filesystem::path saveFile)
 		}
 	}
 	doc.AddMember("GameObjects", gameObjects, doc.GetAllocator());
-
 	// parented objects
 	FILE* file = nullptr;
 	auto err = fopen_s(&file, saveFile.u8string().c_str(), "w");

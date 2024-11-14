@@ -11,10 +11,27 @@
           "../../Assets/Models/DrakeEnemy/Animations/bencao.animset",
           "../../Assets/Models/DrakeEnemy/Animations/Chapa_2.animset",
           "../../Assets/Models/DrakeEnemy/Animations/FlyingKick.animset"
-        ]
+        ],
+        "CastShadow": false
       },
       "AnimatorComponent": {
 
+      },
+      "SoundBankComponent": {
+        "SoundEffects": {
+          "Shoot" {
+            "FileName": "../../Assets/Sounds/photongun1.wav",
+            "Looping": false
+          },
+          "MMShot": {
+            "FileName": "../../Assets/Sounds/photongun1.wav",
+            "Looping": false
+          },
+          "Spark": {
+            "FileName": "../../Assets/Sounds/photongun1.wav",
+            "Looping": true
+          }
+        }
       }
     }
 }

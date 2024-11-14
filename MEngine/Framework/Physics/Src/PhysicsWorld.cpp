@@ -142,7 +142,7 @@ void PhysicsWorld::Unregister(PhysicsObject* physicsObject)
 	}
 }
 
-void MEngine::Physics::PhysicsWorld::UpdateSettings(Settings settings)
+void MEngine::Physics::PhysicsWorld::UpdateSettings(const Settings& settings)
 {
 	mSettings = settings;
 }

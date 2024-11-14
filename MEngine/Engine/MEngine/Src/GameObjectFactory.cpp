@@ -115,6 +115,16 @@ Component* GetComponent(const std::string& componentName, GameObject& gameObject
 	return newComponent;
 }
 
+void MEngine::GameObjectFactory::SetCustomMake(CustomMake customMake)
+{
+	TryMake = customMake;
+}
+
+void MEngine::GameObjectFactory::SetCustomGet(CustomMake customGet)
+{
+	TryGet = customGet;
+}
+
 void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObject& gameObject)
 {
 	FILE* file = nullptr;

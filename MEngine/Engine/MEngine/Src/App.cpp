@@ -74,7 +74,9 @@ void App::Run(const AppConfig& config)
         auto deltaTime = TimeUtil::GetDeltaTime();
         if (deltaTime < 0.5f)
         {
-            PhysicsWorld::Get()->Update(deltaTime);
+#ifndef  USE_PHYSICS_SERVICE
+            PhysicsWorld::Get()->Update(deltaTime);            
+#endif // ! USE_PHYSICS_SERVICE
             mCurrentState->Update(deltaTime);
         }
         GraphicsSystem* gs = GraphicsSystem::Get();

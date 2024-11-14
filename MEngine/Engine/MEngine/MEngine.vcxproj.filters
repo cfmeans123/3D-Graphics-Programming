@@ -93,6 +93,18 @@
     <ClInclude Include="Inc\AnimatorComponent.h">
       <Filter>Inc\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\PhysicsService.h">
+      <Filter>Inc\Service</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\RigidBodyComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SoundBankComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\SoundEffectComponent.h">
+      <Filter>Inc\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -144,6 +156,18 @@
       <Filter>Src\Component</Filter>
     </ClCompile>
     <ClCompile Include="Src\AnimatorComponent.cpp">
+      <Filter>Src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PhysicsService.cpp">
+      <Filter>Src\Service</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RigidBodyComponent.cpp">
+      <Filter>Src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SoundBankComponent.cpp">
+      <Filter>Src\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SoundEffectComponent.cpp">
       <Filter>Src\Component</Filter>
     </ClCompile>
   </ItemGroup>

@@ -26,8 +26,20 @@ Component* CustomComponentGet(const std::string& componentName, GameObject& game
     return nullptr;
 }
 
+Service* CustomServiceMake(const std::string& serviceName, GameWorld& gameWorld)
+{
+    if (serviceName == "CustomDebugDrawService")
+    {
+        return gameWorld.AddService<CustomDebugDrawService>();
+    }
+    return nullptr;
+}
+
 void GameState::Initialize()
 {
+    GameObjectFactory::SetCustomMake(CustomComponentMake);
+    GameObjectFactory::SetCustomGet(CustomComponentGet);
+    GameWorld::SetCustomService(CustomServiceMake);
     mGameWorld.LoadLevel(L"../../Assets/Templates/Levels/test_level.json");
 }
 void GameState::Terminate()

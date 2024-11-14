@@ -28,6 +28,6 @@ void CustomDebugDrawService::Unregister(CustomDebugDrawComponent* debugDrawCompo
     auto iter = std::find(mCustomDebugDrawComponents.begin(), mCustomDebugDrawComponents.end(), debugDrawComponent);
     if (iter != mCustomDebugDrawComponents.end())
     {
-        mCustomDebugDrawComponents.erase(debugDrawComponent);
+        mCustomDebugDrawComponents.erase(iter);
     }
 }

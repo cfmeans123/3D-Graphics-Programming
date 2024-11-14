@@ -7,14 +7,14 @@ using namespace MEngine::Math;
 
 void CustomDebugDrawComponent::Initialize()
 {
-    mTransformComponent = GetOwner().GetComponent<mTransformComponent>();
-    CustomDebugDrawService* drawService = GetOwner().GetWorld().GetService<>(CustomDebugDrawService);
+    mTransformComponent = GetOwner().GetComponent<TransformComponent>();
+    CustomDebugDrawService* drawService = GetOwner().GetWorld().GetService<CustomDebugDrawService>();
     drawService->Register(this);
 }
 
 void CustomDebugDrawComponent::Terminate()
 {
-    CustomDebugDrawService* drawService = GetOwner().GetWorld().GetService<>(CustomDebugDrawService);
+    CustomDebugDrawService* drawService = GetOwner().GetWorld().GetService<CustomDebugDrawService>();
     drawService->Unregister(this);
 }
 
@@ -26,11 +26,11 @@ void CustomDebugDrawComponent::Deserialize(const rapidjson::Value& value)
 {
     if (value.HasMember("Slices"))
     {
-        mSlices = static_cast<uint32_t>(value.HasMember["Slices"].GetInt());
+        mSlices = static_cast<uint32_t>(value["Slices"].GetInt());
     }
     if (value.HasMember("Rings"))
     {
-        mRings = static_cast<uint32_t>(value.HasMember["Rings"].GetInt());
+        mRings = static_cast<uint32_t>(value["Rings"].GetInt());
     }
     if (value.HasMember("Position"))
     {
@@ -42,10 +42,10 @@ void CustomDebugDrawComponent::Deserialize(const rapidjson::Value& value)
     if (value.HasMember("Color"))
     {
         auto color = value["Color"].GetArray();
-        mPosition.r = color[0].GetFloat();
-        mPosition.g = color[1].GetFloat();
-        mPosition.b = color[2].GetFloat();
-        mPosition.a = color[3].GetFloat();
+        mColor.r = color[0].GetFloat();
+        mColor.g = color[1].GetFloat();
+        mColor.b = color[2].GetFloat();
+        mColor.a = color[3].GetFloat();
     }
 }
 

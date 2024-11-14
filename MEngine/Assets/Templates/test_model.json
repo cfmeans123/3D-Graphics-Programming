@@ -19,7 +19,7 @@
       },
       "SoundBankComponent": {
         "SoundEffects": {
-          "Shoot" {
+          "Shoot": {
             "FileName": "../../Assets/Sounds/photongun1.wav",
             "Looping": false
           },

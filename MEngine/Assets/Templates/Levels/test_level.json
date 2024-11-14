@@ -22,10 +22,10 @@
       "Components": {
         "CameraComponent": {
           "Position": [ 0.0, 2.0, -5.0 ],
-          "LookAt": [0.0, 1.0, 0.0]
+          "LookAt": [ 0.0, 1.0, 0.0 ]
         }
       }
-    },
+    },    
     "Object0": {
       "Template": "../../Assets/Templates/test_object.json",
       "Components": {

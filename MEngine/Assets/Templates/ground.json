@@ -1,0 +1,40 @@
+{
+    "Components": {
+      "TransformComponent": {
+        "Position": [ 1.2999999523162842, 5.099999904632568, 0.0 ],
+        "Rotation": [ 0.11999999731779099, 0.05299999937415123, 0.0, 1.0 ],
+        "Scale": [ 1.0, 1.0, 1.0 ]
+      },
+      "MeshComponent": {
+        "CastShadow": false,
+        "Shape": {
+          "Type": "Plane",
+          "Direction": "Horizontal",
+          "Columns": 20,
+          "Spacing": 1.0
+        },
+        "Material": {
+          "Ambient": [ 0.5, 0.5, 0.5, 1.0 ],
+          "Diffuse": [ 0.8, 0.8, 0.8, 1.0 ],
+          "Specular": [ 0.5, 0.5, 0.5, 1.0 ],
+          "Emissive": [ 0.0, 0.0, 0.0, 1.0 ],
+          "SpecularPower": 10.0
+        },
+        "Textures": {
+          "DiffuseMap": "../../Assets/Images/misc/concrete.jpg",          
+        }
+      },
+      "RigidBodyComponent": {
+        "Mass": 0.0,
+        "ColliderData": {
+          "Shape": "Hull",
+          "HalfExtents": [10.0, 0.1, 10.0],
+          "Origin": [ 0.0, -0.1, 0.0 ]
+        }
+      },
+      "SoundEffectComponent": {
+        "FileName": "../../Assets/Sounds/explosion.wav",
+        "Looping": false
+      }
+    }
+}

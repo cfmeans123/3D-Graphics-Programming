@@ -138,6 +138,9 @@
     <ClInclude Include="Inc\BlendTreeAnimator.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\UIFont.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Camera.cpp">
@@ -228,6 +231,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\BlendTreeAnimator.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UIFont.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

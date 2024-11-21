@@ -41,10 +41,15 @@
         "Color": [ 1.0, 0.0, 0.0, 1.0 ]
       },
       "UITextComponent": {
-        "Text": "Hello World",
+        "Text": "Hello there",
         "Size": 30.0,
-        "Position": [ 250.0, 250.0 ],
+        "Position": [ 0.0, 1.0, 0.0 ],
         "Color": [1.0, 1.0, 1.0, 1.0]
+      },
+      "UISpriteComponent": {
+        "Texture": "../../Assets/Images/bar_empty.png",
+        "Pivot": "TopLeft",
+        "Position": [10.0, 10.0]
       }
     }
 }

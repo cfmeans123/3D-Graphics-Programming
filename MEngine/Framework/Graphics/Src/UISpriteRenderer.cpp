@@ -63,6 +63,7 @@ void UISpriteRenderer::Terminate()
 
 void UISpriteRenderer::BeginRender()
 {
+    ASSERT(mSpriteBatch != nullptr, "UISpriteRenderer: must be initialized");
     mSpriteBatch->Begin(
         DirectX::SpriteSortMode_Deferred,
         mCommonStates->NonPremultiplied(),

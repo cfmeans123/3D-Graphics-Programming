@@ -71,7 +71,7 @@ namespace
 		else
 		{
 			newComponent = TryMake(componentName, gameObject);
-			ASSERT(false, "GameObjectFactory: unrecognized component %s", componentName.c_str());
+			ASSERT(newComponent, "GameObjectFactory: unrecognized component %s", componentName.c_str());
 		}
 
 		return newComponent;
@@ -127,7 +127,7 @@ Component* GetComponent(const std::string& componentName, GameObject& gameObject
 	else
 	{
 		newComponent = TryGet(componentName, gameObject);
-		ASSERT(false, "GameObjectFactory: unrecognized component %s", componentName.c_str());
+		ASSERT(newComponent, "GameObjectFactory: unrecognized component %s", componentName.c_str());
 	}
 
 	return newComponent;

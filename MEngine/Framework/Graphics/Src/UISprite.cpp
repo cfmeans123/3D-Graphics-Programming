@@ -4,6 +4,10 @@
 using namespace MEngine;
 using namespace MEngine::Graphics;
 
+MEngine::Graphics::UISprite::~UISprite()
+{
+}
+
 void UISprite::Initialize(const std::filesystem::path& filePath)
 {
 	TextureManager* tm = TextureManager::Get();

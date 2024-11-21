@@ -1,0 +1,7 @@
+{
+  "Components": {
+    "UISpriteComponent": {
+      "Texture": "../../Assets/Images/bar_red.png"
+    }
+  }
+}

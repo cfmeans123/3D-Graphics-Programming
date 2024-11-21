@@ -14,6 +14,9 @@ namespace MEngine
 		RigidBody,
 		SoundBank,
 		SoundEffect,
+		UIText,
+		UISprite,
+		UIButton,
 		Count
 	};
 
@@ -23,6 +26,7 @@ namespace MEngine
 		Camera,
 		Render,
 		Physics,
+		UIRender,
 		Count
 	};
 }

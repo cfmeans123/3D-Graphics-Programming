@@ -11,6 +11,8 @@
 #include "RigidBodyComponent.h"
 #include "SoundEffectComponent.h"
 #include "SoundBankComponent.h"
+#include "UITextComponent.h"
+#include "UISpriteComponent.h"
 
 using namespace MEngine;
 
@@ -57,6 +59,14 @@ namespace
 		else if (componentName == "SoundBankComponent")
 		{
 			newComponent = gameObject.AddComponent<SoundBankComponent>();
+		}
+		else if (componentName == "UITextComponent")
+		{
+			newComponent = gameObject.AddComponent<UITextComponent>();
+		}
+		else if (componentName == "UISpriteComponent")
+		{
+			newComponent = gameObject.AddComponent<UISpriteComponent>();
 		}
 		else
 		{
@@ -105,6 +115,14 @@ Component* GetComponent(const std::string& componentName, GameObject& gameObject
 	else if (componentName == "SoundBankComponent")
 	{
 		newComponent = gameObject.GetComponent<SoundBankComponent>();
+	}
+	else if (componentName == "UITextComponent")
+	{
+		newComponent = gameObject.GetComponent<UITextComponent>();
+	}
+	else if (componentName == "UISpriteComponent")
+	{
+		newComponent = gameObject.GetComponent<UISpriteComponent>();
 	}
 	else
 	{

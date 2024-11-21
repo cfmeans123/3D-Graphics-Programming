@@ -143,6 +143,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello_GameWorld", "VGP336\H
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FW1FontWrapper", "External\FW1FontWrapper\FW1FontWrapper.vcxproj", "{0D034612-14E2-44E7-993A-72344A2CA7BD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{95BF7687-D6A0-4175-B7E4-982481295D20}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\Templates\UI\BarBackground.json = Assets\Templates\UI\BarBackground.json
+		Assets\Templates\UI\BarFull.json = Assets\Templates\UI\BarFull.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -694,6 +700,7 @@ Global
 		{7CA86155-858C-43DF-9779-9624062FEC95} = {231A3337-16AC-4B17-8907-CEFBE3AA9ADB}
 		{529A3F3E-50D3-41F4-B81C-D983610DC4DD} = {3DC4A2CA-2AF3-4AC3-9F65-7DF4CF1CDEA8}
 		{0D034612-14E2-44E7-993A-72344A2CA7BD} = {5DAEBFD0-8400-4A5E-B30E-B2962827EF7B}
+		{95BF7687-D6A0-4175-B7E4-982481295D20} = {231A3337-16AC-4B17-8907-CEFBE3AA9ADB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {727A5A43-6802-4FEA-AD67-5B2F81F93665}

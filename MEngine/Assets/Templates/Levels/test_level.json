@@ -7,6 +7,12 @@
     "RenderService": {
 
     },
+    "CustomDebugDrawService": {
+
+    },
+    "UIRenderService": {
+
+    },
     "PhysicsService": {
       "Gravity": [ 0.0, -9.81, 0.0 ],
       "SimSteps": 10,
@@ -25,7 +31,10 @@
           "LookAt": [ 0.0, 1.0, 0.0 ]
         }
       }
-    },    
+    },
+    "Ground": {
+      "Template": "../../Assets/Templates/ground.json"
+    },
     "Object0": {
       "Template": "../../Assets/Templates/test_object.json",
       "Components": {
@@ -39,6 +48,24 @@
       "Components": {
         "TransformComponent": {
           "Position": [ -2.0, 0.0, 0.0 ]
+        }
+      }
+    },
+    "BarBackground": {
+      "Template": "../../Assets/Templates/UI/BarBackground.json",
+      "Components": {
+        "UISpriteComponent": {
+          "Position": [ 10.0, 10.0 ],
+          "Pivot": "TopLeft"
+        }
+      }
+    },
+    "BarFull": {
+      "Template": "../../Assets/Templates/UI/BarFull.json",
+      "Components": {
+        "UISpriteComponent": {
+          "Position": [ 10.0, 10.0 ],
+          "Pivot": "TopLeft"
         }
       }
     }

@@ -57,17 +57,42 @@ void UISprite::SetFlip(Flip flip)
 
 void UISprite::SetColor(const Color& color)
 {
+	mColor.m128_f32[0] = color.r;
+	mColor.m128_f32[1] = color.g;
+	mColor.m128_f32[2] = color.b;
+	mColor.m128_f32[3] = color.a;
 }
 
 void UISprite::SetRotation(float rotation)
 {
+	mRotation = rotation;
 }
 
 bool UISprite::IsInSprite(float x, float y)
 {
-	return false;
+	const float width = mRect.right - mRect.left;
+	const float height = mRect.bottom - mRect.top;
+	return x >= mPosition.x - mOrigin.x && x <= mPosition.x + width - mOrigin.x &&
+		   y >= mPosition.y - mOrigin.y && y <= mPosition.y + height - mOrigin.y;
 }
 
 void UISprite::UpdateOrigin()
 {
+	const float width = mRect.right - mRect.left;
+	const float height = mRect.bottom - mRect.top;
+	auto index = static_cast<std::underlying_type_t<Pivot>>(mPivot);
+	constexpr DirectX::XMFLOAT2 offsets[] =
+	{
+		{0.0f, 0.0f}, //TopLeft
+		{0.5f, 0.0f}, //Top
+		{1.0f, 0.0f}, //TopRight
+		{0.0f, 0.5f}, //Left
+		{0.5f, 0.5f}, //Center
+		{1.0f, 0.5f}, //Right
+		{0.0f, 1.0f}, //BottomLeft
+		{0.5f, 1.0f}, //Bottom
+		{1.0f, 1.0f}  //BottomRight		
+	};
+
+	mOrigin = { width * offsets[index].x, height * offsets[index].y };
 }

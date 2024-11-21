@@ -31,10 +31,6 @@
           "HalfExtents": [10.0, 0.1, 10.0],
           "Origin": [ 0.0, -0.1, 0.0 ]
         }
-      },
-      "SoundEffectComponent": {
-        "FileName": "../../Assets/Sounds/explosion.wav",
-        "Looping": false
       }
     }
 }

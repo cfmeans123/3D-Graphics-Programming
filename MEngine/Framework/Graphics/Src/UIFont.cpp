@@ -15,11 +15,13 @@ namespace
 		case UIFont::FontType::Arial:				return L"Arial";
 		case UIFont::FontType::CourierNew:			return L"Courier New";
 		case UIFont::FontType::Consolas:			return L"Consolas";
-		case UIFont::FontType::Verdana:			return L"Verdana";
+		case UIFont::FontType::Verdana:				return L"Verdana";
 		default:
 			ASSERT(false, "UIFont: invalid font type");
-				break;
+			break;
 		}
+
+		//return L"Arial";
 	}
 
 	inline uint32_t ToFontColor(const Color& color)

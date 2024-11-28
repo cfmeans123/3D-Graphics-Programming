@@ -16,7 +16,7 @@ void setBoneRotation(Bone& bone, const Math::Matrix4& rotationMatrix)
     bone.toParentTransform = Math::Matrix4::Translation(position) * rotationMatrix;
 }
 
-//should be properly translated from GLM
+//*should be properly translated from GLM
 void updateBoneRotation(Bone& bone, const Math::Vector3& target) 
 {
     Math::Vector3 bonePosition = getBonePosition(bone.toParentTransform);
@@ -38,37 +38,7 @@ void updateBoneRotation(Bone& bone, const Math::Vector3& target)
         setBoneRotation(bone, rotationMatrix * bone.toParentTransform);
     }
 }
-void solveIK(std::vector<Bone>& bones, const Math::Vector3& target, int maxIterations, float threshold) 
-{
-    for (int iter = 0; iter < maxIterations; ++iter) {
-        bool allBonesAdjusted = true; for (int i = bones.size() - 1; i >= 0; --i) {
-            updateBoneRotation(bones[i], target); // Update positions based on new rotations 
-            for (int j = i; j < bones.size(); ++j) 
-            { 
-                if (bones[j].parent) 
-                { 
-                    Math::Vector3 t1 = getBonePosition(bones[j].parent->toParentTransform * bones[j].offsetTransform);
-                    Math::Vector4 translate = bones[j].parent->toParentTransform.multiplyMatrixByVector({ t1.x, t1.y, t1.z, 0.1 });
-                    bones[j].toParentTransform.Translation(translate.x, translate.y, translate.z);        
-                    //Original logic from CoPilot
-                    //bones[j].toParentTransform[3] = bones[j].parent->toParentTransform * glm::vec4(getBonePosition(bones[j].parent->toParentTransform * bones[j].offsetTransform),
-                }                
-                bones[j].offsetTransform = bones[j].toParentTransform.Inverse(); 
-            } 
-            // Check if end effector is within the threshold 
-            if (Math::Distance(getBonePosition(bones.back().toParentTransform * bones.back().offsetTransform), target) < threshold) 
-            { 
-                return; 
-                // Target reached 
-            } 
-            allBonesAdjusted = false;
-        } 
-        if (allBonesAdjusted) 
-        { 
-            break; 
-        } 
-    } 
-}
+
 
 
 

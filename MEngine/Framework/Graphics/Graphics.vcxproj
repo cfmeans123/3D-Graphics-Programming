@@ -147,6 +147,7 @@
     <ClInclude Include="Inc\GaussianBlurEffect.h" />
     <ClInclude Include="Inc\Graphics.h" />
     <ClInclude Include="Inc\GraphicsSystem.h" />
+    <ClInclude Include="Inc\IKAnimator.h" />
     <ClInclude Include="Inc\IKSolver.h" />
     <ClInclude Include="Inc\KeyFrame.h" />
     <ClInclude Include="Inc\LightTypes.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Src\DebugUI.cpp" />
     <ClCompile Include="Src\GaussianBlurEffect.cpp" />
     <ClCompile Include="Src\GraphicsSystem.cpp" />
+    <ClCompile Include="Src\IKAnimator.cpp" />
     <ClCompile Include="Src\IKSolver.cpp" />
     <ClCompile Include="Src\MeshBuffer.cpp" />
     <ClCompile Include="Src\MeshBuilder.cpp" />

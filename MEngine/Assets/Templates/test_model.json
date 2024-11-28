@@ -6,11 +6,11 @@
         "Scale": [ 1.0, 1.0, 1.0 ]
       },
       "ModelComponent": {
-        "FileName": "../../Assets/Models/DrakeEnemy/Ch25_nonPBR.model",
+        "FileName": "../../Assets/Models/DrakeEnemy/Drakey2.model",
         "Animations": [
-          "../../Assets/Models/DrakeEnemy/Animations/bencao.animset",
-          "../../Assets/Models/DrakeEnemy/Animations/Chapa_2.animset",
-          "../../Assets/Models/DrakeEnemy/Animations/FlyingKick.animset"
+          "../../Assets/Models/DrakeEnemy/Animations/FlyingKick.animset",
+          "../../Assets/Models/DrakeEnemy/Animations/Insult.animset",
+          "../../Assets/Models/DrakeEnemy/Animations/Laughing.animset"
         ],
         "CastShadow": false
       },

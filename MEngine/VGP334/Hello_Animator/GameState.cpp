@@ -64,6 +64,7 @@ void GameState::Initialize()
     mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");
     mStandardEffect.SetCamera(mCamera);
     mStandardEffect.SetDirectionalLight(mDirectionalLight);
+
 }
 
 void GameState::Terminate()
@@ -117,6 +118,27 @@ void GameState::DebugUI()
     {
         mCharacterAnimator.PlayAnimation(mAnimIndex, true);
     }
+
+    if (ImGui::BeginCombo("Bones",
+        ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.front().get()->name.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        for (int i = 0; i < ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.size(); ++i)
+        {
+            const bool isSelected = (this->selectedIndex == i);
+            if (ImGui::Selectable((ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.at(i).get()->name.c_str()), isSelected)) {
+                selectedIndex = i;
+            }
+
+            if (isSelected)
+            {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+    ImGui::EndCombo();
+    }
+
+    //if (ImGui::ListBox("Joints", 3, ))
+        
     mStandardEffect.DebugUI();
     ImGui::End();
 }

@@ -23,5 +23,6 @@ namespace MEngine::Math
 		constexpr Vector4& operator-=(const Vector4& v) { x -= v.x; y -= v.y; z -= v.z; w -= v.w; return *this; }
 		constexpr Vector4& operator*=(float s) { x *= s; y *= s, z *= s, w *= s; return *this; }
 		constexpr Vector4& operator/=(float s) { x /= s; y /= s, z /= s, w /= s; return *this; }
+		
 	};
 }

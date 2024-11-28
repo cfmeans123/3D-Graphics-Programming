@@ -22,6 +22,8 @@ private:
 	MEngine::Graphics::Animator mCharacterAnimator;
 	MEngine::Graphics::StandardEffect mStandardEffect;
 
+	int selectedIndex = 0;
+
 	int mAnimIndex = -1;
 	bool mDrawSkeleton = false;
 };

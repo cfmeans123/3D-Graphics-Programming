@@ -12,6 +12,7 @@ namespace MEngine::Graphics
 
 		virtual void Initialize(ModelID id);
 		virtual void PlayAnimation(int clipIndex, bool looping);
+		//virtual void PlayAnimation(int clipIndex, bool looping);
 		virtual void Update(float deltaTime);
 
 		virtual bool IsFinished() const;

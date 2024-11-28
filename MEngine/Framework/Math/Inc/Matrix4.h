@@ -98,6 +98,26 @@ namespace MEngine::Math
 			);
 		}
 
+		static Matrix4 ComposeRotation(const Math::Vector3& rotationAxis, float angle) 
+		{ 
+			// Decompose the axis into its components 
+			float x = rotationAxis.x;
+			float y = rotationAxis.y;
+			float z = rotationAxis.z; 
+			// Create individual rotation matrices 
+			Math::Matrix4 rotateX = Math::Matrix4::RotationX(angle * x);
+			Math::Matrix4 rotateY = Math::Matrix4::RotationY(angle * y);
+			Math::Matrix4 rotateZ = Math::Matrix4::RotationZ(angle * z); 
+			// Combine the rotations 
+			return rotateX * rotateY * rotateZ; 
+		}
+
+		static Math::Vector3 GetPosition(const Math::Matrix4& q)
+		{ 			
+			return Math::Vector3(q._14, q._24, q._34); 
+		}
+
+
 		static Matrix4 MatrixRotationQuaternion(const Math::Quaternion& q)
 		{
 			return Matrix4
@@ -155,6 +175,50 @@ namespace MEngine::Math
 				0.0f, 0.0f, s.z, 0.0f,
 				0.0f, 0.0f, 0.0f, 1.0f
 			);
+		}
+
+
+		Vector4 multiplyMatrixByVector(const Vector4& vector) const
+		{
+			Vector4 result(0.0f);
+			result.x = _11 * vector.x + _12 * vector.y + _13 * vector.z + _14 * vector.w;
+			result.y = _21 * vector.x + _22 * vector.y + _23 * vector.z + _24 * vector.w;
+			result.z = _31 * vector.x + _32 * vector.y + _33 * vector.z + _34 * vector.w;
+			result.w = _41 * vector.x + _42 * vector.y + _43 * vector.z + _44 * vector.w;
+			return result;
+		}
+
+		Matrix4 Inverse() const 
+		{ 
+			float inv[16], det;
+			int i; inv[0] = _22 * _33 * _44 - _22 * _34 * _43 - _32 * _23 * _44 + _32 * _24 * _43 + _42 * _23 * _34 - _42 * _24 * _33;
+			inv[4] = -_21 * _33 * _44 + _21 * _34 * _43 + _31 * _23 * _44 - _31 * _24 * _43 - _41 * _23 * _34 + _41 * _24 * _33;
+			inv[8] = _21 * _32 * _44 - _21 * _34 * _42 - _31 * _22 * _44 + _31 * _24 * _42 + _41 * _22 * _34 - _41 * _24 * _32;
+			inv[12] = -_21 * _32 * _43 + _21 * _33 * _42 + _31 * _22 * _43 - _31 * _23 * _42 - _41 * _22 * _33 + _41 * _23 * _32;
+			inv[1] = -_12 * _33 * _44 + _12 * _34 * _43 + _32 * _13 * _44 - _32 * _14 * _43 - _42 * _13 * _34 + _42 * _14 * _33;
+			inv[5] = _11 * _33 * _44 - _11 * _34 * _43 - _31 * _13 * _44 + _31 * _14 * _43 + _41 * _13 * _34 - _41 * _14 * _33;
+			inv[9] = -_11 * _32 * _44 + _11 * _34 * _42 + _31 * _12 * _44 - _31 * _14 * _42 - _41 * _12 * _34 + _41 * _14 * _32;
+			inv[13] = _11 * _32 * _43 - _11 * _33 * _42 - _31 * _12 * _43 + _31 * _13 * _42 + _41 * _12 * _33 - _41 * _13 * _32;
+			inv[2] = _12 * _23 * _44 - _12 * _24 * _43 - _22 * _13 * _44 + _22 * _14 * _43 + _42 * _13 * _24 - _42 * _14 * _23;
+			inv[6] = -_11 * _23 * _44 + _11 * _24 * _43 + _21 * _13 * _44 - _21 * _14 * _43 - _41 * _13 * _24 + _41 * _14 * _23;
+			inv[10] = _11 * _22 * _44 - _11 * _24 * _42 - _21 * _12 * _44 + _21 * _14 * _42 + _41 * _12 * _24 - _41 * _14 * _22;
+			inv[14] = -_11 * _22 * _43 + _11 * _23 * _42 + _21 * _12 * _43 - _21 * _13 * _42 - _41 * _12 * _23 + _41 * _13 * _22;
+			inv[3] = -_12 * _23 * _34 + _12 * _24 * _33 + _22 * _13 * _34 - _22 * _14 * _33 - _32 * _13 * _24 + _32 * _14 * _23;
+			inv[7] = _11 * _23 * _34 - _11 * _24 * _33 - _21 * _13 * _34 + _21 * _14 * _33 + _31 * _13 * _24 - _31 * _14 * _23;
+			inv[11] = -_11 * _22 * _34 + _11 * _24 * _32 + _21 * _12 * _34 - _21 * _14 * _32 - _31 * _12 * _24 + _31 * _14 * _22;
+			inv[15] = _11 * _22 * _33 - _11 * _23 * _32 - _21 * _12 * _33 + _21 * _13 * _32 + _31 * _12 * _23 - _31 * _13 * _22;
+			det = _11 * inv[0] + _12 * inv[4] + _13 * inv[8] + _14 * inv[12]; 
+			if (det == 0)
+			{
+				throw std::runtime_error("Matrix is singular and cannot be inverted");
+			}
+			det = 1.0 / det;
+			Matrix4 invOut;
+			for (i = 0; i < 16; i++)
+			{
+				invOut.v[i] = inv[i] * det;
+			}
+			return invOut; 
 		}
 
 		constexpr Matrix4 operator-() const

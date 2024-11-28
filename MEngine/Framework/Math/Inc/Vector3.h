@@ -31,5 +31,9 @@ namespace MEngine::Math
 		constexpr Vector3& operator-=(const Vector3& v) { x -= v.x; y -= v.y; z -= v.z; return *this; }
 		constexpr Vector3& operator*=(float s) { x *= s; y *= s, z *= s; return *this; }
 		constexpr Vector3& operator/=(float s) { x /= s; y /= s, z /= s; return *this; }
+		static float Length(const Vector3& v)
+		{
+			return sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
+		}
 	};
 }

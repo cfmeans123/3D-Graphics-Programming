@@ -4,22 +4,42 @@
 
 //Consolidate all the IKSolver code into this class here and get working first
 
+struct BlendNode
+{
+    int animIndex = -1;
+    bool isLooping = false;
+    float animationTime = 0.0f;
+    float blendWeight = 0.0f;
+};
+
+enum class BlendDirection
+{
+    Idle,
+    Forward,
+    Run,
+    Left,
+    Right,
+    Back
+};
+
 class IKAnimator : public Animator
 {
 public:
-	void Initialize(ModelID id);
-	void PlayAnimation(int clipIndex, bool looping);
+    void PlayAnimation(int clipIndex, bool looping) override;
+    void PlayAnimation(int clipIndex, bool looping, float transitionTime);
+    void Update(float deltaTime) override;
 
-	void Update(float deltaTime);
+    bool IsFinished() const override;
+    Math::Matrix4 GetToParentTransform(const Bone* bone) const override;
 
-	bool IsFinished() const;
-	size_t GetAnimationCount() const;
-	Math::Matrix4 GetToParentTransform(const Bone* bone) const;
+    void SetNodeAnimation(BlendDirection dir, int clipIndex);
+    void SetBlendWeight(BlendDirection dir, float weight);
+private:
+    float mBlendDuration = 0.0f;
+    float mBlendTime = 0.0f;
+    BlendNode mCurrentAnimation;
+    BlendNode mNextAnimation;
 
-protected:
-	ModelID mModelId = 0;
-	int mClipIndex = -1;
-	float mAnimationTick = 0.0f;
-	bool mIsLooping = false;
-
+    using BlendNodes = std::unordered_map<BlendDirection, BlendNode>;
+    BlendNodes mBlendNodes;
 };

@@ -19,11 +19,17 @@ private:
 
 	MEngine::Graphics::ModelID mModelID;
 	MEngine::Graphics::RenderGroup mCharacter;
-	MEngine::Graphics::Animator mCharacterAnimator;
+	MEngine::Graphics::IKAnimator mCharacterAnimator;
 	MEngine::Graphics::StandardEffect mStandardEffect;
 
 	int selectedIndex = 0;
 
 	int mAnimIndex = -1;
 	bool mDrawSkeleton = false;
+
+	float mBlendDuration = 0.0f;
+	float mBlendWeightIdle = 0.0f;
+	float mBlendWeightForward = 0.0f;
+	float mBlendWeightLeft = 0.0f;
+
 };

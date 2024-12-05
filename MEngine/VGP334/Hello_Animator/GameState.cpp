@@ -60,6 +60,10 @@ void GameState::Initialize()
     ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/Capoeira.animset");
     mCharacter = CreateRenderGroup(mModelID, &mCharacterAnimator);
     mCharacterAnimator.Initialize(mModelID);
+    mCharacterAnimator.SetNodeAnimation(BlendDirection::Idle, 0);
+    mCharacterAnimator.SetNodeAnimation(BlendDirection::Forward, 1);
+    mCharacterAnimator.SetNodeAnimation(BlendDirection::Left, 2);
+
 
     mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");
     mStandardEffect.SetCamera(mCamera);
@@ -88,9 +92,14 @@ void GameState::Render()
     mStandardEffect.Begin();
     if (mDrawSkeleton)
     {
+        Matrix4 transform = mCharacter[0].transform.GetMatrix4();
         AnimationUtil::BoneTransforms boneTransforms;
         AnimationUtil::ComputeBoneTransforms(mModelID, boneTransforms, &mCharacterAnimator);
         AnimationUtil::DrawSkeleton(mModelID, boneTransforms);
+        for (auto& boneTransform : boneTransforms)
+        {
+            boneTransform = boneTransform * transform;
+        }
     }
     else
     {
@@ -116,9 +125,22 @@ void GameState::DebugUI()
     ImGui::Checkbox("DrawSkeleton", &mDrawSkeleton);
     if (ImGui::DragInt("AnimClip", &mAnimIndex, 1, -1, mCharacterAnimator.GetAnimationCount() - 1))
     {
-        mCharacterAnimator.PlayAnimation(mAnimIndex, true);
+        mCharacterAnimator.PlayAnimation(mAnimIndex, true, mBlendDuration);
     }
 
+    if (ImGui::DragFloat("BlendDuration", &mBlendDuration, 0.1f, 0.0f, 3.0f))
+    if (ImGui::DragFloat("BlendWeightIdle", &mBlendWeightIdle, 0.1f, 0.0f, 1.0f))
+    {
+        mCharacterAnimator.SetBlendWeight(BlendDirection::Idle, mBlendWeightIdle);
+    }
+    if (ImGui::DragFloat("BlendWeightForward", &mBlendWeightForward, 0.1f, 0.0f, 1.0f))
+    {
+        mCharacterAnimator.SetBlendWeight(BlendDirection::Forward, mBlendWeightForward);
+    }
+    if (ImGui::DragFloat("BlendWeightLeft", &mBlendWeightLeft, 0.1f, 0.0f, 1.0f))
+    {
+        mCharacterAnimator.SetBlendWeight(BlendDirection::Left, mBlendWeightLeft);
+    }
     if (ImGui::BeginCombo("Bones",
         ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.front().get()->name.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
     {

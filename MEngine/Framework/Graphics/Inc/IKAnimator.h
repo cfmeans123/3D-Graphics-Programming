@@ -31,7 +31,7 @@ namespace MEngine::Graphics
         void PlayAnimation(int clipIndex, bool looping) override;
         void PlayAnimation(int clipIndex, bool looping, float transitionTime);
         void Update(float deltaTime) override;
-
+        void solveIK(ModelID id, const Math::Vector3& target, int maxIterations, float threshold, int baseIndex, int endIndex);
         bool IsFinished() const override;
         Math::Matrix4 GetToParentTransform(const Bone* bone) const override;
 

@@ -89,6 +89,8 @@ void GameState::Render()
     SimpleDraw::AddGroundPlane(10.0f, Colors::White);
     SimpleDraw::Render(mCamera);
 
+    
+
     mStandardEffect.Begin();
     if (mDrawSkeleton)
     {
@@ -96,9 +98,15 @@ void GameState::Render()
         AnimationUtil::BoneTransforms boneTransforms;
         AnimationUtil::ComputeBoneTransforms(mModelID, boneTransforms, &mCharacterAnimator);
         AnimationUtil::DrawSkeleton(mModelID, boneTransforms);
+        SimpleDraw::AddSphere(4, 4, 0.03f, mTarget, Colors::MediumOrchid);
+        
         for (auto& boneTransform : boneTransforms)
         {
             boneTransform = boneTransform * transform;
+        }
+        if (startBoneIndex != 0 && endBoneIndex != 0)
+        {
+            AnimationUtil::solveIK(mModelID, mTarget, 10, 0.1f, startBoneIndex, endBoneIndex);
         }
     }
     else
@@ -141,23 +149,52 @@ void GameState::DebugUI()
     {
         mCharacterAnimator.SetBlendWeight(BlendDirection::Left, mBlendWeightLeft);
     }
-    if (ImGui::BeginCombo("Bones",
+    if (ImGui::CollapsingHeader("Target Position", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        ImGui::DragFloat("X", &mTarget.x, 0.1f, -2.0f, 2.0f);
+        ImGui::DragFloat("Y", &mTarget.y, 0.1f, -2.0f, 2.0f);
+        ImGui::DragFloat("Z", &mTarget.z, 0.1f, -2.0f, 2.0f);
+    }
+
+    if (ImGui::BeginCombo("StartBone",
         ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.front().get()->name.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
     {
         for (int i = 0; i < ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.size(); ++i)
         {
-            const bool isSelected = (this->selectedIndex == i);
+            const bool isSelected = (this->selectedIndexStart == i);
             if (ImGui::Selectable((ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.at(i).get()->name.c_str()), isSelected)) {
-                selectedIndex = i;
+                selectedIndexStart = i;
             }
 
             if (isSelected)
             {
                 ImGui::SetItemDefaultFocus();
+                startBoneIndex = selectedIndexStart;
+                
             }
         }
     ImGui::EndCombo();
     }
+    if (ImGui::BeginCombo("EndBone",
+        ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.front().get()->name.c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        for (int i = 0; i < ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.size(); ++i)
+        {
+            const bool isSelected = (this->selectedIndexEnd == i);
+            if (ImGui::Selectable((ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.at(i).get()->name.c_str()), isSelected)) {
+                selectedIndexEnd = i;
+            }
+
+            if (isSelected)
+            {
+                ImGui::SetItemDefaultFocus();
+                endBoneIndex = selectedIndexEnd;
+
+            }
+        }
+        ImGui::EndCombo();
+    }
+
 
     //if (ImGui::ListBox("Joints", 3, ))
         

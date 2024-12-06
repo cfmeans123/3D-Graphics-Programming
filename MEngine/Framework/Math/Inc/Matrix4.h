@@ -1,4 +1,6 @@
 #pragma once
+#define PI 3.1415926535
+#define HALF_PI 1.57079632679
 
 namespace MEngine::Math
 {
@@ -219,6 +221,36 @@ namespace MEngine::Math
 				invOut.v[i] = inv[i] * det;
 			}
 			return invOut; 
+		}
+
+		Vector3 getRotation() const
+		{
+			Vector3 rotation;
+			if (this->_11 != 1.0f && this->_11 != -1.0f) 
+			{ 
+				rotation.y = asin(this->_13);
+				float cosY = cos(rotation.y);
+				rotation.x = atan2(-this->_23 / cosY, -this->_33 / cosY);
+				rotation.z = atan2(-this->_12 / cosY, -this->_11 / cosY);
+			}
+			else 
+			{
+				rotation.z = 0.0f; 
+				if (this->_11 == -1.0f) 
+				{
+					rotation.y = HALF_PI;
+					// +90 degrees 
+					rotation.x = atan2(this->_21, this->_22);
+				} 
+				else 
+				{ 
+					rotation.y = -HALF_PI; 
+					// -90 degrees 
+					rotation.x = atan2(-this->_21, -this->_22);
+				} 
+			} 
+			// Convert to degrees 			
+			return rotation.toDegrees(); 
 		}
 
 		constexpr Matrix4 operator-() const

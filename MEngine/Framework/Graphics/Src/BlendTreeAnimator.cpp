@@ -143,12 +143,6 @@ Math::Matrix4 MEngine::Graphics::BlendTreeAnimator::GetToParentTransform(const B
 
     //return transform.GetMatrix4();
 
-    // IK result
-    // if IK allows animation, proceed and blend
-    // if DoIKResult(bone, out weight)
-    //  apply to bone
-    //  if weight < 1.0, get blend node results, add together by weight
-
     float weightSum = 0.0f;
     for (auto& node : mBlendNodes)
     {

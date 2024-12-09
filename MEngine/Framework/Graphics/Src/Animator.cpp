@@ -69,7 +69,6 @@ Math::Matrix4 Graphics::Animator::GetToParentTransform(const Bone* bone) const
 	}
 	const Model* model = ModelManager::Get()->GetModel(mModelId);
 	const AnimationClip& animClip = model->animationClips[mClipIndex];
-	//return bone to parent transform for ecery bone not affected by iksolve
 	const Animation* animation = animClip.boneAnimation[bone->index].get();
 	if (animation == nullptr)
 	{

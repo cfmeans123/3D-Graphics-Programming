@@ -106,7 +106,8 @@ void GameState::Render()
         }
         if (startBoneIndex != 0 && endBoneIndex != 0)
         {
-            AnimationUtil::solveIK(mModelID, mTarget, 10, 0.1f, startBoneIndex, endBoneIndex);
+            //AnimationUtil::solveIK(mModelID, mTarget, 10, 0.1f, startBoneIndex, endBoneIndex);
+            mArmChain.SolveIK();
         }
     }
     else
@@ -193,6 +194,11 @@ void GameState::DebugUI()
             }
         }
         ImGui::EndCombo();
+    }
+    if (ImGui::Button("Initialize IK Chain"))
+    {
+        const Model* model = ModelManager::Get()->GetModel(mModelID);
+        mArmChain.Initialize(model, startBoneIndex, endBoneIndex, 10, 0.01, mTarget);
     }
 
 

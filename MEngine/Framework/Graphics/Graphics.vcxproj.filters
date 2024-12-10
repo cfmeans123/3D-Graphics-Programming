@@ -150,6 +150,9 @@
     <ClInclude Include="Inc\IKSolver.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\IKChain.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Camera.cpp">
@@ -252,6 +255,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\IKSolver.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\IKChain.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

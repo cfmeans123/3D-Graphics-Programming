@@ -9,7 +9,7 @@ namespace MEngine
     class UIRenderService final : public Service
     {
     public:
-        SET_TYPE_ID(ServiceId::UIRender);
+        SET_TYPE_ID(ServiceId::Render);
 
         void Initialize() override;
         void Terminate() override;

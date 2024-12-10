@@ -18,9 +18,11 @@ private:
 	MEngine::Graphics::Camera mCamera;
 
 	MEngine::Graphics::ModelID mModelID;
-	MEngine::Graphics::RenderGroup mCharacter;
-	MEngine::Graphics::IKAnimator mCharacterAnimator;
+	MEngine::Graphics::RenderGroup mCharacter;	
+	MEngine::Graphics::BlendTreeAnimator mCharacterAnimator;
 	MEngine::Graphics::StandardEffect mStandardEffect;
+	MEngine::Graphics::IKChain mArmChain;
+
 
 	int selectedIndexStart = 0;
 	int selectedIndexEnd = 0;

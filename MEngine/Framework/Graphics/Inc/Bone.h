@@ -19,8 +19,8 @@ namespace MEngine::Graphics
 		Math::Matrix4 offsetTransform;
 
 		//constraints
-		Math::Vector3 minRotation = { -10.0f, -10.0f, -10.0f};
-		Math::Vector3 maxRotation = {45.0f, 45.0f, 45.0f};
+		Math::Vector3 minRotation = { -180.0f, -180.0f, -180.0f};
+		Math::Vector3 maxRotation = {180.0f, 180.0f, 180.0f};
 
 
 		Math::Vector3 applyConstraints(const Math::Vector3& rotation) const 

@@ -23,7 +23,6 @@ private:
 	MEngine::Graphics::StandardEffect mStandardEffect;
 	MEngine::Graphics::IKChain mArmChain;
 
-
 	int selectedIndexStart = 0;
 	int selectedIndexEnd = 0;
 

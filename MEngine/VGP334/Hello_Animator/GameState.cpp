@@ -198,7 +198,7 @@ void GameState::DebugUI()
     if (ImGui::Button("Initialize IK Chain"))
     {
         const Model* model = ModelManager::Get()->GetModel(mModelID);
-        mArmChain.Initialize(model, startBoneIndex, endBoneIndex, 10, 0.01, mTarget);
+        mArmChain.Initialize(model, startBoneIndex, endBoneIndex, 10, 0.1, mTarget);
     }
 
 

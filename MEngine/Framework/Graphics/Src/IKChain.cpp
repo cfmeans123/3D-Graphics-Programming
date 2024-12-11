@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "IKChain.h"
+#include <iostream>
 
 using namespace MEngine;
 using namespace MEngine::Graphics;
@@ -12,6 +13,7 @@ void IKChain::Initialize(const Model* model, int baseLinkIndex, int endEffectorI
     mMaxIterations = maxIterations;
     mThreshold = threshold;
     mTarget = target;
+    root = model->skeleton->root;
 
     if (!organizedBones.positionBones.empty() || organizedBones.preRotationBones.empty())
     {
@@ -29,17 +31,27 @@ void IKChain::Initialize(const Model* model, int baseLinkIndex, int endEffectorI
             organizedBones.positionBones.push_back(model->skeleton->bones[i].get());
         }
     }
-
-}
+    endEffector = organizedBones.positionBones[0];
+} 
 void applyPreRotation(Bone* bone, Bone* preRotationBone)
 {
     // Assume preRotationBone->toParentTransform contains the pre-rotation matrix 
-    bone->toParentTransform = preRotationBone->toParentTransform * bone->toParentTransform;
+    bone->toParentTransform = preRotationBone->toParentTransform * preRotationBone->parent->toParentTransform;
 }
 
 Math::Vector3 getBonePosition(const Bone& bone)
 {
-    return TransformCoord(Math::Vector3(0.0f), bone.toParentTransform);
+    Math::Matrix4 combinedTransform; 
+    if (bone.parent) 
+    { 
+        combinedTransform = bone.parent->toParentTransform * bone.offsetTransform; 
+    }
+    else 
+    {
+        combinedTransform = bone.offsetTransform;
+        // Root bone 
+    }
+    return Math::TransformCoord(Math::Vector3(0.0f, 0.0f, 0.0f), combinedTransform);
 }
 
 void setBoneRotation(Bone& bone, const Math::Matrix4& rotationMatrix)
@@ -51,9 +63,14 @@ void setBoneRotation(Bone& bone, const Math::Matrix4& rotationMatrix)
 
 void IKChain::SolveIK()
 {
+    if (!organizedBones.positionBones.empty()) 
+    { 
+        Math::Matrix4 inverseRootTransform = (root->toParentTransform).Inverse();
+        mLocalTarget = TransformCoord(mTarget, inverseRootTransform); 
+    }
     for (size_t i = 0; i < organizedBones.positionBones.size(); ++i)
     { 
-        //applyPreRotation(organizedBones.positionBones[i], organizedBones.preRotationBones[i]);
+        applyPreRotation(organizedBones.positionBones[i], organizedBones.preRotationBones[i]);
     } 
     // Perform IK on position bones 
     for (int iter = 0; iter < mMaxIterations; ++iter)
@@ -61,21 +78,24 @@ void IKChain::SolveIK()
         bool allBonesAdjusted = true;
         for (int i = organizedBones.positionBones.size() - 1; i >= 0; --i)
         {
-            Bone* bone = organizedBones.positionBones[i];
-            Math::Vector3 endEffectorPosition = TransformCoord(Math::Vector3(0.0f), bone->toParentTransform * bone->offsetTransform);
-            if (Math::Distance(endEffectorPosition, mTarget) < mThreshold)
+            Bone* bone = organizedBones.positionBones.back();
+            //endEffectorPosition = TransformCoord(Math::Vector3(0.0f), bone->offsetTransform * (bone->toParentTransform * bone->parent->toParentTransform));
+            Math::Vector3 endEffectorPosition = TransformCoord(Math::Vector3(0.0f, 0.0f, 0.0f), bone->toParentTransform * bone->offsetTransform);
+            if (Math::Distance(endEffectorPosition, mLocalTarget) < mThreshold)
             {
                 return;
                 // Target reached 
             }
-            UpdateBoneRotation(*bone, mTarget);
+            
+            UpdateBoneRotation(*bone, mLocalTarget);
             // Update positions based on new rotations 
             for (size_t j = i; j < organizedBones.positionBones.size(); ++j)
             {
                 Bone* childBone = organizedBones.positionBones[j];
                 if (childBone->parent)
                 {
-                    childBone->toParentTransform = childBone->parent->toParentTransform * childBone->offsetTransform;
+                    //childBone->toParentTransform = childBone->offsetTransform * (childBone->toParentTransform * childBone->parent->toParentTransform);
+                    childBone->offsetTransform = childBone->offsetTransform * childBone->parent->offsetTransform;
                 }
             }
             allBonesAdjusted = false;
@@ -92,9 +112,15 @@ void IKChain::SolveIK()
 
 void MEngine::Graphics::IKChain::UpdateBoneRotation(Bone& bone, const Math::Vector3& target)
 {
+    
     Math::Vector3 bonePosition = getBonePosition(bone);
-    Math::Vector3 endEffectorPosition = TransformCoord(Math::Vector3(0.0f), bone.toParentTransform * bone.offsetTransform); 
+    endEffectorPosition = TransformCoord(Math::Vector3(0.0f), endEffector->toParentTransform * endEffector->offsetTransform); 
     Math::Vector3 direction = endEffectorPosition - bonePosition; 
+
+    std::cout << "Bone Position: (" << bonePosition.x << ", " << bonePosition.y << ", " << bonePosition.z << ")" << std::endl; 
+    std::cout << "End Effector Position: (" << endEffectorPosition.x << ", " << endEffectorPosition.y << ", " << endEffectorPosition.z << ")" << std::endl; 
+    std::cout << "Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+
     if (Math::Vector3::Length(direction) > 0.0001f)
     {
         Math::Vector3 toEndEffector = Math::Normalize(direction); 
@@ -107,8 +133,9 @@ void MEngine::Graphics::IKChain::UpdateBoneRotation(Bone& bone, const Math::Vect
             rotationAxis = Math::Normalize(rotationAxis); 
             Math::Vector3 deltaRotation = (rotationAxis * angle).toDegrees(); 
             Math::Vector3 constrainedRotation = bone.applyConstraints(deltaRotation); 
-            Math::Matrix4 rotationMatrix = Math::Matrix4::ComposeRotation(constrainedRotation, 1.0f); 
-            setBoneRotation(bone, rotationMatrix * bone.toParentTransform); 
+            Math::Vector3 normalizedAxis = Math::Normalize(constrainedRotation);
+            Math::Matrix4 rotationMatrix = Math::Matrix4::composeRotation(constrainedRotation, normalizedAxis);
+            setBoneRotation(bone, bone.toParentTransform * rotationMatrix);
         } 
     } 
     else 

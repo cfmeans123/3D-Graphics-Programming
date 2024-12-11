@@ -114,6 +114,28 @@ namespace MEngine::Math
 			return rotateX * rotateY * rotateZ; 
 		}
 
+		static Matrix4 composeRotation(const Math::Vector3& rotationAxisAngles, Math::Vector3& rotationAxis) 
+		{ 			
+			float angle = Math::Vector3::Length(rotationAxisAngles); 
+			float cosAngle = cos(angle); 
+			float sinAngle = sin(angle); 
+			float oneMinusCos = 1.0f - cosAngle; 
+			float x = rotationAxis.x; 
+			float y = rotationAxis.y; 
+			float z = rotationAxis.z; 
+			Matrix4 rotationMatrix; 
+			rotationMatrix.v[0] = cosAngle + x * x * oneMinusCos; 
+			rotationMatrix.v[1] = x * y * oneMinusCos - z * sinAngle; 
+			rotationMatrix.v[2] = x * z * oneMinusCos + y * sinAngle; 
+			rotationMatrix.v[4] = y * x * oneMinusCos + z * sinAngle; 
+			rotationMatrix.v[5] = cosAngle + y * y * oneMinusCos; 
+			rotationMatrix.v[6] = y * z * oneMinusCos - x * sinAngle; 
+			rotationMatrix.v[8] = z * x * oneMinusCos - y * sinAngle; 
+			rotationMatrix.v[9] = z * y * oneMinusCos + x * sinAngle; 
+			rotationMatrix.v[10] = cosAngle + z * z * oneMinusCos; 
+			return rotationMatrix; 
+		}
+
 		static Math::Vector3 GetPosition(const Math::Matrix4& q)
 		{ 			
 			return Math::Vector3(q._14, q._24, q._34); 

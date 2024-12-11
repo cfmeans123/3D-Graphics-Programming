@@ -26,6 +26,10 @@ namespace MEngine::Graphics
         int mBaseLinkIndex;
         int mEndEffectorIndex;       
         Math::Vector3 mTarget;
+        Math::Vector3 mLocalTarget;
+        Math::Vector3 endEffectorPosition;
+        BonePtr endEffector = nullptr;
+        BonePtr root = nullptr;
         int mMaxIterations; 
         float mThreshold;
         

@@ -17,6 +17,7 @@ namespace MEngine::Graphics
 
 		Math::Matrix4 toParentTransform;
 		Math::Matrix4 offsetTransform;
+<<<<<<< HEAD
 
 		//constraints
 		Math::Vector3 minRotation = { -180.0f, -180.0f, -180.0f};
@@ -31,5 +32,7 @@ namespace MEngine::Graphics
 			constrainedRotation.z = Math::Clamp(constrainedRotation.z, minRotation.z, maxRotation.z); 
 			return constrainedRotation; 
 		}
+=======
+>>>>>>> parent of 6b3550b (AnimUtil_Progress_2)
 	};
 }

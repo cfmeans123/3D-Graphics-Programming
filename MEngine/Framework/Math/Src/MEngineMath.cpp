@@ -14,15 +14,6 @@ const Vector3 Vector3::XAxis(1.0f, 0.0f, 0.0f);
 const Vector3 Vector3::YAxis(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::ZAxis(0.0f, 0.0f, 1.0f);
 
-constexpr float RAD_TO_DEG = 180.0f / 3.1415926535;
-
-const Vector3 Vector3::toDegrees() 
-{ 
-	
-	return Vector3(this->x * RAD_TO_DEG, this->y * RAD_TO_DEG, this->z * RAD_TO_DEG);
-}
-
-
 const Matrix4 Matrix4::Zero({ 0, 0, 0, 0,
 							0, 0, 0, 0,
 							0, 0, 0, 0,

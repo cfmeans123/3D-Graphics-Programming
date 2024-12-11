@@ -35,6 +35,5 @@ namespace MEngine::Math
 		{
 			return sqrt((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
 		}
-		const Vector3 toDegrees();
 	};
 }

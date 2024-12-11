@@ -23,15 +23,10 @@ private:
 	MEngine::Graphics::StandardEffect mStandardEffect;
 	MEngine::Graphics::IKChain mArmChain;
 
-	int selectedIndexStart = 0;
-	int selectedIndexEnd = 0;
+	int selectedIndex = 0;
 
 	int mAnimIndex = -1;
 	bool mDrawSkeleton = false;
-
-	Vector3 mTarget = { 1.0f, 0.0f, 0.0f };
-	int startBoneIndex = 0;
-	int endBoneIndex = 0;
 
 	float mBlendDuration = 0.0f;
 	float mBlendWeightIdle = 0.0f;

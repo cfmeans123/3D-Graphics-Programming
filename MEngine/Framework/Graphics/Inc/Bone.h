@@ -19,8 +19,8 @@ namespace MEngine::Graphics
 		Math::Matrix4 offsetTransform;
 
 		//constraints
-		Math::Vector3 minRotation = { -10.0f, -10.0f, -10.0f};
-		Math::Vector3 maxRotation = {45.0f, 45.0f, 45.0f};
+		Math::Vector3 minRotation = { -45.0f, -45.0f, -45.0f};
+		Math::Vector3 maxRotation = {170.0f,170.0f, 170.0f};
 
 
 		Math::Vector3 applyConstraints(const Math::Vector3& rotation) const 
@@ -31,5 +31,15 @@ namespace MEngine::Graphics
 			constrainedRotation.z = Math::Clamp(constrainedRotation.z, minRotation.z, maxRotation.z); 
 			return constrainedRotation; 
 		}
+		/*
+		Math::Vector3 GetWorldPosition()
+		{
+
+		}
+		Math::Vector3 GetWorldPosition(Math::Vector3 fromPosition)
+		{
+		
+		}
+		*/
 	};
 }

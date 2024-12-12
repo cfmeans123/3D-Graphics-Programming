@@ -116,7 +116,7 @@ namespace MEngine::Math
 
 		static Math::Vector3 GetPosition(const Math::Matrix4& q)
 		{ 			
-			return Math::Vector3(q._14, q._24, q._34); 
+			return Math::Vector3(q._41, q._42, q._43); 
 		}
 
 

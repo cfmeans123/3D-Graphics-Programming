@@ -18,6 +18,7 @@
 #include "LightTypes.h"
 #include "GraphicsSystem.h"
 #include "IKAnimator.h"
+#include "IKJoint.h"
 #include "KeyFrame.h"
 #include "Material.h"
 #include "MeshTypes.h"

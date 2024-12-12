@@ -80,10 +80,10 @@ Math::Vector3 getBonePosition(const Math::Matrix4& transform)
     return transform.GetPosition(transform);
 }
 
-void setBoneRotation(std::unique_ptr<Bone>& bone, const Math::Matrix4& rotationMatrix)
+void setBoneRotation(AnimationUtil::BoneTransforms boneTransforms, std::unique_ptr<Bone>& bone, const Math::Matrix4& rotationMatrix)
 {
-    Math::Vector3 position = getBonePosition(bone->toParentTransform);
-    bone->toParentTransform = Math::Matrix4::Translation(position) * rotationMatrix;
+    Math::Vector3 position = getBonePosition(boneTransforms[bone->index]);
+    bone->offsetTransform = Math::Matrix4::Translation(position) * rotationMatrix;
 }
 
 //*should be properly translated from GLM
@@ -113,11 +113,11 @@ void setBoneRotation(std::unique_ptr<Bone>& bone, const Math::Matrix4& rotationM
 //}
 
 
-void updateBoneRotation(std::unique_ptr<Bone>& bone, const Vector3& target)
+void updateBoneRotation(AnimationUtil::BoneTransforms boneTransforms, std::unique_ptr<Bone>& bone, const Vector3& target, int endIndex)
 {
-    Math::Vector3 bonePosition = getBonePosition(bone->toParentTransform);
+    Math::Vector3 bonePosition = getBonePosition(boneTransforms[bone->index]);
     Math::Vector3 toTarget = Math::Normalize(target - bonePosition);
-    Math::Vector3 toEndEffector = Math::Normalize(getBonePosition(bone->toParentTransform * bone->offsetTransform) - bonePosition);
+    Math::Vector3 toEndEffector = Math::Normalize(getBonePosition(boneTransforms[endIndex]));
     float dotProduct = Math::Dot(toTarget, toEndEffector);
     dotProduct = Math::Clamp(dotProduct, -1.0f, 1.0f);
     // Avoid floating-point errors 
@@ -127,49 +127,50 @@ void updateBoneRotation(std::unique_ptr<Bone>& bone, const Vector3& target)
     {
     	// Avoid zero-length axis 
     	rotationAxis = Math::Normalize(rotationAxis);
-    	Math::Vector3 currentRotation = bone->toParentTransform.getRotation();
+    	Math::Vector3 currentRotation = boneTransforms[bone->index].getRotation();
     	Math::Vector3 desiredRotation = currentRotation + (rotationAxis * angle).toDegrees();
     	Math::Vector3 constrainedRotation = bone->applyConstraints(desiredRotation);
     	Math::Vector3 deltaRotation = constrainedRotation - currentRotation;
     	//Do rotations need to be compiled into a single matrix?
     
     	Math::Matrix4 rotationMatrix = Math::Matrix4::ComposeRotation(rotationAxis, angle);
-    	setBoneRotation(bone, rotationMatrix * bone->toParentTransform);
+    	setBoneRotation(boneTransforms, bone, rotationMatrix);
     }
 }
 
-void AnimationUtil::solveIK(ModelID id, const Math::Vector3& target, int maxIterations, float threshold, int baseIndex, int endIndex)
+void AnimationUtil::solveIK(AnimationUtil::BoneTransforms boneTransforms, ModelID id, const Math::Vector3& target, int maxIterations, float threshold, int baseIndex, int endIndex)
 {
     const Model* model = ModelManager::Get()->GetModel(id);
     std::vector<std::unique_ptr<Bone>>& bones = model->skeleton->bones;
+    
 
     for (int iter = 0; iter < maxIterations; ++iter)
     {
         bool allBonesAdjusted = true;
         for (int i = endIndex; i >= baseIndex; --i)
         {
-            Math::Vector3 bonePosition = getBonePosition(bones[i]->toParentTransform);
-            Math::Vector3 endEffectorPosition = getBonePosition(bones[i]->toParentTransform * bones[i]->offsetTransform);
+            Math::Vector3 bonePosition = getBonePosition(boneTransforms[i]);
+            Math::Vector3 endEffectorPosition = getBonePosition(boneTransforms[endIndex]);
             Math::Vector3 direction = endEffectorPosition - bonePosition;
             if (Vector3::Length(direction) > 0.0001f) 
             {
-                updateBoneRotation(bones[i], target);
+                updateBoneRotation(boneTransforms, bones[i], target, endIndex);
                 // Update positions based on new rotations 
 
                 for (int j = i; j < endIndex; ++j)
                 {
                     if (bones[j]->parent)
                     {
-                        Math::Vector3 t1 = getBonePosition(bones[j]->parent->toParentTransform * bones[j]->offsetTransform);
-                        Math::Vector4 translate = bones[j]->parent->toParentTransform.multiplyMatrixByVector({ t1.x, t1.y, t1.z, 1.0 });
-                        bones[j]->toParentTransform = bones[j]->toParentTransform.Translation(translate.x, translate.y, translate.z);
+                        Math::Vector3 t1 = getBonePosition(boneTransforms[bones[j]->index]);
+                        Math::Vector4 translate = boneTransforms[bones[j]->parent->index].multiplyMatrixByVector({ t1.x, t1.y, t1.z, 1.0 });
+                        bones[j]->parent->offsetTransform = bones[j]->parent->offsetTransform.Translation(translate.x, translate.y, translate.z);
 
                         //bones[j].toParentTransform[3] = bones[j].parent->toParentTransform * glm::vec4(getBonePosition(bones[j].parent->toParentTransform * bones[j].offsetTransform),
                     }
-                    bones[j]->offsetTransform = bones[j]->toParentTransform.Inverse();
+                    //bones[j]->offsetTransform = bones[j]->toParentTransform.Inverse();
                 }
                 // Check if end effector is within the threshold 
-                if (Math::Distance(getBonePosition(bones.back()->toParentTransform * bones.back()->offsetTransform), target) < threshold)
+                if (Math::Distance(getBonePosition(boneTransforms[bones.back()->index]), target) < threshold)
                 {
                     return;
                     // Target reached 

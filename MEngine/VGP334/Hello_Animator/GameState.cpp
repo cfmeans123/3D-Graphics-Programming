@@ -106,7 +106,7 @@ void GameState::Render()
         }
         if (startBoneIndex != 0 && endBoneIndex != 0)
         {
-            AnimationUtil::solveIK(mModelID, mTarget, 10, 0.1f, startBoneIndex, endBoneIndex);
+            //AnimationUtil::solveIK(boneTransforms, mModelID, mTarget, 10, 0.1f, startBoneIndex, endBoneIndex);
         }
     }
     else
@@ -131,6 +131,12 @@ void GameState::DebugUI()
         ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
     }
     ImGui::Checkbox("DrawSkeleton", &mDrawSkeleton);
+    if (ImGui::CollapsingHeader("Model Position", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        ImGui::DragFloat("X1", &mCharacter[0].transform.position.x, 0.1f, -2.0f, 2.0f);
+        ImGui::DragFloat("Y1", &mCharacter[0].transform.position.y, 0.1f, -2.0f, 2.0f);
+        ImGui::DragFloat("Z1", &mCharacter[0].transform.position.z, 0.1f, -2.0f, 2.0f);
+    }
     if (ImGui::DragInt("AnimClip", &mAnimIndex, 1, -1, mCharacterAnimator.GetAnimationCount() - 1))
     {
         mCharacterAnimator.PlayAnimation(mAnimIndex, true, mBlendDuration);
@@ -154,7 +160,7 @@ void GameState::DebugUI()
         ImGui::DragFloat("X", &mTarget.x, 0.1f, -2.0f, 2.0f);
         ImGui::DragFloat("Y", &mTarget.y, 0.1f, -2.0f, 2.0f);
         ImGui::DragFloat("Z", &mTarget.z, 0.1f, -2.0f, 2.0f);
-    }
+    }   
 
     if (ImGui::BeginCombo("StartBone",
         ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones.front().get()->name.c_str(), ImGuiTreeNodeFlags_DefaultOpen))

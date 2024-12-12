@@ -71,6 +71,8 @@ float IKChain::CalculateLength()
     {
         IKJoint* b1 = this->mIKJoints[i];
         IKJoint* b0 = this->mIKJoints[i - 1];
+        //As long as the bones are in the same space, we can calculate with them without worry
+        Math::Vector3 diff = Math::Matrix4::GetPosition(b1->GetBone()->boneTransform) - Math::Matrix4::GetPosition(b0->GetBone()->boneTransform);
         //find out how to calculate length appropriately in the current transform space
         //calculate position difference here
     }
@@ -94,7 +96,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
         if (i > minIterations)
         {
             float err = 0.1;
-            //err = (this->target.get_pos( this->root ) - end_effector.get_pos( this->root )).length();
+            err = Math::Vector3::Length(this->mTarget - Math::Matrix4::GetPosition(this->mEndEffector->boneTransform));
             if (err < threshold)
             {
                 this->mTargetReached = true;
@@ -116,8 +118,18 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
 
                 // The following is computed in local space.
                 // First, get the target's position in the local space of this joint
+                
+                
+                //**If the position we need is local to the parent bone, then override ToParentTransform
+                //multiply the transform coordinate (target) by the inverse matrix to transform something into that joints space
+                //renderObject transform matrix 4 is the 
+                
+                //from Local space to Bone space
+                //multiply by the inverse matrix of the renderObject and then by the inverse matrix of the Bone (BoneTransform)
 
-            //Math::Vector3 target = this->mTarget.GetPosition(inRelationToPosition)
+
+            //this is either the BoneTransform or the toParentOffset
+            //Math::Vector3 target = this->mTarget.
 
 
                 // Then get the position of this node in local space always (0,0,0) and the 

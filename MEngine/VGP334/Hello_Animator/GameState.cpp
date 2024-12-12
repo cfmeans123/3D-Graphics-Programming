@@ -54,10 +54,10 @@ void GameState::Initialize()
     mDirectionalLight.specular = { 1.0f,1.0f,1.0f,1.0f };
 
     mModelID = ModelManager::Get()->LoadModel("../../Assets/Models/DrakeEnemy/Ch25_nonPBR.model");
-    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/armada.animset");
-    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/Au_To_Role.animset");
-    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/Chapa_2.animset");
-    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/Capoeira.animset");
+    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/BrutalAssassination.animset");
+    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/BrutalAssassination_2.animset");
+    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/FallingDown.animset");
+    ModelManager::Get()->AddAnimation(mModelID, "../../Assets/Models/DrakeEnemy/Animations/FlyingKick.animset");
     mCharacter = CreateRenderGroup(mModelID, &mCharacterAnimator);
     mCharacterAnimator.Initialize(mModelID);
     mCharacterAnimator.SetNodeAnimation(BlendDirection::Idle, 0);
@@ -93,13 +93,19 @@ void GameState::Render()
 
     mStandardEffect.Begin();
     if (mDrawSkeleton)
-    {
+    {        
         Matrix4 transform = mCharacter[0].transform.GetMatrix4();
         AnimationUtil::BoneTransforms boneTransforms;
         AnimationUtil::ComputeBoneTransforms(mModelID, boneTransforms, &mCharacterAnimator);
         AnimationUtil::DrawSkeleton(mModelID, boneTransforms);
         SimpleDraw::AddSphere(4, 4, 0.03f, mTarget, Colors::MediumOrchid);
         
+        //populate bones with boneTransform values for solver
+        for (int i = 0; i < boneTransforms.size() - 1; ++i)
+        {
+            ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones[i]->boneTransform = boneTransforms[i];
+        }
+
         for (auto& boneTransform : boneTransforms)
         {
             boneTransform = boneTransform * transform;

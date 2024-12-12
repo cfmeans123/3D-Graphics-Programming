@@ -99,11 +99,21 @@ namespace MEngine::Graphics
         {
             AnimationUtil::BoneTransforms boneTransforms;
             AnimationUtil::ComputeBoneTransforms(renderObject.modelID, boneTransforms, renderObject.animator);
+            //AnimationUtil::DrawSkeleton(renderObject.modelID, boneTransforms);
             AnimationUtil::ApplyBoneOfset(renderObject.modelID, boneTransforms);
+            //Apply IKOffset if the positions are local to the skeleton
+            // if bone->is handled by ik handle:
+            // boneTransforms[bone->index] = iksolved matrix
+
+
+            // target object * invWorldMatrix
+            // invWorldMatrix = Inverse(renderObject.transform.getMatrix4())
+            // worldMatrix * invWorldMat = identity
             for (Math::Matrix4& transform : boneTransforms)
             {
                 transform = Transpose(transform);
             }
+
             boneTransforms.resize(MaxBoneCount);
             mBoneTransformBuffer.Update(boneTransforms.data());
         }

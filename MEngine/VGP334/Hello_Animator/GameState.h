@@ -21,6 +21,10 @@ private:
 	MEngine::Graphics::RenderGroup mCharacter;
 	MEngine::Graphics::IKAnimator mCharacterAnimator;
 	MEngine::Graphics::StandardEffect mStandardEffect;
+	MEngine::Graphics::IKChain mIKChain;
+	
+
+
 
 	int selectedIndexStart = 0;
 	int selectedIndexEnd = 0;
@@ -28,7 +32,10 @@ private:
 	int mAnimIndex = -1;
 	bool mDrawSkeleton = false;
 
+	MEngine::Graphics::AnimationUtil::BoneTransforms boneTransforms;
 	Vector3 mTarget = { 1.0f, 0.0f, 0.0f };
+	float length = 0.0f;
+
 	int startBoneIndex = 0;
 	int endBoneIndex = 0;
 

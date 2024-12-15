@@ -1,5 +1,6 @@
 #include "Precompiled.h"
 #include "IKChain.h"
+#include "Skeleton.h"
 
 using namespace MEngine;
 using namespace MEngine::Graphics;
@@ -18,11 +19,13 @@ IKChain::~IKChain()
     }
 }
 
-IKJoint* IKChain::AddJoint(Bone* bone, IKJoint* parentIKJoint, bool isStatic)
+
+
+Bone* IKChain::AddJoint(Bone* bone, bool isStatic)
 {
     std::string name = bone->name;
 
-    IKJoint* ikJoint = new IKJoint( bone, parentIKJoint, isStatic);
+    Bone* ikJoint = bone;
     //Ask about control node purpose in source here: https://github.com/Germanunkol/CCD-IK-Panda3D/blob/master/cpp/ccdik/ikChain.cxx
 
     this->mIKJoints.push_back(ikJoint);
@@ -32,23 +35,23 @@ IKJoint* IKChain::AddJoint(Bone* bone, IKJoint* parentIKJoint, bool isStatic)
     return ikJoint;
 }
 
-IKJoint* IKChain::GetIKJoint(std::string jointName)
-{
-    for (size_t i = 0; i < this->mIKJoints.size(); ++i)
-    {
-        if (this->mIKJoints[i]->GetName() == jointName)
-        {
-            return this->mIKJoints[i];
-        }
-        return nullptr;
-    }
-}
-
-IKJoint* IKChain::GetIKJoint(int index)
-{
-    ASSERT(index > this->mIKJoints.size(), "IKChain: Index out of range of joint list.");
-    return this->mIKJoints[index];
-}
+//Bone* IKChain::GetIKJoint(std::string jointName)
+//{
+//    for (size_t i = 0; i < this->mIKJoints.size(); ++i)
+//    {
+//        if (this->mIKJoints[i]->GetName() == jointName)
+//        {
+//            return this->mIKJoints[i];
+//        }
+//        return nullptr;
+//    }
+//}
+//
+//Bone* IKChain::GetIKJoint(int index)
+//{
+//    ASSERT(index > this->mIKJoints.size(), "IKChain: Index out of range of joint list.");
+//    return this->mIKJoints[index];
+//}
 
 void IKChain::UpdateIK(float threshold, int minIterations, int maxIterations)
 {
@@ -69,10 +72,10 @@ float IKChain::CalculateLength()
     float length = 0;
     for (size_t i = 1; i < this->mIKJoints.size(); ++i)
     {
-        IKJoint* b1 = this->mIKJoints[i];
-        IKJoint* b0 = this->mIKJoints[i - 1];
+        Bone* b1 = this->mIKJoints[i];
+        Bone* b0 = this->mIKJoints[i - 1];
         //As long as the bones are in the same space, we can calculate with them without worry
-        Math::Vector3 diff = Math::Matrix4::GetPosition(b1->GetBone()->boneTransform) - Math::Matrix4::GetPosition(b0->GetBone()->boneTransform);
+        Math::Vector3 diff = Math::Matrix4::GetPosition(b1->boneTransform) - Math::Matrix4::GetPosition(b0->boneTransform);
         //find out how to calculate length appropriately in the current transform space
         //calculate position difference here
     }
@@ -82,13 +85,25 @@ float IKChain::CalculateLength()
 Bone* IKChain::GetEndEffector()
 {
     
-    return this->mIKJoints.back()->GetBone();
+    return this->mIKJoints.back();
+}
+
+Math::Vector3 MEngine::Graphics::IKChain::ToBoneSpace(Math::Vector3 target, Math::Matrix4 localTransform, Math::Matrix4 boneTransform)
+{    
+    Math::Matrix4 b1 = Math::Matrix4::Identity;
+    b1 = b1.Translation(target);
+    Math::Matrix4 r1 = localTransform.Inverse();
+    Math::Matrix4 r2 = boneTransform.Inverse();
+    b1 = r1 * r2;
+    
+
+    return Math::Matrix4::GetPosition(b1);
 }
 
 void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
 {
-    ASSERT(this->mIKJoints.size() <= 0, "IKChain: There are no joints stored currently!");
-    
+    ASSERT(this->mIKJoints.size() > 0, "IKChain: There are no joints stored currently!");
+
     Bone* endEffector = this->GetEndEffector();
     this->mTargetReached = false;
     for (int i = 0; i < maxIterations; ++i)
@@ -104,17 +119,19 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
             }
         }
 
-        for (size_t j = 0; j < this->mIKJoints.size(); ++j)
+        for (size_t j = 0; j < this->mIKJoints.size() - 1; ++j)
         {
-            IKJoint* ikJoint = this->mIKJoints[this->mIKJoints.size() - j - 2];
+            Bone* ikJoint = this->mIKJoints[this->mIKJoints.size() - j - 2];
+
+
 
             //skip static joints - why have this?
             if (ikJoint->GetStatic())
             {
                 continue;
             }
-            Bone* ikJointBone = ikJoint->GetBone();
-            Bone* parentBone = (ikJoint->GetParent() != nullptr) ? ikJoint->GetParent()->GetBone() : this->mRoot;
+            Bone* ikJointBone = ikJoint;
+            Bone* parentBone = (ikJoint->parent != nullptr) ? ikJoint->parent : this->mRoot;
 
                 // The following is computed in local space.
                 // First, get the target's position in the local space of this joint
@@ -129,44 +146,59 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
 
 
             //this is either the BoneTransform or the toParentOffset
-            //Math::Vector3 target = this->mTarget.
+
+            Math::Vector3 target = ToBoneSpace(mTarget, mCharacterLocalTransform, endEffector->boneTransform);
 
 
                 // Then get the position of this node in local space always (0,0,0) and the 
                 // current position of the end effector in current space:
                 //LPoint3 pos = LPoint3( 0,0,0 );
             
-            //Math::Vector3 ee = end_effector.get_pos(ik_joint_node);
+            Math::Vector3 ee = Math::Matrix4::GetPosition(mEndEffector->offsetTransform);
 
                 // Get the direction to the target and the direction to the end effector
                 // (all still in local space). These are the two vectors we want to align,
                 // i.e. we want to rotate the joint so that the direction to the end effector
                 // is the direction to the target.
-            //LVector3f d1 = target;
-            //LVector3f d2 = ee;
+            Math::Vector3 d1 = target;
+            Math::Vector3 d2 = ee;
 
             //// 
-            //LVector3f cross = d1.cross(d2).normalized();
+            Math::Vector3 cross = Math::Cross(d1, d2); //d1.cross(d2).normalized();
+            cross = Math::Vector3(Math::Abs(cross.x), Math::Abs(cross.y), Math::Abs(cross.z));
+            cross = Math::Normalize(cross);
+            float l1 = Math::Vector3::Length(cross);
+            if ((l1 * l1) < 1e-9)
+            {
+                continue;
+            }
+            
             //if (cross.length_squared() < 1e-9)
             //    continue;
 
-            //float ang = d2.normalized().signed_angle_rad(d1.normalized(), cross);
+            float ang = Math::SignedAngle(Math::Normalize(d2), Math::Normalize(d1), cross);
+               
+
+            Math::Quaternion q = Math::Quaternion::Zero;
+            q = Math::Quaternion::CreateFromAxisAngle(cross, ang);
+
+            Math::Quaternion qOld = Math::Quaternion::CreateFromRotationMatrix(Math::Matrix4::extractRotation(ikJoint->boneTransform));
             //LQuaternionf q(0, 0, 0, 0);
             //q.set_from_axis_angle_rad(ang, cross);
             //    // Add this rotation to the current rotation:
             //LQuaternionf q_old = ik_joint_node.get_quat();
-            //LQuaternionf q_new = q * q_old;
+            Math::Quaternion q_new = Math::Quaternion::Normalize(q * qOld);
             //q_new.normalize();
 
-            //    // Correct rotation for hinge:
-            //if (ik_joint->get_has_rotation_axis())
-            //{
-            //    LVector3f my_axis_in_parent_space = ik_joint->get_axis();
-            //    LQuaternionf swing, twist;
-            //    swing_twist_decomposition(q_new, -my_axis_in_parent_space, swing, twist);
-            //        // Only keep the part of the rotation over the hinge axis:
-            //    q_new = twist;
-            //}
+                // Correct rotation for hinge:
+            if (ikJoint->GetHasRotationAxis())
+            {
+                Math::Vector3 myAxisInParentSpace = Math::Matrix4::extractRotationAxis(ikJoint->parent->boneTransform);
+                Math::Quaternion swing, twist;
+                //swing_twist_decomposition(q_new, -my_axis_in_parent_space, swing, twist);
+                    // Only keep the part of the rotation over the hinge axis:
+                //q_new = twist;
+            }
 
             //LVector3f rot_axis = q_new.get_axis_normalized();
 

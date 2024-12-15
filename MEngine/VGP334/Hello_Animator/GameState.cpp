@@ -92,13 +92,14 @@ void GameState::Render()
     
 
     mStandardEffect.Begin();
+
+    Matrix4 transform = mCharacter[0].transform.GetMatrix4();
+        
+    AnimationUtil::ComputeBoneTransforms(mModelID, boneTransforms, &mCharacterAnimator);
+    AnimationUtil::DrawSkeleton(mModelID, boneTransforms);
+    SimpleDraw::AddSphere(4, 4, 0.03f, mTarget, Colors::MediumOrchid);
     if (mDrawSkeleton)
     {        
-        Matrix4 transform = mCharacter[0].transform.GetMatrix4();
-        AnimationUtil::BoneTransforms boneTransforms;
-        AnimationUtil::ComputeBoneTransforms(mModelID, boneTransforms, &mCharacterAnimator);
-        AnimationUtil::DrawSkeleton(mModelID, boneTransforms);
-        SimpleDraw::AddSphere(4, 4, 0.03f, mTarget, Colors::MediumOrchid);
         
         //populate bones with boneTransform values for solver
         for (int i = 0; i < boneTransforms.size() - 1; ++i)
@@ -112,7 +113,7 @@ void GameState::Render()
         }
         if (startBoneIndex != 0 && endBoneIndex != 0)
         {
-            //AnimationUtil::solveIK(boneTransforms, mModelID, mTarget, 10, 0.1f, startBoneIndex, endBoneIndex);
+            mIKChain.UpdateIK();
         }
     }
     else
@@ -140,8 +141,17 @@ void GameState::DebugUI()
     if (ImGui::CollapsingHeader("Model Position", ImGuiTreeNodeFlags_DefaultOpen))
     {
         ImGui::DragFloat("X1", &mCharacter[0].transform.position.x, 0.1f, -2.0f, 2.0f);
+        {
+            mCharacter[1].transform.position.x = mCharacter[0].transform.position.x;
+        }
         ImGui::DragFloat("Y1", &mCharacter[0].transform.position.y, 0.1f, -2.0f, 2.0f);
+        {
+            mCharacter[1].transform.position.y = mCharacter[0].transform.position.y;
+        }
         ImGui::DragFloat("Z1", &mCharacter[0].transform.position.z, 0.1f, -2.0f, 2.0f);
+        {
+            mCharacter[1].transform.position.z = mCharacter[0].transform.position.z;
+        }
     }
     if (ImGui::DragInt("AnimClip", &mAnimIndex, 1, -1, mCharacterAnimator.GetAnimationCount() - 1))
     {
@@ -207,7 +217,26 @@ void GameState::DebugUI()
         ImGui::EndCombo();
     }
 
+    if (ImGui::Button("Init IK Chain"))
+    {
+        Skeleton* skeleton = ModelManager::Get()->GetModel(mModelID)->skeleton.get();
+        for (int i = selectedIndexStart; i < selectedIndexEnd; ++i)
+        {
+            mIKChain.AddJoint(skeleton->bones.at(i).get());
+        }
+        mIKChain.SetRoot(skeleton);
+        mIKChain.SetEndEffector(skeleton->bones.at(selectedIndexEnd).get());
+        mIKChain.SetLocalTransform(mCharacter[0].transform.GetMatrix4());
+    }
+    if (ImGui::Button("Get End Effector length to target"))
+    {
+        length = Math::Vector3::Length(mTarget - Math::Matrix4::GetPosition(boneTransforms[selectedIndexEnd]));;
+    }
+    if (ImGui::DragFloat("Length", &length, 0.0f, 0.0f, 0.0f))
+    {
 
+    }
+    
     //if (ImGui::ListBox("Joints", 3, ))
         
     mStandardEffect.DebugUI();

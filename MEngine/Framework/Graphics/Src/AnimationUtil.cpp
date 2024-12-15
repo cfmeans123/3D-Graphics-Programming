@@ -112,8 +112,8 @@ void setBoneRotation(AnimationUtil::BoneTransforms boneTransforms, std::unique_p
 //	}
 //}
 
-
-void updateBoneRotation(AnimationUtil::BoneTransforms boneTransforms, std::unique_ptr<Bone>& bone, const Vector3& target, int endIndex)
+/*
+void updateBoneRotation(AnimationUtil::BoneTransforms boneTransforms, std::shared_ptr<Bone>& bone, const Vector3& target, int endIndex)
 {
     Math::Vector3 bonePosition = getBonePosition(boneTransforms[bone->index]);
     Math::Vector3 toTarget = Math::Normalize(target - bonePosition);
@@ -141,7 +141,7 @@ void updateBoneRotation(AnimationUtil::BoneTransforms boneTransforms, std::uniqu
 void AnimationUtil::solveIK(AnimationUtil::BoneTransforms boneTransforms, ModelID id, const Math::Vector3& target, int maxIterations, float threshold, int baseIndex, int endIndex)
 {
     const Model* model = ModelManager::Get()->GetModel(id);
-    std::vector<std::unique_ptr<Bone>>& bones = model->skeleton->bones;
+    std::vector<std::shared_ptr<Bone>>& bones = model->skeleton->bones;
     
 
     for (int iter = 0; iter < maxIterations; ++iter)
@@ -188,3 +188,4 @@ void AnimationUtil::solveIK(AnimationUtil::BoneTransforms boneTransforms, ModelI
         }
     }
 }
+*/

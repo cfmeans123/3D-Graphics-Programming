@@ -1,6 +1,6 @@
 #pragma once
-#include "IKJoint.h"
 #include "Bone.h"
+#include "Skeleton.h"
 
 namespace MEngine::Graphics
 {
@@ -9,10 +9,11 @@ namespace MEngine::Graphics
         IKChain();
         ~IKChain();
 
-        IKJoint* AddJoint(Bone* bone, IKJoint* parentIKJoint = nullptr, bool isStatic = false);
+        Bone* AddJoint(Bone* bone, bool isStatic = false);
 
-        IKJoint* GetIKJoint(std::string jointName);
-        IKJoint* GetIKJoint(int index);
+        void SetRoot(Skeleton* skeleton) { mRoot = skeleton->root; }
+        void SetEndEffector(Bone* bone) { mEndEffector = bone; }
+        void SetLocalTransform(Math::Matrix4 transform) { mCharacterLocalTransform = transform; }
 
         size_t GetNumIKJoints() { return this->mIKJoints.size(); }
 
@@ -27,6 +28,8 @@ namespace MEngine::Graphics
 
         Bone* GetEndEffector();
 
+        Math::Vector3 ToBoneSpace(Math::Vector3 target, Math::Matrix4 localTransform, Math::Matrix4 boneTransform);
+
         //reformat this from the original source formatting?
 
     private:
@@ -38,12 +41,13 @@ namespace MEngine::Graphics
 
         Bone* mRoot;
         Bone* mEndEffector;
+        Math::Matrix4 mCharacterLocalTransform = Math::Matrix4::Identity;
 
         bool mTargetReached;
 
 
 
-        std::vector<IKJoint*> mIKJoints;
+        std::vector<Bone*> mIKJoints;
         
         void SolveCCD(float threshold = 0.02, int minIterations = 1, int maxIterations = 10);
 

@@ -114,6 +114,74 @@ namespace MEngine::Math
 			return rotateX * rotateY * rotateZ; 
 		}
 
+		static Matrix4 extractRotation(const Matrix4& transform) 
+		{
+			Matrix4 rotation;
+
+			// Extract the rotation part (upper 3x3 matrix)
+			rotation._11 = transform._11;
+			rotation._12 = transform._12;
+			rotation._13 = transform._13;
+			rotation._21 = transform._21;
+			rotation._22 = transform._22;
+			rotation._23 = transform._23;
+			rotation._31 = transform._31;
+			rotation._32 = transform._32;
+			rotation._33 = transform._33;
+
+			// Normalize the rotation matrix columns
+			Vector3 col1(rotation._11, rotation._21, rotation._31);
+			Vector3 col2(rotation._12, rotation._22, rotation._32);
+			Vector3 col3(rotation._13, rotation._23, rotation._33);
+
+			col1 = Math::Normalize(col1);
+			col2 = Math::Normalize(col2);
+			col3 = Math::Normalize(col3);
+
+			rotation._11 = col1.x; rotation._21 = col1.y; rotation._31 = col1.z;
+			rotation._12 = col2.x; rotation._22 = col2.y; rotation._32 = col2.z;
+			rotation._13 = col3.x; rotation._23 = col3.y; rotation._33 = col3.z;
+
+			// Set the last row and column to make it a 4x4 matrix again
+			rotation._14 = 0.0f;
+			rotation._24 = 0.0f;
+			rotation._34 = 0.0f;
+			rotation._41 = 0.0f;
+			rotation._42 = 0.0f;
+			rotation._43 = 0.0f;
+			rotation._44 = 1.0f;
+
+			return rotation;
+		}
+
+
+		Vector3 extractRotationAxis(const Matrix4& matrix) {
+			// Normalize the rotation matrix columns
+			Vector3 col1(matrix._11, matrix._21, matrix._31);
+			Vector3 col2(matrix._12, matrix._22, matrix._32);
+			Vector3 col3(matrix._13, matrix._23, matrix._33);
+
+			col1 = Math::Normalize(col1);
+			col2 = Math::Normalize(col2);
+			col3 = Math::Normalize(col3);
+
+			// Calculate the rotation angle (theta)
+			float trace = col1.x + col2.y + col3.z;
+			float theta = acos((trace - 1.0f) / 2.0f);
+
+			// Calculate the rotation axis
+			Vector3 rotationAxis(
+				(col3.y - col2.z) / (2.0f * sin(theta)),
+				(col1.z - col3.x) / (2.0f * sin(theta)),
+				(col2.x - col1.y) / (2.0f * sin(theta))
+			);
+
+			return rotationAxis;
+		}
+
+
+		
+
 		static Math::Vector3 GetPosition(const Math::Matrix4& q)
 		{ 			
 			return Math::Vector3(q._41, q._42, q._43); 

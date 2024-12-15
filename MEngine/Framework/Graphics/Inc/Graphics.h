@@ -19,6 +19,7 @@
 #include "GraphicsSystem.h"
 #include "IKAnimator.h"
 #include "IKJoint.h"
+#include "IKChain.h"
 #include "KeyFrame.h"
 #include "Material.h"
 #include "MeshTypes.h"

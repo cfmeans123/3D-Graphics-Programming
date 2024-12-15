@@ -189,6 +189,7 @@
     <ClCompile Include="Src\Animator.cpp" />
     <ClCompile Include="Src\BlendState.cpp" />
     <ClCompile Include="Src\BlendTreeAnimator.cpp" />
+    <ClCompile Include="Src\Bone.cpp" />
     <ClCompile Include="Src\Camera.cpp" />
     <ClCompile Include="Src\ConstantBuffer.cpp" />
     <ClCompile Include="Src\DebugUI.cpp" />

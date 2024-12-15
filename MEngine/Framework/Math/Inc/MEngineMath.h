@@ -244,7 +244,7 @@ namespace MEngine::Math
 		return { m._31, m._32, m._33 };
 	}
 
-	float SignedAngle(const Vector3& from, const Vector3& to, const Vector3& axis) 
+	inline float SignedAngle(const Vector3& from, const Vector3& to, const Vector3& axis) 
 	{ 
 		// Normalize the input vectors Vector3 
 		Vector3 fromNorm = Math::Normalize(from); 

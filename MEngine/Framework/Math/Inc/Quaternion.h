@@ -22,8 +22,37 @@ namespace MEngine::Math
         bool operator != (const Quaternion& q) const { return x != q.x || y != q.y || z != q.z || w != q.w; }
 
         Quaternion operator+(const Quaternion& rhs) const { return Quaternion(x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w); }
+        Quaternion operator-(const Quaternion& rhs) const { return Quaternion(x - rhs.x, y - rhs.y, z - rhs.z, w - rhs.w); }
+
         Quaternion operator*(float s) const { return Quaternion(x * s, y * s, z * s, w * s); }
         Quaternion operator/(float s) const { return Quaternion(x / s, y / s, z / s, w / s); }
+
+
+
+        Quaternion operator*(const Quaternion& q) const 
+        {
+            return Quaternion(
+                w * q.x + x * q.w + y * q.z - z * q.y,  // x component
+                w * q.y - x * q.z + y * q.w + z * q.x,  // y component
+                w * q.z + x * q.y - y * q.x + z * q.w,  // z component
+                w * q.w - x * q.x - y * q.y - z * q.z   // w component
+            );
+        }
+
+        
+
+
+        static float getAngle(const Quaternion& q) 
+        {
+            // Ensure the quaternion is normalized
+            float magnitude = std::sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
+            float wNormalized = q.w / magnitude;
+
+            // Calculate the angle in radians
+            float angle = 2.0f * std::acos(wNormalized);
+
+            return angle;
+        }     
 
         static const Quaternion Identity;
         static const Quaternion Zero;
@@ -37,7 +66,7 @@ namespace MEngine::Math
 
         static  Quaternion Conjugate(const Quaternion& q);
         static float Magnitude(const Quaternion& q);
-        static Quaternion Normalize(const Quaternion& q);
+        static Quaternion Normalize(const Quaternion& q);       
 
         static Quaternion CreateFromAxisAngle(const Vector3& axis, float angle) noexcept;
         static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept;

@@ -100,6 +100,21 @@ Math::Vector3 MEngine::Graphics::IKChain::ToBoneSpace(Math::Vector3 target, Math
     return Math::Matrix4::GetPosition(b1);
 }
 
+void swing_twist_decomposition(
+    Math::Quaternion rotation,
+    Math::Vector3 twist_axis,
+    Math::Quaternion& swing,
+    Math::Quaternion& twist)
+{
+    Math::Vector3 ra(rotation.x, rotation.y, rotation.z);
+    Math::Vector3 p = Math::projectOntoAxis(ra, twist_axis);
+    twist = Math::Quaternion(p.x, p.y, p.z, rotation.w);
+    twist = Math::Quaternion::Normalize(twist);
+    swing = rotation * Math::Quaternion::Conjugate(twist);
+}
+
+
+
 void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
 {
     ASSERT(this->mIKJoints.size() > 0, "IKChain: There are no joints stored currently!");
@@ -175,14 +190,14 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
             
             //if (cross.length_squared() < 1e-9)
             //    continue;
-
+            
             float ang = Math::SignedAngle(Math::Normalize(d2), Math::Normalize(d1), cross);
                
 
             Math::Quaternion q = Math::Quaternion::Zero;
             q = Math::Quaternion::CreateFromAxisAngle(cross, ang);
 
-            Math::Quaternion qOld = Math::Quaternion::CreateFromRotationMatrix(Math::Matrix4::extractRotation(ikJoint->boneTransform));
+            Math::Quaternion qOld = Math::Quaternion::CreateFromRotationMatrix(Math::extractRotation(ikJoint->boneTransform));
             //LQuaternionf q(0, 0, 0, 0);
             //q.set_from_axis_angle_rad(ang, cross);
             //    // Add this rotation to the current rotation:
@@ -193,46 +208,52 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
                 // Correct rotation for hinge:
             if (ikJoint->GetHasRotationAxis())
             {
-                Math::Vector3 myAxisInParentSpace = Math::Matrix4::extractRotationAxis(ikJoint->parent->boneTransform);
+                Math::Vector3 myAxisInParentSpace = Math::extractRotationAxis(ikJoint->parent->boneTransform);
                 Math::Quaternion swing, twist;
-                //swing_twist_decomposition(q_new, -my_axis_in_parent_space, swing, twist);
+                swing_twist_decomposition(q_new, -myAxisInParentSpace, swing, twist);
                     // Only keep the part of the rotation over the hinge axis:
-                //q_new = twist;
+                q_new = twist;
             }
 
-            //LVector3f rot_axis = q_new.get_axis_normalized();
+            Math::Vector3 rot_axis = Math::getNormalizedAxis(q_new);
 
-            //float rot_ang = q_new.get_angle_rad();
+            float rot_ang = Math::Quaternion::getAngle(q_new);
 
-
+            float rotAxisLength = Math::Vector3::Length(rot_axis);
             //    // Valid rotation?
-            //if (rot_axis.length_squared() > 1e-3 && !std::isnan(rot_ang) and abs(rot_ang) > 0)
-            //{
-            //        // reduce the angle
-            //        //rot_ang = rot_ang % float(M_PI*2);
-            //        // Force into the correct range, so that -180 < angle < 180:
-            //    while (rot_ang > M_PI)
-            //    {
-            //        rot_ang -= 2 * M_PI;
-            //    }
+            if ((rotAxisLength * rotAxisLength) > 1e-3 && !std::isnan(rot_ang) and abs(rot_ang) > 0)
+            {
+                // reduce the angle
+                //rot_ang = rot_ang % float(M_PI*2);
+                // Force into the correct range, so that -180 < angle < 180:
+                while (rot_ang > Math::pi)
+                {
+                    rot_ang -= 2 * Math::pi;
+                }
 
-            //    if (abs(rot_ang) > 1e-6 and abs(rot_ang) < M_PI * 2)   // Still necessary?
-            //    {
-            //        // Clamp rotation angle:
-            //        if (ik_joint->get_has_rotation_axis() && (rot_axis - ik_joint->get_axis()).length_squared() > 0.5)
-            //            rot_ang = std::max(-ik_joint->get_max_ang(), std::min(-ik_joint->get_min_ang(), rot_ang));
-            //        else
-            //            rot_ang = std::max(ik_joint->get_min_ang(), std::min(ik_joint->get_max_ang(), rot_ang));
-            //    }
+                if (abs(rot_ang) > 1e-6 and abs(rot_ang) < Math::pi * 2)   // Still necessary?
+                {
+                    // Clamp rotation angle:
+                    if (ikJoint->GetHasRotationAxis() && (rot_axis - ikJoint->GetAxis()).lengthSquared() > 0.5)
+                    {
+                        rot_ang = std::max(-ikJoint->GetMaxAng(), std::min(-ikJoint->GetMinAng(), rot_ang));
+                    }
+                    else
+                    {
+                        rot_ang = std::max(ikJoint->GetMinAng(), std::min(ikJoint->GetMaxAng(), rot_ang));
+                    }
+                }
+                
+                q_new.CreateFromAxisAngle(rot_axis, rot_ang);
 
-            //    q_new.set_from_axis_angle_rad(rot_ang, rot_axis);
+                float ik_joint_factor = float(j + 1) / float(this->mIKJoints.size() - 1);
+                float annealing = pow(ik_joint_factor, this->mAnnealingExponent);
+                q_new = qOld + (q_new-qOld) * annealing;
 
-            //    float ik_joint_factor = float(j + 1) / float(this->ik_joints.size() - 1);
-            //    float annealing = pow(ik_joint_factor, this->annealing_exponent);
-            //    q_new = q_old + (q_new - q_old) * annealing;
+                ikJoint->boneTransform.MatrixRotationQuaternion(q_new);
+                    //.set_quat(q_new);
 
-            //    ik_joint_node.set_quat(q_new);
-
+            }
             
         }
     }

@@ -230,7 +230,7 @@ void GameState::DebugUI()
     }
     if (ImGui::Button("Get End Effector length to target"))
     {
-        length = Math::Vector3::Length(mTarget - Math::Matrix4::GetPosition(boneTransforms[selectedIndexEnd]));;
+        //length = Math::Vector3::Length(mTarget - Math::Matrix4::GetPosition(boneTransforms[selectedIndexEnd]));;
     }
     if (ImGui::DragFloat("Length", &length, 0.0f, 0.0f, 0.0f))
     {

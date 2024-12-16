@@ -32,6 +32,7 @@ namespace MEngine::Graphics
 
         //reformat this from the original source formatting?
 
+        std::vector<Bone*> mIKJoints;
     private:
         int mAnnealingExponent;
         
@@ -47,7 +48,6 @@ namespace MEngine::Graphics
 
 
 
-        std::vector<Bone*> mIKJoints;
         
         void SolveCCD(float threshold = 0.02, int minIterations = 1, int maxIterations = 10);
 

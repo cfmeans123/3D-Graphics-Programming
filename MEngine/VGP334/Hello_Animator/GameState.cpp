@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "algorithm"
 
 using namespace MEngine;
 using namespace MEngine::Graphics;
@@ -98,14 +99,15 @@ void GameState::Render()
     AnimationUtil::ComputeBoneTransforms(mModelID, boneTransforms, &mCharacterAnimator);
     AnimationUtil::DrawSkeleton(mModelID, boneTransforms);
     SimpleDraw::AddSphere(4, 4, 0.03f, mTarget, Colors::MediumOrchid);
+    for (int i = 0; i < boneTransforms.size() - 1; ++i)
+    {
+        ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones[i]->boneTransform = boneTransforms[i];
+    }
     if (mDrawSkeleton)
     {        
         
         //populate bones with boneTransform values for solver
-        for (int i = 0; i < boneTransforms.size() - 1; ++i)
-        {
-            ModelManager::Get()->GetModel(mModelID)->skeleton.get()->bones[i]->boneTransform = boneTransforms[i];
-        }
+        
 
         for (auto& boneTransform : boneTransforms)
         {
@@ -114,6 +116,7 @@ void GameState::Render()
         if (startBoneIndex != 0 && endBoneIndex != 0)
         {
             mIKChain.UpdateIK();
+            DrawRenderGroup(mStandardEffect, mCharacter);
         }
     }
     else
@@ -220,10 +223,18 @@ void GameState::DebugUI()
     if (ImGui::Button("Init IK Chain"))
     {
         Skeleton* skeleton = ModelManager::Get()->GetModel(mModelID)->skeleton.get();
+        if (mIKChain.GetNumIKJoints() != 0)
+        {
+            mIKChain.mIKJoints.clear();
+            //mIKChain.SetRoot(nullptr);
+        }
         for (int i = selectedIndexStart; i < selectedIndexEnd; ++i)
         {
             mIKChain.AddJoint(skeleton->bones.at(i).get());
+            skeleton->bones[i].get()->SetHingeConstraint(skeleton->bones.at(i).get()->GetAxis());
         }
+        
+        std::reverse(mIKChain.mIKJoints.begin(), mIKChain.mIKJoints.end());
         mIKChain.SetRoot(skeleton);
         mIKChain.SetEndEffector(skeleton->bones.at(selectedIndexEnd).get());
         mIKChain.SetLocalTransform(mCharacter[0].transform.GetMatrix4());

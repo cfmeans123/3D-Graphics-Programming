@@ -2,6 +2,8 @@
 #include "IKChain.h"
 #include "Skeleton.h"
 
+
+
 using namespace MEngine;
 using namespace MEngine::Graphics;
 
@@ -13,10 +15,13 @@ IKChain::IKChain()
 
 IKChain::~IKChain()
 {
-    for (size_t i = 0; i < this->mIKJoints.size(); ++i)
+   /* for (size_t i = 0; i < this->mIKJoints.size() - 1; ++i)
     {
-        delete this->mIKJoints[i];
-    }
+        if (this->mIKJoints[i] != nullptr)
+        {
+            delete this->mIKJoints[i];
+        }
+    }*/
 }
 
 
@@ -29,8 +34,8 @@ Bone* IKChain::AddJoint(Bone* bone, bool isStatic)
     //Ask about control node purpose in source here: https://github.com/Germanunkol/CCD-IK-Panda3D/blob/master/cpp/ccdik/ikChain.cxx
 
     this->mIKJoints.push_back(ikJoint);
-
-    ASSERT(!this->mRoot, "IKChain: Root bone was not found!");
+    this->mIKJoints.back()->SetBallConstraint(-Math::pi * 0.9, Math::pi * 0.9);
+    //ASSERT(!this->mRoot, "IKChain: Root bone was not found!");
 
     return ikJoint;
 }
@@ -125,7 +130,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
     {
         if (i > minIterations)
         {
-            float err = 0.1;
+            float err = 0.0f;
             err = Math::Vector3::Length(this->mTarget - Math::Matrix4::GetPosition(this->mEndEffector->boneTransform));
             if (err < threshold)
             {
@@ -162,7 +167,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
 
             //this is either the BoneTransform or the toParentOffset
 
-            Math::Vector3 target = ToBoneSpace(mTarget, mCharacterLocalTransform, endEffector->boneTransform);
+            Math::Vector3 target = ToBoneSpace(mTarget, mCharacterLocalTransform, ikJoint->offsetTransform);
 
 
                 // Then get the position of this node in local space always (0,0,0) and the 
@@ -180,7 +185,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
 
             //// 
             Math::Vector3 cross = Math::Cross(d1, d2); //d1.cross(d2).normalized();
-            cross = Math::Vector3(Math::Abs(cross.x), Math::Abs(cross.y), Math::Abs(cross.z));
+            //cross = Math::Vector3(Math::Abs(cross.x), Math::Abs(cross.y), Math::Abs(cross.z));
             cross = Math::Normalize(cross);
             float l1 = Math::Vector3::Length(cross);
             if ((l1 * l1) < 1e-9)
@@ -197,10 +202,17 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
             Math::Quaternion q = Math::Quaternion::Zero;
             q = Math::Quaternion::CreateFromAxisAngle(cross, ang);
 
-            Math::Quaternion qOld = Math::Quaternion::CreateFromRotationMatrix(Math::extractRotation(ikJoint->boneTransform));
+            //DirectX::XMQuaternionRotationMatrix()
+            DirectX::XMMATRIX tempMat = DirectX::XMMATRIX(ikJoint->boneTransform._11, ikJoint->boneTransform._12, ikJoint->boneTransform._13, ikJoint->boneTransform._14, 
+                                                          ikJoint->boneTransform._21, ikJoint->boneTransform._22, ikJoint->boneTransform._23, ikJoint->boneTransform._24, 
+                                                          ikJoint->boneTransform._31, ikJoint->boneTransform._32, ikJoint->boneTransform._33, ikJoint->boneTransform._34, 
+                                                          ikJoint->boneTransform._41, ikJoint->boneTransform._42, ikJoint->boneTransform._43, ikJoint->boneTransform._44);
+
+            DirectX::XMVECTOR quatTemp = DirectX::XMQuaternionRotationMatrix(tempMat);
+            Math::Quaternion qOld = Math::Quaternion(quatTemp.m128_f32[0], quatTemp.m128_f32[1], quatTemp.m128_f32[2], quatTemp.m128_f32[3]);
             //LQuaternionf q(0, 0, 0, 0);
             //q.set_from_axis_angle_rad(ang, cross);
-            //    // Add this rotation to the current rotation:
+            //    //Add this rotation to the current rotation:
             //LQuaternionf q_old = ik_joint_node.get_quat();
             Math::Quaternion q_new = Math::Quaternion::Normalize(q * qOld);
             //q_new.normalize();
@@ -250,7 +262,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
                 float annealing = pow(ik_joint_factor, this->mAnnealingExponent);
                 q_new = qOld + (q_new-qOld) * annealing;
 
-                ikJoint->boneTransform.MatrixRotationQuaternion(q_new);
+                ikJoint->offsetTransform = ikJoint->offsetTransform * ikJoint->boneTransform.MatrixRotationQuaternion(q_new);
                     //.set_quat(q_new);
 
             }

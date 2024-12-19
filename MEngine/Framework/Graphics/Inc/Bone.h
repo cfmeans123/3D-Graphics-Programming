@@ -32,7 +32,7 @@ namespace MEngine::Graphics
 			return constrainedRotation; 
 		}
 
-		void SetStatic(bool is_static = true) { this->mIsStatic; }
+		void SetStatic(bool is_static = true) { this->mIsStatic = is_static; }
 		bool GetStatic() { return this->mIsStatic; }
 
 		std::string GetName();

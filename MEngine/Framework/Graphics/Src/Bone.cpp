@@ -6,7 +6,7 @@ using namespace MEngine::Graphics;
 
 void Bone::SetHingeConstraint(Math::Vector3 axis, float min_ang, float max_ang)
 {
-    this->mAxis = Math::Normalize(this->mAxis);
+    this->mAxis = Math::Normalize(axis);
     this->mMinAng = min_ang;
     this->mMaxAng = max_ang;
     this->mHasRotationAxis = true;

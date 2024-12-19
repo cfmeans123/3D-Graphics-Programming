@@ -4,6 +4,7 @@
 
 
 
+
 using namespace MEngine;
 using namespace MEngine::Graphics;
 
@@ -11,6 +12,7 @@ IKChain::IKChain()
 {
     this->mAnnealingExponent = 0;
     this->mTargetReached = false;
+
 }
 
 IKChain::~IKChain()
@@ -34,7 +36,7 @@ Bone* IKChain::AddJoint(Bone* bone, bool isStatic)
     //Ask about control node purpose in source here: https://github.com/Germanunkol/CCD-IK-Panda3D/blob/master/cpp/ccdik/ikChain.cxx
 
     this->mIKJoints.push_back(ikJoint);
-    this->mIKJoints.back()->SetBallConstraint(-Math::pi * 0.9, Math::pi * 0.9);
+    this->mIKJoints.back()->SetBallConstraint(-Math::pi * 0.9, Math::pi * 0.9);    
     //ASSERT(!this->mRoot, "IKChain: Root bone was not found!");
 
     return ikJoint;
@@ -61,7 +63,7 @@ Bone* IKChain::AddJoint(Bone* bone, bool isStatic)
 void IKChain::UpdateIK(float threshold, int minIterations, int maxIterations)
 {
     //run CCD IK solver for current chain
-    this->SolveCCD(threshold, minIterations, maxIterations);
+    //this->SolveCCD(threshold, minIterations, maxIterations);
 
     //apply results
     for (auto it = this->mIKJoints.begin(); it != this->mIKJoints.end(); ++it)
@@ -120,18 +122,18 @@ void swing_twist_decomposition(
 
 
 
-void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
+void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, ModelID modelID, AnimationUtil::BoneTransforms &boneTransforms, const Animator* animator)
 {
-    ASSERT(this->mIKJoints.size() > 0, "IKChain: There are no joints stored currently!");
-
+    ASSERT(this->mIKJoints.size() > 0, "IKChain: There are no joints stored currently!");    
     Bone* endEffector = this->GetEndEffector();
     this->mTargetReached = false;
     for (int i = 0; i < maxIterations; ++i)
     {
         if (i > minIterations)
         {
+            AnimationUtil::ComputeBoneTransforms(modelID, boneTransforms, animator);
             float err = 0.0f;
-            err = Math::Vector3::Length(this->mTarget - Math::Matrix4::GetPosition(this->mEndEffector->boneTransform));
+            err = Math::Vector3::Length(this->mTarget - Math::Matrix4::GetPosition(boneTransforms[this->mEndEffector->index]));
             if (err < threshold)
             {
                 this->mTargetReached = true;
@@ -196,7 +198,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
             //if (cross.length_squared() < 1e-9)
             //    continue;
             
-            float ang = Math::SignedAngle(Math::Normalize(d2), Math::Normalize(d1), cross);
+            float ang = Math::SignedAngle(Math::Normalize(d1), Math::Normalize(d2), cross);
                
 
             Math::Quaternion q = Math::Quaternion::Zero;
@@ -220,7 +222,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
                 // Correct rotation for hinge:
             if (ikJoint->GetHasRotationAxis())
             {
-                Math::Vector3 myAxisInParentSpace = Math::extractRotationAxis(ikJoint->parent->boneTransform);
+                Math::Vector3 myAxisInParentSpace = Math::extractRotationAxis(ikJoint->boneTransform);
                 Math::Quaternion swing, twist;
                 swing_twist_decomposition(q_new, -myAxisInParentSpace, swing, twist);
                     // Only keep the part of the rotation over the hinge axis:
@@ -263,6 +265,12 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations)
                 q_new = qOld + (q_new-qOld) * annealing;
 
                 ikJoint->offsetTransform = ikJoint->offsetTransform * ikJoint->boneTransform.MatrixRotationQuaternion(q_new);
+                ikJoint->toParentTransform = ikJoint->toParentTransform * ikJoint->boneTransform.MatrixRotationQuaternion(q_new);
+                for (auto bone : ikJoint->children)
+                {
+                    //bone->offsetTransform = ikJoint->offsetTransform * ikJoint->boneTransform.MatrixRotationQuaternion(q_new);
+                    bone->toParentTransform = ikJoint->toParentTransform * ikJoint->boneTransform.MatrixRotationQuaternion(q_new);
+                }
                     //.set_quat(q_new);
 
             }

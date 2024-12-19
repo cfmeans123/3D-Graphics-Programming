@@ -1,12 +1,14 @@
 #pragma once
 #include "Bone.h"
 #include "Skeleton.h"
+#include "AnimationUtil.h"
 
 namespace MEngine::Graphics
 {
     class IKChain {
     public:
         IKChain();
+        IKChain(AnimationUtil::BoneTransforms &boneTransforms);
         ~IKChain();
 
         Bone* AddJoint(Bone* bone, bool isStatic = false);
@@ -23,6 +25,7 @@ namespace MEngine::Graphics
         void SetTarget(Math::Vector3 target) { this->mTarget = target; }
 
         void UpdateIK(float threshold = 0.02, int minIterations = 0, int maxIterations = 10);
+        void SetModelID(int modelID) { this->mModelID = modelID; }
 
         float CalculateLength();
 
@@ -33,23 +36,21 @@ namespace MEngine::Graphics
         //reformat this from the original source formatting?
 
         std::vector<Bone*> mIKJoints;
+        void SolveCCD(float threshold, int minIterations, int maxIterations, ModelID modelID, AnimationUtil::BoneTransforms &boneTransforms, const Animator* animator);
+
     private:
         int mAnnealingExponent;
         
         //What type should this be?
         Math::Vector3 mTarget;
 
-
+        int mModelID;
         Bone* mRoot;
         Bone* mEndEffector;
         Math::Matrix4 mCharacterLocalTransform = Math::Matrix4::Identity;
 
+
         bool mTargetReached;
-
-
-
-        
-        void SolveCCD(float threshold = 0.02, int minIterations = 1, int maxIterations = 10);
 
     };
     

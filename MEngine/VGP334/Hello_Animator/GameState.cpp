@@ -115,7 +115,7 @@ void GameState::Render()
         }
         if (startBoneIndex != 0 && endBoneIndex != 0)
         {
-            mIKChain.UpdateIK();
+            mIKChain.SolveCCD(0.02f, 1, 10, mModelID, boneTransforms, &mCharacterAnimator);
             DrawRenderGroup(mStandardEffect, mCharacter);
         }
     }
@@ -179,6 +179,7 @@ void GameState::DebugUI()
         ImGui::DragFloat("X", &mTarget.x, 0.1f, -2.0f, 2.0f);
         ImGui::DragFloat("Y", &mTarget.y, 0.1f, -2.0f, 2.0f);
         ImGui::DragFloat("Z", &mTarget.z, 0.1f, -2.0f, 2.0f);
+        mIKChain.SetTarget(mTarget);
     }   
 
     if (ImGui::BeginCombo("StartBone",
@@ -228,13 +229,31 @@ void GameState::DebugUI()
             mIKChain.mIKJoints.clear();
             //mIKChain.SetRoot(nullptr);
         }
+        std::string hipJointName = "Left";
+        std::string elbowJointName = "Arm";
         for (int i = selectedIndexStart; i < selectedIndexEnd; ++i)
         {
             mIKChain.AddJoint(skeleton->bones.at(i).get());
-            skeleton->bones[i].get()->SetHingeConstraint(skeleton->bones.at(i).get()->GetAxis());
+            std::string found = mIKChain.mIKJoints[i - selectedIndexStart]->name;
+            //skeleton->bones[i].get()->SetHingeConstraint(skeleton->bones.at(i).get()->GetAxis());
+            skeleton->bones[i].get()->SetBallConstraint(-Math::pi * 0.25, Math::pi * 0.25);
+            if (found.find(hipJointName) != std::string::npos)
+            {
+                skeleton->bones[i].get()->SetHingeConstraint(Math::Vector3::ZAxis, -Math::pi * 0.15, Math::pi * 0.5);
+                if (found.find(elbowJointName) != std::string::npos)
+                {
+                    skeleton->bones[i].get()->SetHingeConstraint(Math::Vector3::ZAxis, 0, Math::pi * 0.5);
+                }
+            }
+            else
+            {
+                mIKChain.mIKJoints[i-selectedIndexStart]->SetStatic();
+            }
         }
-        
-        std::reverse(mIKChain.mIKJoints.begin(), mIKChain.mIKJoints.end());
+        mIKChain.SetAnnealingExponent(0);
+
+        mIKChain.SetTarget(mTarget);
+        //std::reverse(mIKChain.mIKJoints.begin(), mIKChain.mIKJoints.end());
         mIKChain.SetRoot(skeleton);
         mIKChain.SetEndEffector(skeleton->bones.at(selectedIndexEnd).get());
         mIKChain.SetLocalTransform(mCharacter[0].transform.GetMatrix4());
@@ -243,9 +262,14 @@ void GameState::DebugUI()
     {
         length = Math::Vector3::Length(mTarget - Math::Matrix4::GetPosition(boneTransforms[selectedIndexEnd]));;
     }
+    int annealing = mIKChain.GetAnnealingExponent();
     if (ImGui::DragFloat("Length", &length, 0.0f, 0.0f, 0.0f))
     {
-
+        mIKChain.SetAnnealingExponent(annealing);
+    }
+    if (ImGui::DragInt("Annealing", &annealing, 1, 0, 8))
+    {
+        mIKChain.SetAnnealingExponent(annealing);
     }
     
     //if (ImGui::ListBox("Joints", 3, ))

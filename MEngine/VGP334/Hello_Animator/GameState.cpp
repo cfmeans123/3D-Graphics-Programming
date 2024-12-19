@@ -253,7 +253,7 @@ void GameState::DebugUI()
         mIKChain.SetAnnealingExponent(0);
 
         mIKChain.SetTarget(mTarget);
-        //std::reverse(mIKChain.mIKJoints.begin(), mIKChain.mIKJoints.end());
+        std::reverse(mIKChain.mIKJoints.begin(), mIKChain.mIKJoints.end());
         mIKChain.SetRoot(skeleton);
         mIKChain.SetEndEffector(skeleton->bones.at(selectedIndexEnd).get());
         mIKChain.SetLocalTransform(mCharacter[0].transform.GetMatrix4());

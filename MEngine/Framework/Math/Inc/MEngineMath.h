@@ -256,9 +256,9 @@ namespace MEngine::Math
 		// Calculate the angle in radians 
 		float angle = std::acos(dotProd); 
 		// Calculate the cross product 
-		Vector3 crossProd = Math::Cross(fromNorm, toNorm); 
+		Vector3 crossProd = Math::Cross(from, axis);
 		// Determine the sign of the angle 
-		float sign = (Math::Dot(axis, crossProd) < 0) ? -1.0f : 1.0f; 
+		float sign = (Math::Dot(to, crossProd) < 0) ? -1.0f : 1.0f;
 		// Return the signed angle 
 		return angle * sign; 
 	}

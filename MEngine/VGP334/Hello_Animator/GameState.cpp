@@ -176,9 +176,9 @@ void GameState::DebugUI()
     }
     if (ImGui::CollapsingHeader("Target Position", ImGuiTreeNodeFlags_DefaultOpen))
     {
-        ImGui::DragFloat("X", &mTarget.x, 0.1f, -2.0f, 2.0f);
-        ImGui::DragFloat("Y", &mTarget.y, 0.1f, -2.0f, 2.0f);
-        ImGui::DragFloat("Z", &mTarget.z, 0.1f, -2.0f, 2.0f);
+        ImGui::DragFloat("X", &mTarget.x, 0.1f, -20.0f, 20.0f);
+        ImGui::DragFloat("Y", &mTarget.y, 0.1f, -20.0f, 20.0f);
+        ImGui::DragFloat("Z", &mTarget.z, 0.1f, -20.0f, 20.0f);
         mIKChain.SetTarget(mTarget);
     }   
 
@@ -231,7 +231,7 @@ void GameState::DebugUI()
         }
         std::string hipJointName = "Left";
         std::string elbowJointName = "Arm";
-        for (int i = selectedIndexStart; i < selectedIndexEnd; ++i)
+        for (int i = selectedIndexStart; i <= selectedIndexEnd; ++i)
         {
             mIKChain.AddJoint(skeleton->bones.at(i).get());
             std::string found = mIKChain.mIKJoints[i - selectedIndexStart]->name;
@@ -239,10 +239,10 @@ void GameState::DebugUI()
             skeleton->bones[i].get()->SetBallConstraint(-Math::pi * 0.25, Math::pi * 0.25);
             if (found.find(hipJointName) != std::string::npos)
             {
-                skeleton->bones[i].get()->SetHingeConstraint(Math::Vector3::ZAxis, -Math::pi * 0.15, Math::pi * 0.5);
+                //skeleton->bones[i].get()->SetHingeConstraint(Math::Vector3::ZAxis, -Math::pi * 0.15, Math::pi * 0.5);
                 if (found.find(elbowJointName) != std::string::npos)
                 {
-                    skeleton->bones[i].get()->SetHingeConstraint(Math::Vector3::ZAxis, 0, Math::pi * 0.5);
+                    //skeleton->bones[i].get()->SetHingeConstraint(Math::Vector3::ZAxis, 0, Math::pi * 0.5);
                 }
             }
             else

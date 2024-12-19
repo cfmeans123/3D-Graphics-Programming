@@ -105,6 +105,17 @@ namespace MEngine::Graphics
             // if bone->is handled by ik handle:
             // boneTransforms[bone->index] = iksolved matrix
 
+            const Model* model = ModelManager::Get()->GetModel(renderObject.modelID);
+            if (model->skeleton != nullptr)
+            {
+                boneTransforms.resize(model->skeleton->bones.size(), Math::Matrix4::Identity);
+                for (auto bone : model->skeleton->bones)
+                {
+                    boneTransforms[bone->index] = bone->boneTransform;
+                }
+                AnimationUtil::ApplyBoneOfset(renderObject.modelID, boneTransforms);
+            }
+
 
             // target object * invWorldMatrix
             // invWorldMatrix = Inverse(renderObject.transform.getMatrix4())

@@ -14,6 +14,17 @@ public:
 private:
 	void UpdateCameraControl(float deltaTime);
 
+	bool DragTwoFloats(const char* label, float* v1, float* v2, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0)
+	{
+		ImGui::Begin(label);
+		bool valueChanged1 = ImGui::DragFloat("##v1", v1, v_speed, v_min, v_max, format, flags);
+		bool valueChanged2 = ImGui::DragFloat("##v2", v2, v_speed, v_min, v_max, format, flags);
+		ImGui::End();
+		return valueChanged1 || valueChanged2;
+	}
+
+
+
 	MEngine::Graphics::DirectionalLight mDirectionalLight;
 	MEngine::Graphics::Camera mCamera;
 	MEngine::Graphics::RenderObject mGround;

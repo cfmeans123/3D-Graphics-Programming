@@ -148,7 +148,6 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
     //This line overwrites the bonetransforms from previous CCD cycles, but would be important to base FK animation offsets
     //AnimationUtil::ComputeBoneTransforms(modelID, boneTransforms, animator);
 
-
     const Model* model = ModelManager::Get()->GetModel(modelID);
     if (model->skeleton != nullptr)
     {

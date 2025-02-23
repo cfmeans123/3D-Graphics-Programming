@@ -106,8 +106,8 @@ void GameState::Update(float dt)
 void GameState::Render()
 {
     mStandardEffect.Begin();
-    DrawRenderGroup(mStandardEffect, mRenderGroupA, mPositionA);
-    DrawRenderGroup(mStandardEffect, mRenderGroupB, mPositionB);
+    DrawRenderGroup(mStandardEffect, mRenderGroupA);
+    DrawRenderGroup(mStandardEffect, mRenderGroupB);
     mStandardEffect.End();
 
     SimpleDraw::AddGroundPlane(50, Colors::Gray);

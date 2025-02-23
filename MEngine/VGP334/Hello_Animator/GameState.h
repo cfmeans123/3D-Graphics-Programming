@@ -16,14 +16,15 @@ private:
 
 	MEngine::Graphics::DirectionalLight mDirectionalLight;
 	MEngine::Graphics::Camera mCamera;
+	MEngine::Graphics::RenderObject mGround;
 
 	MEngine::Graphics::ModelID mModelID;
 	MEngine::Graphics::RenderGroup mCharacter;
 	MEngine::Graphics::IKAnimator mCharacterAnimator;
 	MEngine::Graphics::StandardEffect mStandardEffect;
 	MEngine::Graphics::IKChain mIKChain;
-	
-
+	MEngine::Graphics::IKChain mIKChain2;
+	bool two = false;
 
 
 	int selectedIndexStart = 0;
@@ -34,6 +35,7 @@ private:
 
 	MEngine::Graphics::AnimationUtil::BoneTransforms boneTransforms;
 	Vector3 mTarget = { 1.0f, 0.0f, 0.0f };
+	Vector3 mTarget2 = { -1.0f, 0.0f, 0.0f };
 	float length = 0.0f;
 
 	int startBoneIndex = 0;

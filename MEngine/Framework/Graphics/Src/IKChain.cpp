@@ -145,7 +145,9 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
     Bone* endEffector = this->GetEndEffector();
     this->mTargetReached = false;
 
-    AnimationUtil::ComputeBoneTransforms(modelID, boneTransforms, animator);
+    //This line overwrites the bonetransforms from previous CCD cycles, but would be important to base FK animation offsets
+    //AnimationUtil::ComputeBoneTransforms(modelID, boneTransforms, animator);
+
 
     const Model* model = ModelManager::Get()->GetModel(modelID);
     if (model->skeleton != nullptr)
@@ -166,6 +168,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
             if (err < threshold)
             {
                 this->mTargetReached = true;
+                
                 break;
             }
         }
@@ -289,4 +292,9 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
     //{
     //    ComputeNewBoneTransformRecursive(bone, mEndEffector);
     //}
+
+    for (auto bone : model->skeleton->bones)
+    {
+        boneTransforms[bone->index] = bone->boneTransform;
+    }
 }

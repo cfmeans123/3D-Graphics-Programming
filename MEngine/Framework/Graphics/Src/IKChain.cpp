@@ -36,7 +36,7 @@ Bone* IKChain::AddJoint(Bone* bone, bool isStatic)
     //Ask about control node purpose in source here: https://github.com/Germanunkol/CCD-IK-Panda3D/blob/master/cpp/ccdik/ikChain.cxx
 
     this->mIKJoints.push_back(ikJoint);
-    this->mIKJoints.back()->SetBallConstraint(-Math::pi * 0.9, Math::pi * 0.9);    
+    //this->mIKJoints.back()->SetBallConstraint(-Math::pi * 0.9, Math::pi * 0.9);    
     //ASSERT(!this->mRoot, "IKChain: Root bone was not found!");
 
     return ikJoint;
@@ -221,7 +221,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
                 // Correct rotation for hinge:
             if (ikJoint->GetHasRotationAxis())
             {
-                Math::Vector3 myAxisInParentSpace = Math::extractRotationAxis(ikJoint->boneTransform);
+                Math::Vector3 myAxisInParentSpace = ikJoint->GetAxis();
                 Math::Quaternion swing, twist;
                 swing_twist_decomposition(q_new, -myAxisInParentSpace, swing, twist);
                     // Only keep the part of the rotation over the hinge axis:
@@ -229,14 +229,13 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
             }
 
             Math::Vector3 rot_axis = Math::getNormalizedAxis(q_new);
-
             float rot_ang = Math::Quaternion::getAngle(q_new);
-
 
             float rotAxisLength = Math::Vector3::Length(rot_axis);
             // Valid rotation?
             if ((rotAxisLength * rotAxisLength) > 1e-3 && !std::isnan(rot_ang) and abs(rot_ang) > 0)
             {
+                rot_ang = fmod(rot_ang, Math::pi*2);
                 while (rot_ang > Math::pi)
                 {
                     rot_ang -= 2 * Math::pi;
@@ -266,32 +265,11 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
                 for (auto bone : ikJoint->children)
                 {
                     ComputeNewBoneTransformRecursive(bone, ikJoint);
-                }
-               
-               /* for (auto bone : ikJoint->children)
-                {
-                    bone->toParentTransform = ikJoint->toParentTransform * ikJoint->boneTransform.MatrixRotationQuaternion(q_new);
-                }*/
-
+                }              
             }
             
         }
     }
-    //for (size_t j = 0; j < this->mIKJoints.size() - 1; ++j)
-    //{
-    //    Bone* ikJoint = this->mIKJoints[this->mIKJoints.size() - j - 2];
-    //    boneTransforms[ikJoint->index] = ikJoint->boneTransform;
-    //    for (auto bone : ikJoint->children)
-    //    {
-    //        ComputeNewBoneTransformRecursive(bone, ikJoint);
-    //    }
-    //}
-
-    //for (auto bone : mEndEffector->children)
-    //{
-    //    ComputeNewBoneTransformRecursive(bone, mEndEffector);
-    //}
-
     for (auto bone : model->skeleton->bones)
     {
         boneTransforms[bone->index] = bone->boneTransform;

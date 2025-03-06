@@ -14,14 +14,7 @@ public:
 private:
 	void UpdateCameraControl(float deltaTime);
 
-	bool DragTwoFloats(const char* label, float* v1, float* v2, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0)
-	{
-		ImGui::Begin(label);
-		bool valueChanged1 = ImGui::DragFloat("##v1", v1, v_speed, v_min, v_max, format, flags);
-		bool valueChanged2 = ImGui::DragFloat("##v2", v2, v_speed, v_min, v_max, format, flags);
-		ImGui::End();
-		return valueChanged1 || valueChanged2;
-	}
+	void InitIKChains();
 
 
 
@@ -33,9 +26,12 @@ private:
 	MEngine::Graphics::RenderGroup mCharacter;
 	MEngine::Graphics::IKAnimator mCharacterAnimator;
 	MEngine::Graphics::StandardEffect mStandardEffect;
+	
 	MEngine::Graphics::IKChain mIKChain;
 	MEngine::Graphics::IKChain mIKChain2;
-	bool two = false;
+	MEngine::Graphics::IKChain mIKChain3;
+	MEngine::Graphics::IKChain mIKChain4;
+	bool two = true;
 
 
 	int selectedIndexStart = 0;
@@ -45,8 +41,10 @@ private:
 	bool mDrawSkeleton = false;
 
 	MEngine::Graphics::AnimationUtil::BoneTransforms boneTransforms;
-	Vector3 mTarget = { 1.0f, 0.0f, 0.0f };
-	Vector3 mTarget2 = { -1.0f, 0.0f, 0.0f };
+	Vector3 mTarget = { 1.0f, 1.0f, 0.0f };
+	Vector3 mTarget2 = { -1.0f, 1.0f, 0.0f };
+	Vector3 mTarget3 = { .25f, 0.0f, 0.0f };
+	Vector3 mTarget4 = { -.25f, 0.0f, 0.0f };
 	float length = 0.0f;
 
 	int startBoneIndex = 0;
@@ -56,5 +54,9 @@ private:
 	float mBlendWeightIdle = 0.0f;
 	float mBlendWeightForward = 0.0f;
 	float mBlendWeightLeft = 0.0f;
+
+	//Debug Variables
+	Vector3 offsetHands = Vector3::Zero;
+	Vector3 offsetFeet = Vector3::Zero;
 
 };

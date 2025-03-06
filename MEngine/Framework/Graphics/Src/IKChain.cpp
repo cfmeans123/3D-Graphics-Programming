@@ -202,8 +202,7 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
                 continue;
             }
             
-            float ang = Math::SignedAngle(Math::Normalize(d1), Math::Normalize(d2), cross);
-               
+            float ang = Math::SignedAngle(Math::Normalize(d1), Math::Normalize(d2), cross);       
 
             Math::Quaternion q = Math::Quaternion::Zero;
             q = Math::Quaternion::CreateFromAxisAngle(cross, ang);
@@ -218,13 +217,14 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
 
             Math::Quaternion q_new = Math::Quaternion::Normalize(q * qOld);
 
-                // Correct rotation for hinge:
+            // Correct rotation for hinge:
             if (ikJoint->GetHasRotationAxis())
             {
                 Math::Vector3 myAxisInParentSpace = ikJoint->GetAxis();
                 Math::Quaternion swing, twist;
                 swing_twist_decomposition(q_new, -myAxisInParentSpace, swing, twist);
-                    // Only keep the part of the rotation over the hinge axis:
+                
+                // Only keep the part of the rotation over the hinge axis:
                 q_new = twist;
             }
 
@@ -232,8 +232,9 @@ void IKChain::SolveCCD(float threshold, int minIterations, int maxIterations, Mo
             float rot_ang = Math::Quaternion::getAngle(q_new);
 
             float rotAxisLength = Math::Vector3::Length(rot_axis);
-            // Valid rotation?
-            if ((rotAxisLength * rotAxisLength) > 1e-3 && !std::isnan(rot_ang) and abs(rot_ang) > 0)
+            
+            //Valid rotation?
+            if ((rotAxisLength * rotAxisLength) > 1e-3 && !std::isnan(rot_ang) && abs(rot_ang) > 0)
             {
                 rot_ang = fmod(rot_ang, Math::pi*2);
                 while (rot_ang > Math::pi)

@@ -182,13 +182,14 @@ void GameState::InitIKChains()
     
     //57 is LeftLegKnee
     mIKChain3.AddJoint(skeleton->bones.at(57).get());
-    skeleton->bones[57].get()->SetBallConstraint(-Math::pi * 0.002, Math::pi * 0.005);    
+    //skeleton->bones[57]->SetHingeConstraint(Math::Vector3::YAxis, -Math::pi , Math::pi);
+
 
     //58 is LeftLegFoot
     mIKChain3.AddJoint(skeleton->bones.at(58).get());
     skeleton->bones[57].get()->SetBallConstraint(-Math::pi * 0.005, Math::pi * 0.005);
 
-    mIKChain3.SetAnnealingExponent(2);
+    mIKChain3.SetAnnealingExponent(0);
 
     mIKChain3.SetTarget(mTarget3);
     std::reverse(mIKChain3.mIKJoints.begin(), mIKChain3.mIKJoints.end());
@@ -205,7 +206,7 @@ void GameState::InitIKChains()
 
     //62 is RightLegThigh
     mIKChain4.AddJoint(skeleton->bones.at(62).get());
-    skeleton->bones[62].get()->SetBallConstraint(-Math::pi * 0.15, Math::pi * 0.5);
+    //skeleton->bones[62].get()->SetBallConstraint(-Math::pi * 0.15, Math::pi * 0.5);
    
     //63 is RightLegKnee
     mIKChain4.AddJoint(skeleton->bones.at(63).get());
@@ -214,7 +215,7 @@ void GameState::InitIKChains()
    
 
 
-    mIKChain4.SetAnnealingExponent(2);
+    mIKChain4.SetAnnealingExponent(0);
     mIKChain4.SetTarget(mTarget4);
     std::reverse(mIKChain4.mIKJoints.begin(), mIKChain4.mIKJoints.end());
     mIKChain4.SetRoot(skeleton);
